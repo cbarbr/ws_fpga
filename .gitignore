@@ -1,0 +1,5 @@
+eyeriss_fpga/project
+
+eyeriss_fpga/scripts/vivado*
+
+.Xil/
