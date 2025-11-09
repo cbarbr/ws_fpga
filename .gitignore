@@ -2,6 +2,6 @@ eyeriss_fpga/project
 
 eyeriss_fpga/scripts/vivado*
 
-fp-example-baseline/test
+output-stationary-example/test
 
 .Xil/
