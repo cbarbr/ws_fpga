@@ -95,10 +95,10 @@
         @(posedge clk);
         $display("psums = {%0d, %0d, %0d}",
                         psums_output[0], psums_output[1], psums_output[2]);
-        $display("weight: \n\
-                             {%0d, %0d, %0d}, \n\
-                             {%0d, %0d, %0d}, \n\
-                             {%0d, %0d, %0d}", 
+        $display({{"weight: \n"},
+                             {"{%0d, %0d, %0d}, \n"},
+                             {"{%0d, %0d, %0d}, \n"},
+                             {"{%0d, %0d, %0d}"}}, 
         dut.int_row[0].int_col[0].pe_inst.weight_reg,
         dut.int_row[0].int_col[1].pe_inst.weight_reg,
         dut.int_row[0].int_col[2].pe_inst.weight_reg,
