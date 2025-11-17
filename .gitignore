@@ -3,5 +3,6 @@ eyeriss_fpga/project
 eyeriss_fpga/scripts/vivado*
 
 output-stationary-example/test
+weight-stationary/test
 
 .Xil/
