@@ -69,10 +69,12 @@
     );
     
     always_comb begin
-        next_State = state;
+        next_state = state;
 
         load_weight = 'b0;
-        load_iact = 'b0;
+        for(int i = 0; i < ARRAY_COLS; ++i) begin
+            load_iact[i] = 'b0;
+        end
         psum_valid = 'b0;
         
         load_weight_cycle_cnt_en = 1'b0;
@@ -86,8 +88,8 @@
             end
             LOAD_WEIGHTS: begin
                 load_weight_cycle_cnt_en = 1'b1;
-                if (load_weight_cycle_cnt == 2'h3) begin
-                    next_state = IDK; // probably COMPUTE right?
+                if (load_weight_cycle_cnt == LOAD_WEIGHT_CYCLES) begin
+                    next_state = COMPUTE; // probably COMPUTE right?
                 end
                 else begin
                     next_state = LOAD_WEIGHTS;
@@ -105,7 +107,7 @@
                     psum_valid[i] = i + ARRAY_COLS <= compute_cycle_cnt && compute_cycle_cnt < i + ARRAY_ROWS + ARRAY_COLS;
                 end
 
-                if(compute_cycle_cnt >= COMPUTE_CYCLES) begin
+                if(compute_cycle_cnt == COMPUTE_CYCLES) begin
                     next_state = DONE;
                 end
             end
