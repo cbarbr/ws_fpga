@@ -6,6 +6,8 @@ eyeriss_fpga/scripts/vivado*
 
 ws_fpga/scripts/vivado*
 
+ws_fpga/scripts/dfx_runtime.txt
+
 output-stationary-example/test
 weight-stationary/test
 test

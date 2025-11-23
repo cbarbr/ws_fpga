@@ -52,7 +52,7 @@
     logic [0:COLS - 1] [31:0] axi_iact_mem_dout;
 
     // supporting block design
-    os_fpga_support os_fpga_support_i(
+    ws_fpga_support ws_fpga_support_i(
         .clk100(clk100),
         .clk100_aresetn(clk100_aresetn),
         .done(done),
