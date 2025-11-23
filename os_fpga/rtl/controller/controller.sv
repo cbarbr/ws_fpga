@@ -13,30 +13,23 @@
         input [7:0] iact_rows, iact_cols,
         input [7:0] weight_rows, weight_cols,
         */
-
-        input logic [0:ARRAY_COLS - 1][31:0] iacts_in,
-        input logic [0:ARRAY_ROWS - 1][15:0] weights_in,
-
-        output logic [0:ARRAY_ROWS - 1][47:0] psums_out,
         
         output logic [31:0] weight_addr, // requesting address to block ram 
-        output logic [31:0] iact_addr [0:ARRAY_COLS - 1],
-        output logic [31:0] psum_addr [0:ARRAY_ROWS - 1],
+        output logic [0:ARRAY_COLS - 1] [31:0] iact_addr,
+        output logic [0:ARRAY_ROWS - 1] [31:0] psum_addr,
         output logic load_weight,
-        output logic load_iact [0:ARRAY_COLS - 1],
-        output logic psum_valid [0:ARRAY_ROWS - 1], // store psum
+        output logic [0:ARRAY_COLS - 1] load_iact,
+        output logic [0:ARRAY_ROWS - 1] psum_valid, // store psum
         
         output logic done
     );
 
     localparam COMPUTE_CYCLES = ARRAY_ROWS + ARRAY_ROWS + ARRAY_COLS; // iact_cols + ARRAY_ROWS + ARRAY_COLS
-    localparam LOAD_WEIGHT_CYCLES = ARRAY_COLS; // weight_cols 
+    localparam LOAD_WEIGHT_CYCLES = ARRAY_COLS;
     
     logic [$clog2(LOAD_WEIGHT_CYCLES) - 1:0] load_weight_cycle_cnt;
     logic load_weight_cycle_cnt_en;
     logic [$clog2(COMPUTE_CYCLES) - 1:0] compute_cycle_cnt;
-
-    logic pe_load_weight; // pretty sure this can't be the same as the bram load_weight
 
     typedef enum {
         IDLE,         // neutral state of controller
@@ -56,17 +49,6 @@
             state <= next_state;
         end
     end
-
-    pe_array #(
-        .ROWS(ARRAY_ROWS),
-        .COLS(ARRAY_COLS)
-    ) array (
-        .clk(clk),
-        .iacts(iacts_in),
-        .weights(weights_in),
-        .load_weight(pe_load_weight),
-        .psums(psums_out)
-    );
     
     always_comb begin
         next_state = state;
@@ -75,7 +57,10 @@
         for(int i = 0; i < ARRAY_COLS; ++i) begin
             load_iact[i] = 'b0;
         end
-        psum_valid = 'b0;
+        for(int i = 0; i < ARRAY_COLS; ++i) begin
+            psum_valid[i] = 'b0;
+        end
+
         
         load_weight_cycle_cnt_en = 1'b0;
         done = 1'b0;
@@ -100,11 +85,45 @@
                 // col input valid if: col <= counter < col + iact_cols
                 for(int i = 0; i < ARRAY_COLS; ++i) begin
                     load_iact[i] = i <= compute_cycle_cnt && compute_cycle_cnt < i + ARRAY_ROWS;
+                    /*
+                    the statement above does:
+                    if compute_cycle_cnt = 0 
+                        load iact [1,0,0]
+                    else if compute_cycle_cnt = 1 
+                        load iact [1,1,0]
+                    else if compute_cycle_cnt = 2 
+                        load iact [1,1,1]
+                    else if compute_cycle_cnt = 3
+                        load iact [0,1,1]
+                    else if compute_cycle_cnt = 4
+                        load iact [0,0,1]
+                    */
                 end
 
                 // row output valid if: row + ARRAY_COLS <= counter < row + iact_cols + ARRAY_COLS
                 for(int i = 0; i < ARRAY_ROWS; ++i) begin
                     psum_valid[i] = i + ARRAY_COLS <= compute_cycle_cnt && compute_cycle_cnt < i + ARRAY_ROWS + ARRAY_COLS;
+                    /*
+                    the statement above does the same as:
+                    if compute_cycle_cnt = 0 
+                        psum valid [0,0,0]
+                    else if compute_cycle_cnt = 1
+                        psum valid [0,0,0]
+                    else if compute_cycle_cnt = 2
+                        psum valid [0,0,0]
+                    else if compute_cycle_cnt = 3
+                        psum valid [1,0,0]
+                    else if compute_cycle_cnt = 4
+                        psum valid [1,1,0]
+                    else if compute_cycle_cnt = 5
+                        psum valid [1,1,1]
+                    else if compute_cycle_cnt = 6
+                        psum valid [0,1,1]
+                    else if compute_cycle_cnt = 7
+                        psum valid [0,0,1]
+                    else 
+                        psum valid [0,0,0]
+                    */
                 end
 
                 if(compute_cycle_cnt == COMPUTE_CYCLES) begin
@@ -125,9 +144,12 @@
         if (!rst_n) begin
             load_weight_cycle_cnt <= 'h0;
             compute_cycle_cnt <= 'b0;
+            weight_addr <= 'h0;
+            iact_addr <= 'h0;
+            psum_addr <= 'h0;
         end else if (load_weight_cnt_en) begin
             load_weight_cycle_cnt <= load_weight_cycle_cnt + 'h1;
-            weight_addr <= weight_addr + ;//whateveer stride we have;
+            weight_addr <= weight_addr + 1'b1;//whateveer stride we have;
         end else if(state == COMPUTE) begin
             compute_cycle_cnt <= compute_cycle_cnt + 'h1;
             for(int i = 0; i < ARRAY_COLS; ++i) begin
