@@ -60,21 +60,21 @@ initial begin
 
     repeat(5) @(posedge clk);
     
+	 $finish;
     
 end
 
 
-
 always begin
     @(posedge clk);
-    $display("\ncontroller state: %s", dut.state.name());
+    $display("\ncontroller state: %0d", dut.state);
     // load weight cycle 
     $display("load_weight_cycle_cnt: %0d", dut.load_weight_cycle_cnt);
     $display("weight address = {%0d}", weight_addr);
     // compute cycle 
-    $display(compute_cycle_cnt: %0d, dut.compute_cycle_cnt);
+    $display("compute_cycle_cnt: %0d", dut.compute_cycle_cnt);
     $display("load_iact = {%0d, %0d, %0d}", load_iact[0], load_iact[1], load_iact[2]);
-    $display("Iact address = {%0d, %0d, $0d}", iact_addr[0], iact_addr[1], iact_addr[2]);
+    $display("Iact address = {%0d, %0d, %0d}", iact_addr[0], iact_addr[1], iact_addr[2]);
     $display("psums_valid = {%0d, %0d, %0d}", psum_valid[0], psum_valid[1], psum_valid[2]);
     $display("psums address = {%0d, %0d, %0d}", psum_addr[0], psum_addr[1], psum_addr[2]);
     

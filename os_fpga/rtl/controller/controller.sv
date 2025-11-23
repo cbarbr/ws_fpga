@@ -135,7 +135,7 @@
                 next_state = IDLE;
             end
             default: begin
-                next_state <= IDLE;
+                next_state = IDLE;
             end
         endcase
     end
@@ -147,7 +147,7 @@
             weight_addr <= 'h0;
             iact_addr <= 'h0;
             psum_addr <= 'h0;
-        end else if (load_weight_cnt_en) begin
+        end else if (load_weight_cycle_cnt_en) begin
             load_weight_cycle_cnt <= load_weight_cycle_cnt + 'h1;
             weight_addr <= weight_addr + 1'b1;//whateveer stride we have;
         end else if(state == COMPUTE) begin
