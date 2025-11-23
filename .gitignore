@@ -8,5 +8,6 @@ os_fpga/scripts/vivado*
 
 output-stationary-example/test
 weight-stationary/test
+test
 
 .Xil/

@@ -70,6 +70,7 @@ always begin
     $display("\ncontroller state: %0d", dut.state);
     // load weight cycle 
     $display("load_weight_cycle_cnt: %0d", dut.load_weight_cycle_cnt);
+	 $display("load weight: %0d", load_weight);
     $display("weight address = {%0d}", weight_addr);
     // compute cycle 
     $display("compute_cycle_cnt: %0d", dut.compute_cycle_cnt);
