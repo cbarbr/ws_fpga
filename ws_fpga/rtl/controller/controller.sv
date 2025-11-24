@@ -102,7 +102,7 @@
 
                 // row output valid if: 1 + row + ARRAY_COLS <= counter < 1 + row + iact_cols + ARRAY_COLS
                 for(int i = 0; i < ARRAY_ROWS; ++i) begin
-                    psum_valid[i] = 1 + i + ARRAY_COLS <= compute_cycle_cnt && compute_cycle_cnt < 1 + i + ARRAY_ROWS + ARRAY_COLS;
+                    psum_valid[i] = 2 + i + ARRAY_COLS <= compute_cycle_cnt && compute_cycle_cnt < 2 + i + ARRAY_ROWS + ARRAY_COLS;
                     /*
                     the statement above does the same as:
                     if compute_cycle_cnt = 0 
