@@ -4,7 +4,6 @@
 
 import sys
 import random
-import time
 import numpy as np
 
 __author__ = "Cameron Barbour"
