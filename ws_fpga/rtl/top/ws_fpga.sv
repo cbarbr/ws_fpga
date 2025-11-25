@@ -3,7 +3,9 @@
 
     module ws_fpga(
         input ext_clk100,
-        input ext_rstn
+        input ext_rstn,
+        input uart_txd_in,
+        output uart_rxd_out
     );
 
     localparam ROWS = 3;
@@ -35,7 +37,7 @@
 
     // mem weight output
     logic [0:ROWS - 1] [31:0] mem_weight_dout;
-    logic [0:ROWS - 1] [47:0] mem_psum_din;
+    logic [0:ROWS - 1] [63:0] mem_psum_din;
 
     // axi memory signals
     logic [0:ROWS - 1] [31:0] axi_psum_mem_addr;
@@ -88,7 +90,9 @@
         .weight_wdata_2(axi_weight_mem_din[2]),
         .weight_we_0(axi_weight_mem_we[0]),
         .weight_we_1(axi_weight_mem_we[1]),
-        .weight_we_2(axi_weight_mem_we[2])
+        .weight_we_2(axi_weight_mem_we[2]),
+        .uart_tx(uart_rxd_out),
+        .uart_rx(uart_txd_in)
     );
 
     // controller

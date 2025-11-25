@@ -57,13 +57,13 @@
         psum_mem psum_mem_inst (
             .clka(clk),    // input wire clka
             .wea(psum_mem_we[i]),      // input wire [3 : 0] wea
-            .addra(psum_mem_addr[i] << 2),  // input wire [31 : 0] addra
+            .addra(psum_mem_addr[i] << 3),  // input wire [31 : 0] addra
             .dina(psum_mem_din[i]),    // input wire [63 : 0] dina
             .douta(),  // output wire [63 : 0] douta
             .clkb(clk),    // input wire clkb
-            .web(4'h0),      // input wire [3 : 0] web
+            .web(8'h0),      // input wire [3 : 0] web
             .addrb(axi_psum_mem_addr[i]),  // input wire [31 : 0] addrb
-            .dinb(32'h0),    // input wire [63 : 0] dinb
+            .dinb(64'h0),    // input wire [63 : 0] dinb
             .doutb(axi_psum_mem_dout[i])  // output wire [63 : 0] doutb
         );
     end

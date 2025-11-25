@@ -30,6 +30,17 @@
     logic [$clog2(LOAD_WEIGHT_CYCLES) - 1:0] load_weight_cycle_cnt;
     logic load_weight_cycle_cnt_en;
     logic [$clog2(COMPUTE_CYCLES) - 1:0] compute_cycle_cnt;
+    
+    logic go_reg_0;
+    logic go_reg_1;
+    logic go_re;
+    
+    always_ff @(posedge clk) begin
+        go_reg_0 <= go;
+        go_reg_1 <= go_reg_0;
+    end
+    
+    assign go_re = go_reg_0 && (!go_reg_1);
 
     typedef enum {
         IDLE,         // neutral state of controller
@@ -67,7 +78,7 @@
 
         case(state)
             IDLE: begin
-                if (go) begin
+                if (go_re) begin
                     next_state = LOAD_WEIGHTS;
                 end
             end
@@ -132,7 +143,7 @@
             end
             DONE: begin
                 done = 1'b1;
-                if(go) begin
+                if(go_re) begin
                     next_state = LOAD_WEIGHTS;
                 end else begin
                     next_state = DONE;
@@ -145,7 +156,7 @@
     end
 
     always_ff @(posedge clk, negedge rst_n) begin
-        if (!rst_n) begin
+        if (!rst_n || go_re) begin
             load_weight_cycle_cnt <= 'h0;
             compute_cycle_cnt <= 'b0;
             weight_addr <= 'h0;

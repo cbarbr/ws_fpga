@@ -21,17 +21,28 @@ initial begin
     repeat (100) @(posedge clk);
 
     rstn = 1'b1;
-    repeat (99) @(posedge clk);
+    repeat (100) @(posedge dut.clk100);
     print_info = 1'b1;
-    @(posedge clk);
+    @(posedge dut.clk100);
     dut.go = 1'b1;
 
-    @(posedge clk);
+    @(posedge dut.clk100);
     dut.go = 1'b0;
 
     wait(dut.done == 1'b1);
 
-    repeat(3) @(posedge clk);
+    repeat(3) @(posedge dut.clk100);
+    
+    @(posedge dut.clk100);
+    dut.go = 1'b1;
+
+    @(posedge dut.clk100);
+    dut.go = 1'b0;
+
+    @(posedge dut.clk100);
+    wait(dut.done == 1'b1);
+
+    repeat(3) @(posedge dut.clk100);
 
     $finish;
 end
