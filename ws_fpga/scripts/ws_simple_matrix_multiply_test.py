@@ -1,6 +1,6 @@
 #!/usr/bin/env python
 
-"""Provides FPGA functions for access and control."""
+"""Simple random matrix multiply test against numpy."""
 
 import sys
 import random
@@ -22,7 +22,7 @@ def ws_simple_matrix_multiple_test():
             [random.randint(0x0000, 0xFFFF) for _ in range(3)] for _ in range(3)
         ]
         iact_matrix = [
-            [random.randint(0x0000, 0x3FFFFFFF) for _ in range(3)] for _ in range(3)
+            [random.randint(0x00000000, 0x3FFFFFFF) for _ in range(3)] for _ in range(3)
         ]
 
         psum_matrix = ws_fpga.matrix_multiply(weight_matrix, iact_matrix)
