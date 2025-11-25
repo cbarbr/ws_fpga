@@ -17,12 +17,12 @@ def ws_simple_matrix_multiple_test():
     """Performs a matrix multiply and prints the output."""
     ws_fpga = Device("COM3", 115200)
 
-    for _ in range(100):
+    for _ in range(1000):
         weight_matrix = [
             [random.randint(0x0000, 0xFFFF) for _ in range(3)] for _ in range(3)
         ]
         iact_matrix = [
-            [random.randint(0x0000, 0xFFFFFFF) for _ in range(3)] for _ in range(3)
+            [random.randint(0x0000, 0x3FFFFFFF) for _ in range(3)] for _ in range(3)
         ]
 
         psum_matrix = ws_fpga.matrix_multiply(weight_matrix, iact_matrix)
