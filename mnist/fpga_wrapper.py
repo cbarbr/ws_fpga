@@ -1,7 +1,7 @@
 import serial
 import struct
 import time
-from mnist import run_inference, extract_and_quantize_weights, pad_all_weights
+from mnist import run_inference, extract_and_quantize_weights
 
 # ---- UART Sender Helpers ----
 

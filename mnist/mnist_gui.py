@@ -7,8 +7,7 @@ import time
 
 # --- import your inference pipeline ---
 from mnist import run_inference
-from fpga_wrapper import send_frame, send_coe_over_uart
-from fpga_uart import FPGALoader
+from ws_fpga_funcs import Device
 
 
 
@@ -41,6 +40,7 @@ class DigitGUI:
 
         self.status = tk.Label(root, text="Draw a digit and press Run")
         self.status.grid(row=2, column=0, columnspan=3)
+        self.fpga = Device("COM4", 115200)
 
     def paint(self, event):
         x, y = event.x, event.y
@@ -66,7 +66,7 @@ class DigitGUI:
 
         # Run inference WITHOUT UART
         try:
-            pred, iacts, scale, W_q, wscale = run_inference("digit.png")
+            pred, iacts, scale, W_q, wscale, test = run_inference("digit.png")
             self.status.config(text=f"Python prediction only: {pred}")
         except Exception as e:
             self.status.config(text="Prediction failed!")
@@ -81,92 +81,95 @@ class DigitGUI:
         self.root.update()
 
         # ---- Run Python inference ----
-        pred, iacts_flat, scale, W_q, wscale = run_inference("digit.png")
+        pred, iacts, scale, W_q, wscale, W_padded = run_inference("digit.png")
         self.status.config(text=f"Python prediction: {pred}")
         self.root.update()
-
-        # ----------------------------------------------------------
-        # Convert flattened int8 vectors → 32-bit packed words
-        # FPGA UART expects IA by column, W by row
-        # ----------------------------------------------------------
-        def pack_int8_to_words(vec, words_per_col):
-            clean = []
-
-            for v in vec:
-                # If v is a numpy array, flatten and take each element
-                if hasattr(v, "flatten"):
-                    flat = v.flatten()
-                    for x in flat:
-                        clean.append(int(x) & 0xFF)
-                else:
-                    clean.append(int(v) & 0xFF)
-
-            # Pad to multiple of 4 bytes
-            while len(clean) % 4 != 0:
-                clean.append(0)
-
-            # Group into 32-bit little-endian words
-            words = []
-            for i in range(0, len(clean), 4):
-                b0, b1, b2, b3 = clean[i:i+4]
-                word = (b3 << 24) | (b2 << 16) | (b1 << 8) | b0
-                words.append(word)
-
-            return words
-
-
-
-        # ----------------------------------------
-        # For your 3×3 array:
-        # IA =  columns = 3
-        # W  =  rows    = 3
-        # ----------------------------------------
-        COLS = 3
-        ROWS = 3
-
-        # PAD to multiples of 4 bytes:
-        words_per_col = (len(iacts_flat) + 3) // 4
-        iact_words_columns = []
-        idx = 0
-        chunk = words_per_col * 4
-        for _ in range(COLS):
-            segment = iacts_flat[idx:idx + chunk]
-            iact_words_columns.append(pack_int8_to_words(segment, words_per_col))
-            idx += chunk
-
-        # Do the same for each weight row
-        words_per_row = (len(W_q) + 3) // 4
-        weight_words_rows = []
-        idx = 0
-        chunk = words_per_row * 4
-        for _ in range(ROWS):
-            segment = W_q[idx:idx + chunk]
-            weight_words_rows.append(pack_int8_to_words(segment, words_per_row))
-            idx += chunk
-
         # -----------------------------------------------------
         # ----  UART TRANSFER  ----
         # -----------------------------------------------------
+
+        def make_weight_tile(W_q_pad, class_start, k_start, TILE=3):
+            """
+            Extract a 3x3 weight tile (padded with zeros if at edges).
+
+            W_q_pad: (10, 786)
+            class_start: row index in [0, 10) stepping by 3
+            k_start:     K index in [0, 786) stepping by 3
+            """
+            tile = np.zeros((TILE, TILE), dtype=np.int8)
+
+            c_end = min(class_start + TILE, W_q_pad.shape[0])
+            k_end = min(k_start + TILE,    W_q_pad.shape[1])
+
+            tile[0:c_end-class_start, 0:k_end-k_start] = \
+                W_q_pad[class_start:c_end, k_start:k_end]
+
+            return tile
+        
+        def make_iact_tile(iacts, k_start, TILE=3):
+            """
+            Extract a 3x3 activation tile (padded with zeros if at edges).
+
+            iacts: (786, 3)
+            k_start: K index stepping by 3
+            """
+            tile = np.zeros((TILE, TILE), dtype=np.int8)
+
+            k_end = min(k_start + TILE, iacts.shape[0])
+            n_end = min(TILE, iacts.shape[1])  # normally 3
+
+            tile[0:k_end-k_start, 0:n_end] = iacts[k_start:k_end, 0:n_end]
+
+            return tile
+        
+        def matmul_3x3_weight_stationary(fpga, W_q_pad, iacts, TILE=3):
+            NUM_CLASSES = W_q_pad.shape[0]
+            K          = iacts.shape[0]
+            OUT_COLS   = iacts.shape[1]
+
+            C = np.zeros((NUM_CLASSES, OUT_COLS), dtype=np.int64)
+
+            num_class_tiles = (NUM_CLASSES + TILE - 1) // TILE
+            num_k_tiles     = (K + TILE - 1) // TILE
+
+            print(num_class_tiles * num_k_tiles)
+
+            for i in range(num_class_tiles):
+                class_start = i * TILE
+                class_end   = min(class_start + TILE, NUM_CLASSES)
+                rows        = class_end - class_start
+
+                # Host accumulator for a 3×3 block
+                C_tile_acc = np.zeros((TILE, OUT_COLS), dtype=np.int64)
+
+                for j in range(num_k_tiles):
+                    k_start = j * TILE
+
+                    W_tile = make_weight_tile(W_q_pad, class_start, k_start, TILE)
+                    A_tile = make_iact_tile(iacts,      k_start,        TILE)
+
+                    # One tile multiply on FPGA
+                    P = np.array(
+                        fpga.matrix_multiply(W_tile.tolist(), A_tile.tolist()),
+                        dtype=np.int64
+                    )
+
+                    print(i*num_k_tiles + j, end="\r")
+
+                    C_tile_acc[:rows, :] += P[:rows, :OUT_COLS]  # accumulate CPU-side
+
+                C[class_start:class_end, :] = C_tile_acc[:rows, :]
+
+            return C 
+
+        
         try:
-            # Load into FPGA
-            for c in range(COLS):
-                fpga.load_iacts(c, iact_words_columns[c])
+            mat = matmul_3x3_weight_stationary(self.fpga, W_padded, iacts)
+            ans = np.argmax(np.sum(mat, axis=1))
+            pred = int(np.argmax(ans))
 
-            for r in range(ROWS):
-                fpga.load_weights(r, weight_words_rows[r])
-
-            # Start computation
-            fpga.start_compute()
-
-            # Read back final 48-bit sum
-            final_logit = fpga.read_result()
-
-            # Convert FPGA logit → predicted digit (argmax layer)
-            fpga_pred = final_logit  # only 1 neuron → output is class
-
-            self.status.config(
-                text=f"Python: {pred}  |  FPGA: {fpga_pred}"
-            )
+            print("fpga predicts: ", ans  )
+            self.status.config(text=f"Sent to FPGA successfully.")
 
         except Exception as e:
             messagebox.showerror("UART Error", str(e))
@@ -177,5 +180,4 @@ class DigitGUI:
 if __name__ == "__main__":
     root = tk.Tk()
     gui = DigitGUI(root)
-    fpga = FPGALoader(port="/dev/ttyUSB0", baud=115200)
     root.mainloop()

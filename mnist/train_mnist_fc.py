@@ -72,6 +72,10 @@ def main():
             loss.backward()
             optimizer.step()
 
+            with torch.no_grad():
+                for name, param in model.named_parameters():
+                    param.clamp_(min=0.0)
+                    
             running_loss += loss.item() * x.size(0)
 
         avg_loss = running_loss / len(train_loader.dataset)
