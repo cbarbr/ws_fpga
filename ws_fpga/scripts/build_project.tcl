@@ -157,7 +157,7 @@ if { $validate_required } {
 }
 
 # Create project
-create_project ${_xil_proj_name_} "../project" -part xc7a35ticsg324-1L
+create_project ${_xil_proj_name_} "../project" -part xc7z100ffg900-2
 
 # Set the directory path for the new project
 set proj_dir [get_property directory [current_project]]
@@ -167,7 +167,6 @@ set proj_dir [get_property directory [current_project]]
 
 # Set project properties
 set obj [current_project]
-set_property -name "board_part" -value "digilentinc.com:arty-a7-35:part0:1.1" -objects $obj
 set_property -name "corecontainer.enable" -value "1" -objects $obj
 set_property -name "default_lib" -value "xil_defaultlib" -objects $obj
 set_property -name "enable_core_container" -value "1" -objects $obj
@@ -176,20 +175,20 @@ set_property -name "enable_vhdl_2008" -value "1" -objects $obj
 set_property -name "ip_cache_permissions" -value "read write" -objects $obj
 set_property -name "ip_output_repo" -value "$proj_dir/${_xil_proj_name_}.cache/ip" -objects $obj
 set_property -name "mem.enable_memory_map_generation" -value "1" -objects $obj
-set_property -name "platform.board_id" -value "arty-a7-35" -objects $obj
+set_property -name "part" -value "xc7z100ffg900-2" -objects $obj
 set_property -name "revised_directory_structure" -value "1" -objects $obj
 set_property -name "sim.central_dir" -value "$proj_dir/${_xil_proj_name_}.ip_user_files" -objects $obj
 set_property -name "sim.ip.auto_export_scripts" -value "1" -objects $obj
 set_property -name "simulator_language" -value "Mixed" -objects $obj
 set_property -name "sim_compile_state" -value "1" -objects $obj
 set_property -name "use_inline_hdl_ip" -value "1" -objects $obj
-set_property -name "webtalk.activehdl_export_sim" -value "18" -objects $obj
+set_property -name "webtalk.activehdl_export_sim" -value "26" -objects $obj
 set_property -name "webtalk.activehdl_launch_sim" -value "5" -objects $obj
-set_property -name "webtalk.modelsim_export_sim" -value "18" -objects $obj
-set_property -name "webtalk.questa_export_sim" -value "18" -objects $obj
-set_property -name "webtalk.riviera_export_sim" -value "18" -objects $obj
-set_property -name "webtalk.xsim_export_sim" -value "18" -objects $obj
-set_property -name "webtalk.xsim_launch_sim" -value "30" -objects $obj
+set_property -name "webtalk.modelsim_export_sim" -value "26" -objects $obj
+set_property -name "webtalk.questa_export_sim" -value "26" -objects $obj
+set_property -name "webtalk.riviera_export_sim" -value "26" -objects $obj
+set_property -name "webtalk.xsim_export_sim" -value "26" -objects $obj
+set_property -name "webtalk.xsim_launch_sim" -value "60" -objects $obj
 set_property -name "xpm_libraries" -value "XPM_CDC XPM_FIFO XPM_MEMORY" -objects $obj
 
 # Create 'sources_1' fileset (if not found)
@@ -511,6 +510,32 @@ proc create_hier_cell_psums { parentCell nameHier } {
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI2
 
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_3
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_4
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_2
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_5
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_0
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_6
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_7
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_8
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_9
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_10
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_11
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_12
+
 
   # Create pins
   create_bd_pin -dir I -type clk s_axi_aclk
@@ -521,6 +546,32 @@ proc create_hier_cell_psums { parentCell nameHier } {
   create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_0
   create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_1
   create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_2
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_3
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_3
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_4
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_4
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_5
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_5
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_6
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_6
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_7
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_7
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_8
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_8
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_9
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_9
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_10
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_10
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_11
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_11
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_12
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_12
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_13
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_13
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_14
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_14
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_15
+  create_bd_pin -dir I -from 63 -to 0 bram_rddata_a_15
 
   # Create instance: axi_bram_ctrl_0, and set properties
   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
@@ -546,32 +597,227 @@ proc create_hier_cell_psums { parentCell nameHier } {
   ] $axi_bram_ctrl_2
 
 
+  # Create instance: axi_bram_ctrl_3, and set properties
+  set axi_bram_ctrl_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_3 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_3
+
+
+  # Create instance: axi_bram_ctrl_4, and set properties
+  set axi_bram_ctrl_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_4 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_4
+
+
+  # Create instance: axi_bram_ctrl_5, and set properties
+  set axi_bram_ctrl_5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_5 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_5
+
+
+  # Create instance: axi_bram_ctrl_6, and set properties
+  set axi_bram_ctrl_6 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_6 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_6
+
+
+  # Create instance: axi_bram_ctrl_7, and set properties
+  set axi_bram_ctrl_7 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_7 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_7
+
+
+  # Create instance: axi_bram_ctrl_8, and set properties
+  set axi_bram_ctrl_8 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_8 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_8
+
+
+  # Create instance: axi_bram_ctrl_9, and set properties
+  set axi_bram_ctrl_9 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_9 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_9
+
+
+  # Create instance: axi_bram_ctrl_10, and set properties
+  set axi_bram_ctrl_10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_10 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_10
+
+
+  # Create instance: axi_bram_ctrl_11, and set properties
+  set axi_bram_ctrl_11 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_11 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_11
+
+
+  # Create instance: axi_bram_ctrl_12, and set properties
+  set axi_bram_ctrl_12 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_12 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_12
+
+
+  # Create instance: axi_bram_ctrl_13, and set properties
+  set axi_bram_ctrl_13 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_13 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_13
+
+
+  # Create instance: axi_bram_ctrl_14, and set properties
+  set axi_bram_ctrl_14 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_14 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_14
+
+
+  # Create instance: axi_bram_ctrl_15, and set properties
+  set axi_bram_ctrl_15 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_15 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {64} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_15
+
+
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins S_AXI]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axi_bram_ctrl_1/S_AXI] [get_bd_intf_pins S_AXI1]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins axi_bram_ctrl_2/S_AXI] [get_bd_intf_pins S_AXI2]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins axi_bram_ctrl_3/S_AXI] [get_bd_intf_pins S_AXI_3]
+  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins axi_bram_ctrl_7/S_AXI] [get_bd_intf_pins S_AXI_4]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins axi_bram_ctrl_6/S_AXI] [get_bd_intf_pins S_AXI_1]
+  connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins axi_bram_ctrl_5/S_AXI] [get_bd_intf_pins S_AXI_2]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axi_bram_ctrl_4/S_AXI] [get_bd_intf_pins S_AXI_5]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins axi_bram_ctrl_14/S_AXI] [get_bd_intf_pins S_AXI_0]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins axi_bram_ctrl_13/S_AXI] [get_bd_intf_pins S_AXI_6]
+  connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins axi_bram_ctrl_12/S_AXI] [get_bd_intf_pins S_AXI_7]
+  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins axi_bram_ctrl_11/S_AXI] [get_bd_intf_pins S_AXI_8]
+  connect_bd_intf_net -intf_net Conn13 [get_bd_intf_pins axi_bram_ctrl_10/S_AXI] [get_bd_intf_pins S_AXI_9]
+  connect_bd_intf_net -intf_net Conn14 [get_bd_intf_pins axi_bram_ctrl_9/S_AXI] [get_bd_intf_pins S_AXI_10]
+  connect_bd_intf_net -intf_net Conn15 [get_bd_intf_pins axi_bram_ctrl_8/S_AXI] [get_bd_intf_pins S_AXI_11]
+  connect_bd_intf_net -intf_net Conn16 [get_bd_intf_pins axi_bram_ctrl_15/S_AXI] [get_bd_intf_pins S_AXI_12]
 
   # Create port connections
   connect_bd_net -net axi_bram_ctrl_0_bram_addr_a  [get_bd_pins axi_bram_ctrl_0/bram_addr_a] \
   [get_bd_pins bram_addr_a_0]
+  connect_bd_net -net axi_bram_ctrl_10_bram_addr_a  [get_bd_pins axi_bram_ctrl_10/bram_addr_a] \
+  [get_bd_pins bram_addr_a_10]
+  connect_bd_net -net axi_bram_ctrl_11_bram_addr_a  [get_bd_pins axi_bram_ctrl_11/bram_addr_a] \
+  [get_bd_pins bram_addr_a_11]
+  connect_bd_net -net axi_bram_ctrl_12_bram_addr_a  [get_bd_pins axi_bram_ctrl_12/bram_addr_a] \
+  [get_bd_pins bram_addr_a_12]
+  connect_bd_net -net axi_bram_ctrl_13_bram_addr_a  [get_bd_pins axi_bram_ctrl_13/bram_addr_a] \
+  [get_bd_pins bram_addr_a_13]
+  connect_bd_net -net axi_bram_ctrl_14_bram_addr_a  [get_bd_pins axi_bram_ctrl_14/bram_addr_a] \
+  [get_bd_pins bram_addr_a_14]
+  connect_bd_net -net axi_bram_ctrl_15_bram_addr_a  [get_bd_pins axi_bram_ctrl_15/bram_addr_a] \
+  [get_bd_pins bram_addr_a_15]
   connect_bd_net -net axi_bram_ctrl_1_bram_addr_a  [get_bd_pins axi_bram_ctrl_1/bram_addr_a] \
   [get_bd_pins bram_addr_a_1]
   connect_bd_net -net axi_bram_ctrl_2_bram_addr_a  [get_bd_pins axi_bram_ctrl_2/bram_addr_a] \
   [get_bd_pins bram_addr_a_2]
+  connect_bd_net -net axi_bram_ctrl_3_bram_addr_a  [get_bd_pins axi_bram_ctrl_3/bram_addr_a] \
+  [get_bd_pins bram_addr_a_3]
+  connect_bd_net -net axi_bram_ctrl_4_bram_addr_a  [get_bd_pins axi_bram_ctrl_4/bram_addr_a] \
+  [get_bd_pins bram_addr_a_4]
+  connect_bd_net -net axi_bram_ctrl_5_bram_addr_a  [get_bd_pins axi_bram_ctrl_5/bram_addr_a] \
+  [get_bd_pins bram_addr_a_5]
+  connect_bd_net -net axi_bram_ctrl_6_bram_addr_a  [get_bd_pins axi_bram_ctrl_6/bram_addr_a] \
+  [get_bd_pins bram_addr_a_6]
+  connect_bd_net -net axi_bram_ctrl_7_bram_addr_a  [get_bd_pins axi_bram_ctrl_7/bram_addr_a] \
+  [get_bd_pins bram_addr_a_7]
+  connect_bd_net -net axi_bram_ctrl_8_bram_addr_a  [get_bd_pins axi_bram_ctrl_8/bram_addr_a] \
+  [get_bd_pins bram_addr_a_8]
+  connect_bd_net -net axi_bram_ctrl_9_bram_addr_a  [get_bd_pins axi_bram_ctrl_9/bram_addr_a] \
+  [get_bd_pins bram_addr_a_9]
   connect_bd_net -net bram_rddata_a_0_1  [get_bd_pins bram_rddata_a_0] \
   [get_bd_pins axi_bram_ctrl_0/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_10_1  [get_bd_pins bram_rddata_a_10] \
+  [get_bd_pins axi_bram_ctrl_10/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_11_1  [get_bd_pins bram_rddata_a_11] \
+  [get_bd_pins axi_bram_ctrl_11/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_12_1  [get_bd_pins bram_rddata_a_12] \
+  [get_bd_pins axi_bram_ctrl_12/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_13_1  [get_bd_pins bram_rddata_a_13] \
+  [get_bd_pins axi_bram_ctrl_13/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_14_1  [get_bd_pins bram_rddata_a_14] \
+  [get_bd_pins axi_bram_ctrl_14/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_15_1  [get_bd_pins bram_rddata_a_15] \
+  [get_bd_pins axi_bram_ctrl_15/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_1_1  [get_bd_pins bram_rddata_a_1] \
   [get_bd_pins axi_bram_ctrl_1/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_2_1  [get_bd_pins bram_rddata_a_2] \
   [get_bd_pins axi_bram_ctrl_2/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_3_1  [get_bd_pins bram_rddata_a_3] \
+  [get_bd_pins axi_bram_ctrl_3/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_4_1  [get_bd_pins bram_rddata_a_4] \
+  [get_bd_pins axi_bram_ctrl_4/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_5_1  [get_bd_pins bram_rddata_a_5] \
+  [get_bd_pins axi_bram_ctrl_5/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_6_1  [get_bd_pins bram_rddata_a_6] \
+  [get_bd_pins axi_bram_ctrl_6/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_7_1  [get_bd_pins bram_rddata_a_7] \
+  [get_bd_pins axi_bram_ctrl_7/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_8_1  [get_bd_pins bram_rddata_a_8] \
+  [get_bd_pins axi_bram_ctrl_8/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_9_1  [get_bd_pins bram_rddata_a_9] \
+  [get_bd_pins axi_bram_ctrl_9/bram_rddata_a]
   connect_bd_net -net s_axi_aclk_1  [get_bd_pins s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_2/s_axi_aclk] \
-  [get_bd_pins axi_bram_ctrl_1/s_axi_aclk]
+  [get_bd_pins axi_bram_ctrl_1/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aclk]
   connect_bd_net -net s_axi_aresetn_1  [get_bd_pins s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_1/s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_2/s_axi_aresetn] \
-  [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn]
+  [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aresetn]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -618,22 +864,100 @@ proc create_hier_cell_iacts { parentCell nameHier } {
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI2
 
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_3
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_4
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_5
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_6
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_7
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_0
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_2
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_8
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_9
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_10
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_11
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_12
+
 
   # Create pins
   create_bd_pin -dir I -type clk s_axi_aclk
   create_bd_pin -dir I -type rst s_axi_aresetn
   create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_0
-  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_0
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_0
   create_bd_pin -dir O -from 3 -to 0 bram_we_a_0
   create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_0
   create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_1
-  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_1
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_1
   create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_1
   create_bd_pin -dir O -from 3 -to 0 bram_we_a_1
   create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_2
-  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_2
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_2
   create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_2
   create_bd_pin -dir O -from 3 -to 0 bram_we_a_2
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_3
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_3
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_3
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_3
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_4
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_4
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_4
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_4
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_5
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_5
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_5
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_5
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_6
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_6
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_6
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_6
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_7
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_7
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_7
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_7
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_8
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_8
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_8
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_8
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_9
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_9
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_9
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_9
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_10
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_10
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_10
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_10
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_11
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_11
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_11
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_11
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_12
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_12
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_12
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_12
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_13
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_13
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_13
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_13
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_14
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_14
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_14
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_14
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_15
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_15
+  create_bd_pin -dir O -from 12 -to 0 bram_addr_a_15
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_15
 
   # Create instance: axi_bram_ctrl_0, and set properties
   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
@@ -650,10 +974,88 @@ proc create_hier_cell_iacts { parentCell nameHier } {
   set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_2
 
 
+  # Create instance: axi_bram_ctrl_3, and set properties
+  set axi_bram_ctrl_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_3 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_3
+
+
+  # Create instance: axi_bram_ctrl_7, and set properties
+  set axi_bram_ctrl_7 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_7 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_7
+
+
+  # Create instance: axi_bram_ctrl_6, and set properties
+  set axi_bram_ctrl_6 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_6 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_6
+
+
+  # Create instance: axi_bram_ctrl_5, and set properties
+  set axi_bram_ctrl_5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_5 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_5
+
+
+  # Create instance: axi_bram_ctrl_4, and set properties
+  set axi_bram_ctrl_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_4 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_4
+
+
+  # Create instance: axi_bram_ctrl_8, and set properties
+  set axi_bram_ctrl_8 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_8 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_8
+
+
+  # Create instance: axi_bram_ctrl_9, and set properties
+  set axi_bram_ctrl_9 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_9 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_9
+
+
+  # Create instance: axi_bram_ctrl_10, and set properties
+  set axi_bram_ctrl_10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_10 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_10
+
+
+  # Create instance: axi_bram_ctrl_11, and set properties
+  set axi_bram_ctrl_11 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_11 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_11
+
+
+  # Create instance: axi_bram_ctrl_12, and set properties
+  set axi_bram_ctrl_12 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_12 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_12
+
+
+  # Create instance: axi_bram_ctrl_13, and set properties
+  set axi_bram_ctrl_13 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_13 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_13
+
+
+  # Create instance: axi_bram_ctrl_14, and set properties
+  set axi_bram_ctrl_14 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_14 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_14
+
+
+  # Create instance: axi_bram_ctrl_15, and set properties
+  set axi_bram_ctrl_15 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_15 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_15
+
+
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins S_AXI]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axi_bram_ctrl_1/S_AXI] [get_bd_intf_pins S_AXI1]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins axi_bram_ctrl_2/S_AXI] [get_bd_intf_pins S_AXI2]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins axi_bram_ctrl_3/S_AXI] [get_bd_intf_pins S_AXI_3]
+  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins axi_bram_ctrl_4/S_AXI] [get_bd_intf_pins S_AXI_4]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins axi_bram_ctrl_5/S_AXI] [get_bd_intf_pins S_AXI_5]
+  connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins axi_bram_ctrl_6/S_AXI] [get_bd_intf_pins S_AXI_6]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axi_bram_ctrl_7/S_AXI] [get_bd_intf_pins S_AXI_7]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins axi_bram_ctrl_14/S_AXI] [get_bd_intf_pins S_AXI_0]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins axi_bram_ctrl_13/S_AXI] [get_bd_intf_pins S_AXI_1]
+  connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins axi_bram_ctrl_12/S_AXI] [get_bd_intf_pins S_AXI_2]
+  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins axi_bram_ctrl_11/S_AXI] [get_bd_intf_pins S_AXI_8]
+  connect_bd_intf_net -intf_net Conn13 [get_bd_intf_pins axi_bram_ctrl_10/S_AXI] [get_bd_intf_pins S_AXI_9]
+  connect_bd_intf_net -intf_net Conn14 [get_bd_intf_pins axi_bram_ctrl_9/S_AXI] [get_bd_intf_pins S_AXI_10]
+  connect_bd_intf_net -intf_net Conn15 [get_bd_intf_pins axi_bram_ctrl_8/S_AXI] [get_bd_intf_pins S_AXI_11]
+  connect_bd_intf_net -intf_net Conn16 [get_bd_intf_pins axi_bram_ctrl_15/S_AXI] [get_bd_intf_pins S_AXI_12]
 
   # Create port connections
   connect_bd_net -net axi_bram_ctrl_0_bram_addr_a  [get_bd_pins axi_bram_ctrl_0/bram_addr_a] \
@@ -662,6 +1064,42 @@ proc create_hier_cell_iacts { parentCell nameHier } {
   [get_bd_pins bram_we_a_0]
   connect_bd_net -net axi_bram_ctrl_0_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_0/bram_wrdata_a] \
   [get_bd_pins bram_wrdata_a_0]
+  connect_bd_net -net axi_bram_ctrl_10_bram_addr_a  [get_bd_pins axi_bram_ctrl_10/bram_addr_a] \
+  [get_bd_pins bram_addr_a_10]
+  connect_bd_net -net axi_bram_ctrl_10_bram_we_a  [get_bd_pins axi_bram_ctrl_10/bram_we_a] \
+  [get_bd_pins bram_we_a_10]
+  connect_bd_net -net axi_bram_ctrl_10_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_10/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_10]
+  connect_bd_net -net axi_bram_ctrl_11_bram_addr_a  [get_bd_pins axi_bram_ctrl_11/bram_addr_a] \
+  [get_bd_pins bram_addr_a_11]
+  connect_bd_net -net axi_bram_ctrl_11_bram_we_a  [get_bd_pins axi_bram_ctrl_11/bram_we_a] \
+  [get_bd_pins bram_we_a_11]
+  connect_bd_net -net axi_bram_ctrl_11_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_11/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_11]
+  connect_bd_net -net axi_bram_ctrl_12_bram_addr_a  [get_bd_pins axi_bram_ctrl_12/bram_addr_a] \
+  [get_bd_pins bram_addr_a_12]
+  connect_bd_net -net axi_bram_ctrl_12_bram_we_a  [get_bd_pins axi_bram_ctrl_12/bram_we_a] \
+  [get_bd_pins bram_we_a_12]
+  connect_bd_net -net axi_bram_ctrl_12_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_12/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_12]
+  connect_bd_net -net axi_bram_ctrl_13_bram_addr_a  [get_bd_pins axi_bram_ctrl_13/bram_addr_a] \
+  [get_bd_pins bram_addr_a_13]
+  connect_bd_net -net axi_bram_ctrl_13_bram_we_a  [get_bd_pins axi_bram_ctrl_13/bram_we_a] \
+  [get_bd_pins bram_we_a_13]
+  connect_bd_net -net axi_bram_ctrl_13_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_13/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_13]
+  connect_bd_net -net axi_bram_ctrl_14_bram_addr_a  [get_bd_pins axi_bram_ctrl_14/bram_addr_a] \
+  [get_bd_pins bram_addr_a_14]
+  connect_bd_net -net axi_bram_ctrl_14_bram_we_a  [get_bd_pins axi_bram_ctrl_14/bram_we_a] \
+  [get_bd_pins bram_we_a_14]
+  connect_bd_net -net axi_bram_ctrl_14_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_14/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_14]
+  connect_bd_net -net axi_bram_ctrl_15_bram_addr_a  [get_bd_pins axi_bram_ctrl_15/bram_addr_a] \
+  [get_bd_pins bram_addr_a_15]
+  connect_bd_net -net axi_bram_ctrl_15_bram_we_a  [get_bd_pins axi_bram_ctrl_15/bram_we_a] \
+  [get_bd_pins bram_we_a_15]
+  connect_bd_net -net axi_bram_ctrl_15_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_15/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_15]
   connect_bd_net -net axi_bram_ctrl_1_bram_addr_a  [get_bd_pins axi_bram_ctrl_1/bram_addr_a] \
   [get_bd_pins bram_addr_a_1]
   connect_bd_net -net axi_bram_ctrl_1_bram_we_a  [get_bd_pins axi_bram_ctrl_1/bram_we_a] \
@@ -674,20 +1112,114 @@ proc create_hier_cell_iacts { parentCell nameHier } {
   [get_bd_pins bram_we_a_2]
   connect_bd_net -net axi_bram_ctrl_2_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_2/bram_wrdata_a] \
   [get_bd_pins bram_wrdata_a_2]
+  connect_bd_net -net axi_bram_ctrl_3_bram_addr_a  [get_bd_pins axi_bram_ctrl_3/bram_addr_a] \
+  [get_bd_pins bram_addr_a_3]
+  connect_bd_net -net axi_bram_ctrl_3_bram_we_a  [get_bd_pins axi_bram_ctrl_3/bram_we_a] \
+  [get_bd_pins bram_we_a_3]
+  connect_bd_net -net axi_bram_ctrl_3_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_3/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_3]
+  connect_bd_net -net axi_bram_ctrl_4_bram_addr_a  [get_bd_pins axi_bram_ctrl_7/bram_addr_a] \
+  [get_bd_pins bram_addr_a_7]
+  connect_bd_net -net axi_bram_ctrl_4_bram_we_a  [get_bd_pins axi_bram_ctrl_7/bram_we_a] \
+  [get_bd_pins bram_we_a_7]
+  connect_bd_net -net axi_bram_ctrl_4_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_7/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_7]
+  connect_bd_net -net axi_bram_ctrl_5_bram_addr_a  [get_bd_pins axi_bram_ctrl_6/bram_addr_a] \
+  [get_bd_pins bram_addr_a_6]
+  connect_bd_net -net axi_bram_ctrl_5_bram_we_a  [get_bd_pins axi_bram_ctrl_6/bram_we_a] \
+  [get_bd_pins bram_we_a_6]
+  connect_bd_net -net axi_bram_ctrl_5_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_6/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_6]
+  connect_bd_net -net axi_bram_ctrl_6_bram_addr_a  [get_bd_pins axi_bram_ctrl_5/bram_addr_a] \
+  [get_bd_pins bram_addr_a_5]
+  connect_bd_net -net axi_bram_ctrl_6_bram_we_a  [get_bd_pins axi_bram_ctrl_5/bram_we_a] \
+  [get_bd_pins bram_we_a_5]
+  connect_bd_net -net axi_bram_ctrl_6_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_5/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_5]
+  connect_bd_net -net axi_bram_ctrl_7_bram_addr_a  [get_bd_pins axi_bram_ctrl_4/bram_addr_a] \
+  [get_bd_pins bram_addr_a_4]
+  connect_bd_net -net axi_bram_ctrl_7_bram_we_a  [get_bd_pins axi_bram_ctrl_4/bram_we_a] \
+  [get_bd_pins bram_we_a_4]
+  connect_bd_net -net axi_bram_ctrl_7_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_4/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_4]
+  connect_bd_net -net axi_bram_ctrl_8_bram_addr_a  [get_bd_pins axi_bram_ctrl_8/bram_addr_a] \
+  [get_bd_pins bram_addr_a_8]
+  connect_bd_net -net axi_bram_ctrl_8_bram_we_a  [get_bd_pins axi_bram_ctrl_8/bram_we_a] \
+  [get_bd_pins bram_we_a_8]
+  connect_bd_net -net axi_bram_ctrl_8_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_8/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_8]
+  connect_bd_net -net axi_bram_ctrl_9_bram_addr_a  [get_bd_pins axi_bram_ctrl_9/bram_addr_a] \
+  [get_bd_pins bram_addr_a_9]
+  connect_bd_net -net axi_bram_ctrl_9_bram_we_a  [get_bd_pins axi_bram_ctrl_9/bram_we_a] \
+  [get_bd_pins bram_we_a_9]
+  connect_bd_net -net axi_bram_ctrl_9_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_9/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_9]
   connect_bd_net -net bram_rddata_a_0_1  [get_bd_pins bram_rddata_a_0] \
   [get_bd_pins axi_bram_ctrl_0/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_10_1  [get_bd_pins bram_rddata_a_10] \
+  [get_bd_pins axi_bram_ctrl_10/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_11_1  [get_bd_pins bram_rddata_a_11] \
+  [get_bd_pins axi_bram_ctrl_11/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_12_1  [get_bd_pins bram_rddata_a_12] \
+  [get_bd_pins axi_bram_ctrl_12/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_13_1  [get_bd_pins bram_rddata_a_13] \
+  [get_bd_pins axi_bram_ctrl_13/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_14_1  [get_bd_pins bram_rddata_a_14] \
+  [get_bd_pins axi_bram_ctrl_14/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_15_1  [get_bd_pins bram_rddata_a_15] \
+  [get_bd_pins axi_bram_ctrl_15/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_1_1  [get_bd_pins bram_rddata_a_1] \
   [get_bd_pins axi_bram_ctrl_1/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_2_1  [get_bd_pins bram_rddata_a_2] \
   [get_bd_pins axi_bram_ctrl_2/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_3_1  [get_bd_pins bram_rddata_a_3] \
+  [get_bd_pins axi_bram_ctrl_3/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_4_1  [get_bd_pins bram_rddata_a_4] \
+  [get_bd_pins axi_bram_ctrl_4/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_5_1  [get_bd_pins bram_rddata_a_5] \
+  [get_bd_pins axi_bram_ctrl_5/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_6_1  [get_bd_pins bram_rddata_a_6] \
+  [get_bd_pins axi_bram_ctrl_6/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_7_1  [get_bd_pins bram_rddata_a_7] \
+  [get_bd_pins axi_bram_ctrl_7/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_8_1  [get_bd_pins bram_rddata_a_8] \
+  [get_bd_pins axi_bram_ctrl_8/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_9_1  [get_bd_pins bram_rddata_a_9] \
+  [get_bd_pins axi_bram_ctrl_9/bram_rddata_a]
   connect_bd_net -net s_axi_aclk_1  [get_bd_pins s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_2/s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_1/s_axi_aclk] \
-  [get_bd_pins axi_bram_ctrl_0/s_axi_aclk]
+  [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aclk]
   connect_bd_net -net s_axi_aresetn_1  [get_bd_pins s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_2/s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_1/s_axi_aresetn] \
-  [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn]
+  [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aresetn]
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -734,6 +1266,32 @@ proc create_hier_cell_weights { parentCell nameHier } {
 
   create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI2
 
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI3
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_0
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_1
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_2
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_3
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_4
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_5
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_6
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_7
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_8
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_9
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_10
+
+  create_bd_intf_pin -mode Slave -vlnv xilinx.com:interface:aximm_rtl:1.0 S_AXI_11
+
 
   # Create pins
   create_bd_pin -dir I -type clk s_axi_aclk
@@ -750,6 +1308,58 @@ proc create_hier_cell_weights { parentCell nameHier } {
   create_bd_pin -dir O -from 11 -to 0 bram_addr_a_2
   create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_2
   create_bd_pin -dir O -from 3 -to 0 bram_we_a_2
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_3
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_3
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_3
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_3
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_4
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_4
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_4
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_4
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_5
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_5
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_5
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_5
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_6
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_6
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_6
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_6
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_7
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_7
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_7
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_7
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_8
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_8
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_8
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_8
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_9
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_9
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_9
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_9
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_10
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_10
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_10
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_10
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_11
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_11
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_11
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_11
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_12
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_12
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_12
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_12
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_13
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_13
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_13
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_13
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_14
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_14
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_14
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_14
+  create_bd_pin -dir I -from 31 -to 0 bram_rddata_a_15
+  create_bd_pin -dir O -from 31 -to 0 bram_wrdata_a_15
+  create_bd_pin -dir O -from 11 -to 0 bram_addr_a_15
+  create_bd_pin -dir O -from 3 -to 0 bram_we_a_15
 
   # Create instance: axi_bram_ctrl_0, and set properties
   set axi_bram_ctrl_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_0 ]
@@ -769,10 +1379,97 @@ proc create_hier_cell_weights { parentCell nameHier } {
   set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_2
 
 
+  # Create instance: axi_bram_ctrl_3, and set properties
+  set axi_bram_ctrl_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_3 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_3
+
+
+  # Create instance: axi_bram_ctrl_4, and set properties
+  set axi_bram_ctrl_4 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_4 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {32} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_4
+
+
+  # Create instance: axi_bram_ctrl_5, and set properties
+  set axi_bram_ctrl_5 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_5 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_5
+
+
+  # Create instance: axi_bram_ctrl_6, and set properties
+  set axi_bram_ctrl_6 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_6 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_6
+
+
+  # Create instance: axi_bram_ctrl_7, and set properties
+  set axi_bram_ctrl_7 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_7 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_7
+
+
+  # Create instance: axi_bram_ctrl_8, and set properties
+  set axi_bram_ctrl_8 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_8 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {32} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_8
+
+
+  # Create instance: axi_bram_ctrl_9, and set properties
+  set axi_bram_ctrl_9 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_9 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_9
+
+
+  # Create instance: axi_bram_ctrl_10, and set properties
+  set axi_bram_ctrl_10 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_10 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_10
+
+
+  # Create instance: axi_bram_ctrl_11, and set properties
+  set axi_bram_ctrl_11 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_11 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_11
+
+
+  # Create instance: axi_bram_ctrl_12, and set properties
+  set axi_bram_ctrl_12 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_12 ]
+  set_property -dict [list \
+    CONFIG.DATA_WIDTH {32} \
+    CONFIG.SINGLE_PORT_BRAM {1} \
+  ] $axi_bram_ctrl_12
+
+
+  # Create instance: axi_bram_ctrl_13, and set properties
+  set axi_bram_ctrl_13 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_13 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_13
+
+
+  # Create instance: axi_bram_ctrl_14, and set properties
+  set axi_bram_ctrl_14 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_14 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_14
+
+
+  # Create instance: axi_bram_ctrl_15, and set properties
+  set axi_bram_ctrl_15 [ create_bd_cell -type ip -vlnv xilinx.com:ip:axi_bram_ctrl:4.1 axi_bram_ctrl_15 ]
+  set_property CONFIG.SINGLE_PORT_BRAM {1} $axi_bram_ctrl_15
+
+
   # Create interface connections
   connect_bd_intf_net -intf_net Conn1 [get_bd_intf_pins axi_bram_ctrl_0/S_AXI] [get_bd_intf_pins S_AXI]
   connect_bd_intf_net -intf_net Conn2 [get_bd_intf_pins axi_bram_ctrl_1/S_AXI] [get_bd_intf_pins S_AXI1]
   connect_bd_intf_net -intf_net Conn3 [get_bd_intf_pins axi_bram_ctrl_2/S_AXI] [get_bd_intf_pins S_AXI2]
+  connect_bd_intf_net -intf_net Conn4 [get_bd_intf_pins axi_bram_ctrl_3/S_AXI] [get_bd_intf_pins S_AXI3]
+  connect_bd_intf_net -intf_net Conn5 [get_bd_intf_pins axi_bram_ctrl_6/S_AXI] [get_bd_intf_pins S_AXI_0]
+  connect_bd_intf_net -intf_net Conn6 [get_bd_intf_pins axi_bram_ctrl_5/S_AXI] [get_bd_intf_pins S_AXI_1]
+  connect_bd_intf_net -intf_net Conn7 [get_bd_intf_pins axi_bram_ctrl_4/S_AXI] [get_bd_intf_pins S_AXI_2]
+  connect_bd_intf_net -intf_net Conn8 [get_bd_intf_pins axi_bram_ctrl_7/S_AXI] [get_bd_intf_pins S_AXI_3]
+  connect_bd_intf_net -intf_net Conn9 [get_bd_intf_pins axi_bram_ctrl_14/S_AXI] [get_bd_intf_pins S_AXI_4]
+  connect_bd_intf_net -intf_net Conn10 [get_bd_intf_pins axi_bram_ctrl_13/S_AXI] [get_bd_intf_pins S_AXI_5]
+  connect_bd_intf_net -intf_net Conn11 [get_bd_intf_pins axi_bram_ctrl_12/S_AXI] [get_bd_intf_pins S_AXI_6]
+  connect_bd_intf_net -intf_net Conn12 [get_bd_intf_pins axi_bram_ctrl_11/S_AXI] [get_bd_intf_pins S_AXI_7]
+  connect_bd_intf_net -intf_net Conn13 [get_bd_intf_pins axi_bram_ctrl_10/S_AXI] [get_bd_intf_pins S_AXI_8]
+  connect_bd_intf_net -intf_net Conn14 [get_bd_intf_pins axi_bram_ctrl_9/S_AXI] [get_bd_intf_pins S_AXI_9]
+  connect_bd_intf_net -intf_net Conn15 [get_bd_intf_pins axi_bram_ctrl_8/S_AXI] [get_bd_intf_pins S_AXI_10]
+  connect_bd_intf_net -intf_net Conn16 [get_bd_intf_pins axi_bram_ctrl_15/S_AXI] [get_bd_intf_pins S_AXI_11]
 
   # Create port connections
   connect_bd_net -net axi_bram_ctrl_0_bram_addr_a  [get_bd_pins axi_bram_ctrl_0/bram_addr_a] \
@@ -781,6 +1478,42 @@ proc create_hier_cell_weights { parentCell nameHier } {
   [get_bd_pins bram_we_a_0]
   connect_bd_net -net axi_bram_ctrl_0_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_0/bram_wrdata_a] \
   [get_bd_pins bram_wrdata_a_0]
+  connect_bd_net -net axi_bram_ctrl_10_bram_addr_a  [get_bd_pins axi_bram_ctrl_10/bram_addr_a] \
+  [get_bd_pins bram_addr_a_10]
+  connect_bd_net -net axi_bram_ctrl_10_bram_we_a  [get_bd_pins axi_bram_ctrl_10/bram_we_a] \
+  [get_bd_pins bram_we_a_10]
+  connect_bd_net -net axi_bram_ctrl_10_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_10/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_10]
+  connect_bd_net -net axi_bram_ctrl_11_bram_addr_a  [get_bd_pins axi_bram_ctrl_11/bram_addr_a] \
+  [get_bd_pins bram_addr_a_11]
+  connect_bd_net -net axi_bram_ctrl_11_bram_we_a  [get_bd_pins axi_bram_ctrl_11/bram_we_a] \
+  [get_bd_pins bram_we_a_11]
+  connect_bd_net -net axi_bram_ctrl_11_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_11/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_11]
+  connect_bd_net -net axi_bram_ctrl_12_bram_addr_a  [get_bd_pins axi_bram_ctrl_12/bram_addr_a] \
+  [get_bd_pins bram_addr_a_12]
+  connect_bd_net -net axi_bram_ctrl_12_bram_we_a  [get_bd_pins axi_bram_ctrl_12/bram_we_a] \
+  [get_bd_pins bram_we_a_12]
+  connect_bd_net -net axi_bram_ctrl_12_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_12/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_12]
+  connect_bd_net -net axi_bram_ctrl_13_bram_addr_a  [get_bd_pins axi_bram_ctrl_13/bram_addr_a] \
+  [get_bd_pins bram_addr_a_13]
+  connect_bd_net -net axi_bram_ctrl_13_bram_we_a  [get_bd_pins axi_bram_ctrl_13/bram_we_a] \
+  [get_bd_pins bram_we_a_13]
+  connect_bd_net -net axi_bram_ctrl_13_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_13/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_13]
+  connect_bd_net -net axi_bram_ctrl_14_bram_addr_a  [get_bd_pins axi_bram_ctrl_14/bram_addr_a] \
+  [get_bd_pins bram_addr_a_14]
+  connect_bd_net -net axi_bram_ctrl_14_bram_we_a  [get_bd_pins axi_bram_ctrl_14/bram_we_a] \
+  [get_bd_pins bram_we_a_14]
+  connect_bd_net -net axi_bram_ctrl_14_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_14/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_14]
+  connect_bd_net -net axi_bram_ctrl_15_bram_addr_a  [get_bd_pins axi_bram_ctrl_15/bram_addr_a] \
+  [get_bd_pins bram_addr_a_15]
+  connect_bd_net -net axi_bram_ctrl_15_bram_we_a  [get_bd_pins axi_bram_ctrl_15/bram_we_a] \
+  [get_bd_pins bram_we_a_15]
+  connect_bd_net -net axi_bram_ctrl_15_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_15/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_15]
   connect_bd_net -net axi_bram_ctrl_1_bram_addr_a  [get_bd_pins axi_bram_ctrl_1/bram_addr_a] \
   [get_bd_pins bram_addr_a_1]
   connect_bd_net -net axi_bram_ctrl_1_bram_we_a  [get_bd_pins axi_bram_ctrl_1/bram_we_a] \
@@ -793,20 +1526,307 @@ proc create_hier_cell_weights { parentCell nameHier } {
   [get_bd_pins bram_we_a_2]
   connect_bd_net -net axi_bram_ctrl_2_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_2/bram_wrdata_a] \
   [get_bd_pins bram_wrdata_a_2]
+  connect_bd_net -net axi_bram_ctrl_3_bram_addr_a  [get_bd_pins axi_bram_ctrl_3/bram_addr_a] \
+  [get_bd_pins bram_addr_a_3]
+  connect_bd_net -net axi_bram_ctrl_3_bram_we_a  [get_bd_pins axi_bram_ctrl_3/bram_we_a] \
+  [get_bd_pins bram_we_a_3]
+  connect_bd_net -net axi_bram_ctrl_3_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_3/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_3]
+  connect_bd_net -net axi_bram_ctrl_4_bram_addr_a  [get_bd_pins axi_bram_ctrl_4/bram_addr_a] \
+  [get_bd_pins bram_addr_a_4]
+  connect_bd_net -net axi_bram_ctrl_4_bram_we_a  [get_bd_pins axi_bram_ctrl_4/bram_we_a] \
+  [get_bd_pins bram_we_a_4]
+  connect_bd_net -net axi_bram_ctrl_4_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_4/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_4]
+  connect_bd_net -net axi_bram_ctrl_5_bram_addr_a  [get_bd_pins axi_bram_ctrl_5/bram_addr_a] \
+  [get_bd_pins bram_addr_a_5]
+  connect_bd_net -net axi_bram_ctrl_5_bram_we_a  [get_bd_pins axi_bram_ctrl_5/bram_we_a] \
+  [get_bd_pins bram_we_a_5]
+  connect_bd_net -net axi_bram_ctrl_5_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_5/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_5]
+  connect_bd_net -net axi_bram_ctrl_6_bram_addr_a  [get_bd_pins axi_bram_ctrl_6/bram_addr_a] \
+  [get_bd_pins bram_addr_a_6]
+  connect_bd_net -net axi_bram_ctrl_6_bram_we_a  [get_bd_pins axi_bram_ctrl_6/bram_we_a] \
+  [get_bd_pins bram_we_a_6]
+  connect_bd_net -net axi_bram_ctrl_6_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_6/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_6]
+  connect_bd_net -net axi_bram_ctrl_7_bram_addr_a  [get_bd_pins axi_bram_ctrl_7/bram_addr_a] \
+  [get_bd_pins bram_addr_a_7]
+  connect_bd_net -net axi_bram_ctrl_7_bram_we_a  [get_bd_pins axi_bram_ctrl_7/bram_we_a] \
+  [get_bd_pins bram_we_a_7]
+  connect_bd_net -net axi_bram_ctrl_7_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_7/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_7]
+  connect_bd_net -net axi_bram_ctrl_8_bram_addr_a  [get_bd_pins axi_bram_ctrl_8/bram_addr_a] \
+  [get_bd_pins bram_addr_a_8]
+  connect_bd_net -net axi_bram_ctrl_8_bram_we_a  [get_bd_pins axi_bram_ctrl_8/bram_we_a] \
+  [get_bd_pins bram_we_a_8]
+  connect_bd_net -net axi_bram_ctrl_8_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_8/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_8]
+  connect_bd_net -net axi_bram_ctrl_9_bram_addr_a  [get_bd_pins axi_bram_ctrl_9/bram_addr_a] \
+  [get_bd_pins bram_addr_a_9]
+  connect_bd_net -net axi_bram_ctrl_9_bram_we_a  [get_bd_pins axi_bram_ctrl_9/bram_we_a] \
+  [get_bd_pins bram_we_a_9]
+  connect_bd_net -net axi_bram_ctrl_9_bram_wrdata_a  [get_bd_pins axi_bram_ctrl_9/bram_wrdata_a] \
+  [get_bd_pins bram_wrdata_a_9]
   connect_bd_net -net bram_rddata_a_0_1  [get_bd_pins bram_rddata_a_0] \
   [get_bd_pins axi_bram_ctrl_0/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_10_1  [get_bd_pins bram_rddata_a_10] \
+  [get_bd_pins axi_bram_ctrl_10/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_11_1  [get_bd_pins bram_rddata_a_11] \
+  [get_bd_pins axi_bram_ctrl_11/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_12_1  [get_bd_pins bram_rddata_a_12] \
+  [get_bd_pins axi_bram_ctrl_12/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_13_1  [get_bd_pins bram_rddata_a_13] \
+  [get_bd_pins axi_bram_ctrl_13/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_14_1  [get_bd_pins bram_rddata_a_14] \
+  [get_bd_pins axi_bram_ctrl_14/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_15_1  [get_bd_pins bram_rddata_a_15] \
+  [get_bd_pins axi_bram_ctrl_15/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_1_1  [get_bd_pins bram_rddata_a_1] \
   [get_bd_pins axi_bram_ctrl_1/bram_rddata_a]
   connect_bd_net -net bram_rddata_a_2_1  [get_bd_pins bram_rddata_a_2] \
   [get_bd_pins axi_bram_ctrl_2/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_3_1  [get_bd_pins bram_rddata_a_3] \
+  [get_bd_pins axi_bram_ctrl_3/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_4_1  [get_bd_pins bram_rddata_a_4] \
+  [get_bd_pins axi_bram_ctrl_4/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_5_1  [get_bd_pins bram_rddata_a_5] \
+  [get_bd_pins axi_bram_ctrl_5/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_6_1  [get_bd_pins bram_rddata_a_6] \
+  [get_bd_pins axi_bram_ctrl_6/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_7_1  [get_bd_pins bram_rddata_a_7] \
+  [get_bd_pins axi_bram_ctrl_7/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_8_1  [get_bd_pins bram_rddata_a_8] \
+  [get_bd_pins axi_bram_ctrl_8/bram_rddata_a]
+  connect_bd_net -net bram_rddata_a_9_1  [get_bd_pins bram_rddata_a_9] \
+  [get_bd_pins axi_bram_ctrl_9/bram_rddata_a]
   connect_bd_net -net s_axi_aclk_1  [get_bd_pins s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_0/s_axi_aclk] \
   [get_bd_pins axi_bram_ctrl_1/s_axi_aclk] \
-  [get_bd_pins axi_bram_ctrl_2/s_axi_aclk]
+  [get_bd_pins axi_bram_ctrl_2/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aclk] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aclk]
   connect_bd_net -net s_axi_aresetn_1  [get_bd_pins s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_0/s_axi_aresetn] \
   [get_bd_pins axi_bram_ctrl_2/s_axi_aresetn] \
-  [get_bd_pins axi_bram_ctrl_1/s_axi_aresetn]
+  [get_bd_pins axi_bram_ctrl_1/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_3/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_7/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_6/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_5/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_4/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_8/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_9/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_10/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_11/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_12/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_13/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_14/s_axi_aresetn] \
+  [get_bd_pins axi_bram_ctrl_15/s_axi_aresetn]
+
+  # Perform GUI Layout
+  regenerate_bd_layout -hierarchy [get_bd_cells /weights] -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.59274",
+   "Default View_TopLeft":"-616,-388",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
+#  -string -flagsOSRD
+preplace port S_AXI -pg 1 -lvl 0 -x -90 -y 70 -defaultsOSRD
+preplace port S_AXI1 -pg 1 -lvl 0 -x -90 -y 290 -defaultsOSRD
+preplace port S_AXI2 -pg 1 -lvl 0 -x -90 -y 470 -defaultsOSRD
+preplace port S_AXI3 -pg 1 -lvl 0 -x -90 -y 680 -defaultsOSRD
+preplace port S_AXI_0 -pg 1 -lvl 0 -x -90 -y 900 -defaultsOSRD
+preplace port S_AXI_1 -pg 1 -lvl 0 -x -90 -y 740 -defaultsOSRD
+preplace port S_AXI_2 -pg 1 -lvl 0 -x -90 -y 700 -defaultsOSRD
+preplace port S_AXI_3 -pg 1 -lvl 0 -x -90 -y 1110 -defaultsOSRD
+preplace port S_AXI_4 -pg 1 -lvl 0 -x -90 -y 1770 -defaultsOSRD
+preplace port S_AXI_5 -pg 1 -lvl 0 -x -90 -y 1570 -defaultsOSRD
+preplace port S_AXI_6 -pg 1 -lvl 0 -x -90 -y 1370 -defaultsOSRD
+preplace port S_AXI_7 -pg 1 -lvl 0 -x -90 -y 1250 -defaultsOSRD
+preplace port S_AXI_8 -pg 1 -lvl 0 -x -90 -y 1210 -defaultsOSRD
+preplace port S_AXI_9 -pg 1 -lvl 0 -x -90 -y 1170 -defaultsOSRD
+preplace port S_AXI_10 -pg 1 -lvl 0 -x -90 -y 1130 -defaultsOSRD
+preplace port S_AXI_11 -pg 1 -lvl 0 -x -90 -y 1970 -defaultsOSRD
+preplace port port-id_s_axi_aclk -pg 1 -lvl 0 -x -90 -y 310 -defaultsOSRD
+preplace port port-id_s_axi_aresetn -pg 1 -lvl 0 -x -90 -y 490 -defaultsOSRD
+preplace portBus bram_wrdata_a_0 -pg 1 -lvl 2 -x 1470 -y 90 -defaultsOSRD
+preplace portBus bram_addr_a_0 -pg 1 -lvl 2 -x 1470 -y 70 -defaultsOSRD
+preplace portBus bram_rddata_a_0 -pg 1 -lvl 0 -x -90 -y 190 -defaultsOSRD
+preplace portBus bram_we_a_0 -pg 1 -lvl 2 -x 1470 -y 130 -defaultsOSRD
+preplace portBus bram_wrdata_a_1 -pg 1 -lvl 2 -x 1470 -y 310 -defaultsOSRD
+preplace portBus bram_we_a_1 -pg 1 -lvl 2 -x 1470 -y 350 -defaultsOSRD
+preplace portBus bram_rddata_a_1 -pg 1 -lvl 0 -x -90 -y 210 -defaultsOSRD
+preplace portBus bram_addr_a_1 -pg 1 -lvl 2 -x 1470 -y 290 -defaultsOSRD
+preplace portBus bram_wrdata_a_2 -pg 1 -lvl 2 -x 1470 -y 490 -defaultsOSRD
+preplace portBus bram_addr_a_2 -pg 1 -lvl 2 -x 1470 -y 470 -defaultsOSRD
+preplace portBus bram_rddata_a_2 -pg 1 -lvl 0 -x -90 -y 590 -defaultsOSRD
+preplace portBus bram_we_a_2 -pg 1 -lvl 2 -x 1470 -y 530 -defaultsOSRD
+preplace portBus bram_wrdata_a_3 -pg 1 -lvl 2 -x 1470 -y 700 -defaultsOSRD
+preplace portBus bram_rddata_a_3 -pg 1 -lvl 0 -x -90 -y 610 -defaultsOSRD
+preplace portBus bram_addr_a_3 -pg 1 -lvl 2 -x 1470 -y 680 -defaultsOSRD
+preplace portBus bram_we_a_3 -pg 1 -lvl 2 -x 1470 -y 740 -defaultsOSRD
+preplace portBus bram_rddata_a_4 -pg 1 -lvl 0 -x -90 -y 720 -defaultsOSRD
+preplace portBus bram_addr_a_4 -pg 1 -lvl 2 -x 1470 -y 760 -defaultsOSRD
+preplace portBus bram_wrdata_a_4 -pg 1 -lvl 2 -x 1470 -y 780 -defaultsOSRD
+preplace portBus bram_we_a_4 -pg 1 -lvl 2 -x 1470 -y 800 -defaultsOSRD
+preplace portBus bram_rddata_a_5 -pg 1 -lvl 0 -x -90 -y 820 -defaultsOSRD
+preplace portBus bram_addr_a_5 -pg 1 -lvl 2 -x 1470 -y 820 -defaultsOSRD
+preplace portBus bram_wrdata_a_5 -pg 1 -lvl 2 -x 1470 -y 840 -defaultsOSRD
+preplace portBus bram_we_a_5 -pg 1 -lvl 2 -x 1470 -y 860 -defaultsOSRD
+preplace portBus bram_rddata_a_6 -pg 1 -lvl 0 -x -90 -y 1020 -defaultsOSRD
+preplace portBus bram_addr_a_6 -pg 1 -lvl 2 -x 1470 -y 900 -defaultsOSRD
+preplace portBus bram_wrdata_a_6 -pg 1 -lvl 2 -x 1470 -y 920 -defaultsOSRD
+preplace portBus bram_we_a_6 -pg 1 -lvl 2 -x 1470 -y 960 -defaultsOSRD
+preplace portBus bram_rddata_a_7 -pg 1 -lvl 0 -x -90 -y 1040 -defaultsOSRD
+preplace portBus bram_addr_a_7 -pg 1 -lvl 2 -x 1470 -y 1110 -defaultsOSRD
+preplace portBus bram_wrdata_a_7 -pg 1 -lvl 2 -x 1470 -y 1130 -defaultsOSRD
+preplace portBus bram_we_a_7 -pg 1 -lvl 2 -x 1470 -y 1170 -defaultsOSRD
+preplace portBus bram_rddata_a_8 -pg 1 -lvl 0 -x -90 -y 1150 -defaultsOSRD
+preplace portBus bram_addr_a_8 -pg 1 -lvl 2 -x 1470 -y 1190 -defaultsOSRD
+preplace portBus bram_wrdata_a_8 -pg 1 -lvl 2 -x 1470 -y 1210 -defaultsOSRD
+preplace portBus bram_we_a_8 -pg 1 -lvl 2 -x 1470 -y 1230 -defaultsOSRD
+preplace portBus bram_rddata_a_9 -pg 1 -lvl 0 -x -90 -y 1190 -defaultsOSRD
+preplace portBus bram_addr_a_9 -pg 1 -lvl 2 -x 1470 -y 1290 -defaultsOSRD
+preplace portBus bram_wrdata_a_9 -pg 1 -lvl 2 -x 1470 -y 1250 -defaultsOSRD
+preplace portBus bram_we_a_9 -pg 1 -lvl 2 -x 1470 -y 1270 -defaultsOSRD
+preplace portBus bram_addr_a_10 -pg 1 -lvl 2 -x 1470 -y 1310 -defaultsOSRD
+preplace portBus bram_rddata_a_10 -pg 1 -lvl 0 -x -90 -y 1230 -defaultsOSRD
+preplace portBus bram_wrdata_a_10 -pg 1 -lvl 2 -x 1470 -y 1330 -defaultsOSRD
+preplace portBus bram_we_a_10 -pg 1 -lvl 2 -x 1470 -y 1350 -defaultsOSRD
+preplace portBus bram_addr_a_11 -pg 1 -lvl 2 -x 1470 -y 1370 -defaultsOSRD
+preplace portBus bram_rddata_a_11 -pg 1 -lvl 0 -x -90 -y 1290 -defaultsOSRD
+preplace portBus bram_wrdata_a_11 -pg 1 -lvl 2 -x 1470 -y 1390 -defaultsOSRD
+preplace portBus bram_we_a_11 -pg 1 -lvl 2 -x 1470 -y 1410 -defaultsOSRD
+preplace portBus bram_rddata_a_12 -pg 1 -lvl 0 -x -90 -y 1490 -defaultsOSRD
+preplace portBus bram_wrdata_a_12 -pg 1 -lvl 2 -x 1470 -y 1450 -defaultsOSRD
+preplace portBus bram_addr_a_12 -pg 1 -lvl 2 -x 1470 -y 1430 -defaultsOSRD
+preplace portBus bram_we_a_12 -pg 1 -lvl 2 -x 1470 -y 1470 -defaultsOSRD
+preplace portBus bram_rddata_a_13 -pg 1 -lvl 0 -x -90 -y 1690 -defaultsOSRD
+preplace portBus bram_wrdata_a_13 -pg 1 -lvl 2 -x 1470 -y 1590 -defaultsOSRD
+preplace portBus bram_addr_a_13 -pg 1 -lvl 2 -x 1470 -y 1570 -defaultsOSRD
+preplace portBus bram_we_a_13 -pg 1 -lvl 2 -x 1470 -y 1630 -defaultsOSRD
+preplace portBus bram_rddata_a_14 -pg 1 -lvl 0 -x -90 -y 1890 -defaultsOSRD
+preplace portBus bram_wrdata_a_14 -pg 1 -lvl 2 -x 1470 -y 1790 -defaultsOSRD
+preplace portBus bram_addr_a_14 -pg 1 -lvl 2 -x 1470 -y 1770 -defaultsOSRD
+preplace portBus bram_we_a_14 -pg 1 -lvl 2 -x 1470 -y 1830 -defaultsOSRD
+preplace portBus bram_rddata_a_15 -pg 1 -lvl 0 -x -90 -y 2150 -defaultsOSRD
+preplace portBus bram_wrdata_a_15 -pg 1 -lvl 2 -x 1470 -y 1990 -defaultsOSRD
+preplace portBus bram_addr_a_15 -pg 1 -lvl 2 -x 1470 -y 1970 -defaultsOSRD
+preplace portBus bram_we_a_15 -pg 1 -lvl 2 -x 1470 -y 2030 -defaultsOSRD
+preplace inst axi_bram_ctrl_0 -pg 1 -lvl 1 -x 290 -y -890 -defaultsOSRD
+preplace inst axi_bram_ctrl_1 -pg 1 -lvl 1 -x 290 -y -710 -defaultsOSRD
+preplace inst axi_bram_ctrl_2 -pg 1 -lvl 1 -x 290 -y -530 -defaultsOSRD
+preplace inst axi_bram_ctrl_3 -pg 1 -lvl 1 -x 290 -y -350 -defaultsOSRD
+preplace inst axi_bram_ctrl_4 -pg 1 -lvl 1 -x 290 -y -150 -defaultsOSRD
+preplace inst axi_bram_ctrl_5 -pg 1 -lvl 1 -x 290 -y 30 -defaultsOSRD
+preplace inst axi_bram_ctrl_6 -pg 1 -lvl 1 -x 290 -y 210 -defaultsOSRD
+preplace inst axi_bram_ctrl_7 -pg 1 -lvl 1 -x 290 -y 410 -defaultsOSRD
+preplace inst axi_bram_ctrl_8 -pg 1 -lvl 1 -x 290 -y 590 -defaultsOSRD
+preplace inst axi_bram_ctrl_9 -pg 1 -lvl 1 -x 290 -y 810 -defaultsOSRD
+preplace inst axi_bram_ctrl_10 -pg 1 -lvl 1 -x 290 -y 990 -defaultsOSRD
+preplace inst axi_bram_ctrl_11 -pg 1 -lvl 1 -x 290 -y 1170 -defaultsOSRD
+preplace inst axi_bram_ctrl_12 -pg 1 -lvl 1 -x 290 -y 1370 -defaultsOSRD
+preplace inst axi_bram_ctrl_13 -pg 1 -lvl 1 -x 290 -y 1550 -defaultsOSRD
+preplace inst axi_bram_ctrl_14 -pg 1 -lvl 1 -x 290 -y 1750 -defaultsOSRD
+preplace inst axi_bram_ctrl_15 -pg 1 -lvl 1 -x 290 -y 1950 -defaultsOSRD
+preplace netloc axi_bram_ctrl_0_bram_addr_a 1 1 1 920J -910n
+preplace netloc axi_bram_ctrl_0_bram_we_a 1 1 1 900J -850n
+preplace netloc axi_bram_ctrl_0_bram_wrdata_a 1 1 1 910J -890n
+preplace netloc axi_bram_ctrl_10_bram_addr_a 1 1 1 620J 970n
+preplace netloc axi_bram_ctrl_10_bram_we_a 1 1 1 600J 1030n
+preplace netloc axi_bram_ctrl_10_bram_wrdata_a 1 1 1 610J 990n
+preplace netloc axi_bram_ctrl_11_bram_addr_a 1 1 1 590J 1150n
+preplace netloc axi_bram_ctrl_11_bram_we_a 1 1 1 570J 1210n
+preplace netloc axi_bram_ctrl_11_bram_wrdata_a 1 1 1 580J 1170n
+preplace netloc axi_bram_ctrl_12_bram_addr_a 1 1 1 560J 1350n
+preplace netloc axi_bram_ctrl_12_bram_we_a 1 1 1 540J 1410n
+preplace netloc axi_bram_ctrl_12_bram_wrdata_a 1 1 1 550J 1370n
+preplace netloc axi_bram_ctrl_13_bram_addr_a 1 1 1 920J 1530n
+preplace netloc axi_bram_ctrl_13_bram_we_a 1 1 1 560J 1590n
+preplace netloc axi_bram_ctrl_13_bram_wrdata_a 1 1 1 790J 1550n
+preplace netloc axi_bram_ctrl_14_bram_addr_a 1 1 1 920J 1730n
+preplace netloc axi_bram_ctrl_14_bram_we_a 1 1 1 560J 1790n
+preplace netloc axi_bram_ctrl_14_bram_wrdata_a 1 1 1 790J 1750n
+preplace netloc axi_bram_ctrl_15_bram_addr_a 1 1 1 920J 1930n
+preplace netloc axi_bram_ctrl_15_bram_we_a 1 1 1 590J 1990n
+preplace netloc axi_bram_ctrl_15_bram_wrdata_a 1 1 1 880J 1950n
+preplace netloc axi_bram_ctrl_1_bram_addr_a 1 1 1 890J -730n
+preplace netloc axi_bram_ctrl_1_bram_we_a 1 1 1 870J -670n
+preplace netloc axi_bram_ctrl_1_bram_wrdata_a 1 1 1 880J -710n
+preplace netloc axi_bram_ctrl_2_bram_addr_a 1 1 1 860J -550n
+preplace netloc axi_bram_ctrl_2_bram_we_a 1 1 1 840J -490n
+preplace netloc axi_bram_ctrl_2_bram_wrdata_a 1 1 1 850J -530n
+preplace netloc axi_bram_ctrl_3_bram_addr_a 1 1 1 830J -370n
+preplace netloc axi_bram_ctrl_3_bram_we_a 1 1 1 810J -310n
+preplace netloc axi_bram_ctrl_3_bram_wrdata_a 1 1 1 820J -350n
+preplace netloc axi_bram_ctrl_4_bram_addr_a 1 1 1 800 -170n
+preplace netloc axi_bram_ctrl_4_bram_we_a 1 1 1 780J -110n
+preplace netloc axi_bram_ctrl_4_bram_wrdata_a 1 1 1 790J -150n
+preplace netloc axi_bram_ctrl_5_bram_addr_a 1 1 1 770J 10n
+preplace netloc axi_bram_ctrl_5_bram_we_a 1 1 1 750J 70n
+preplace netloc axi_bram_ctrl_5_bram_wrdata_a 1 1 1 760J 30n
+preplace netloc axi_bram_ctrl_6_bram_addr_a 1 1 1 740J 190n
+preplace netloc axi_bram_ctrl_6_bram_we_a 1 1 1 720J 250n
+preplace netloc axi_bram_ctrl_6_bram_wrdata_a 1 1 1 730J 210n
+preplace netloc axi_bram_ctrl_7_bram_addr_a 1 1 1 710J 390n
+preplace netloc axi_bram_ctrl_7_bram_we_a 1 1 1 690J 450n
+preplace netloc axi_bram_ctrl_7_bram_wrdata_a 1 1 1 700J 410n
+preplace netloc axi_bram_ctrl_8_bram_addr_a 1 1 1 680J 570n
+preplace netloc axi_bram_ctrl_8_bram_we_a 1 1 1 660J 630n
+preplace netloc axi_bram_ctrl_8_bram_wrdata_a 1 1 1 670J 590n
+preplace netloc axi_bram_ctrl_9_bram_addr_a 1 1 1 640 790n
+preplace netloc axi_bram_ctrl_9_bram_we_a 1 1 1 630J 850n
+preplace netloc axi_bram_ctrl_9_bram_wrdata_a 1 1 1 650J 810n
+preplace netloc bram_rddata_a_0_1 1 0 2 -40J -250 460
+preplace netloc bram_rddata_a_10_1 1 0 2 60J 1270 460
+preplace netloc bram_rddata_a_11_1 1 0 2 40J 1650 450
+preplace netloc bram_rddata_a_12_1 1 0 2 20J 1850 460
+preplace netloc bram_rddata_a_13_1 1 0 2 -60J 2110 470
+preplace netloc bram_rddata_a_14_1 1 0 2 -70J 2120 450
+preplace netloc bram_rddata_a_15_1 1 0 2 NJ 2150 460
+preplace netloc bram_rddata_a_1_1 1 0 2 -70J 310 450
+preplace netloc bram_rddata_a_2_1 1 0 2 70J 2050 530
+preplace netloc bram_rddata_a_3_1 1 0 2 50J 2060 520
+preplace netloc bram_rddata_a_4_1 1 0 2 30J 2070 510
+preplace netloc bram_rddata_a_5_1 1 0 2 10J 2080 500
+preplace netloc bram_rddata_a_6_1 1 0 2 0J 2090 490
+preplace netloc bram_rddata_a_7_1 1 0 2 -30J 2100 480
+preplace netloc bram_rddata_a_8_1 1 0 2 60J 700 460
+preplace netloc bram_rddata_a_9_1 1 0 2 80J 710 450
+preplace netloc s_axi_aclk_1 1 0 1 110 -890n
+preplace netloc s_axi_aresetn_1 1 0 1 120 -870n
+preplace netloc Conn1 1 0 1 -70J -910n
+preplace netloc Conn2 1 0 1 -60J -730n
+preplace netloc Conn3 1 0 1 -50J -550n
+preplace netloc Conn4 1 0 1 -30J -370n
+preplace netloc Conn5 1 0 1 0J 190n
+preplace netloc Conn6 1 0 1 -10J 10n
+preplace netloc Conn7 1 0 1 -20 -170n
+preplace netloc Conn8 1 0 1 20J 390n
+preplace netloc Conn9 1 0 1 -70J 1730n
+preplace netloc Conn10 1 0 1 -70J 1530n
+preplace netloc Conn11 1 0 1 -70 1350n
+preplace netloc Conn12 1 0 1 130J 1150n
+preplace netloc Conn13 1 0 1 100J 970n
+preplace netloc Conn14 1 0 1 90 790n
+preplace netloc Conn15 1 0 1 40J 570n
+preplace netloc Conn16 1 0 1 -20J 1930n
+levelinfo -pg 1 -90 290 1470
+pagesize -pg 1 -db -bbox -sgen -300 -990 1680 2170
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -841,7 +1861,6 @@ proc create_hier_cell_weights { parentCell nameHier } {
   # Create interface ports
 
   # Create ports
-  set ext_clk100 [ create_bd_port -dir I -type clk ext_clk100 ]
   set ext_rstn [ create_bd_port -dir I -type rst ext_rstn ]
   set go [ create_bd_port -dir O -from 0 -to 0 go ]
   set done [ create_bd_port -dir I -from 0 -to 0 done ]
@@ -854,15 +1873,15 @@ proc create_hier_cell_weights { parentCell nameHier } {
   set psum_rdata_1 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_1 ]
   set psum_rdata_2 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_2 ]
   set iact_wdata_0 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_0 ]
-  set iact_addr_0 [ create_bd_port -dir O -from 11 -to 0 iact_addr_0 ]
+  set iact_addr_0 [ create_bd_port -dir O -from 12 -to 0 iact_addr_0 ]
   set iact_we_0 [ create_bd_port -dir O -from 3 -to 0 iact_we_0 ]
   set iact_rdata_0 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_0 ]
   set iact_wdata_1 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_1 ]
-  set iact_addr_1 [ create_bd_port -dir O -from 11 -to 0 iact_addr_1 ]
+  set iact_addr_1 [ create_bd_port -dir O -from 12 -to 0 iact_addr_1 ]
   set iact_rdata_1 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_1 ]
   set iact_we_1 [ create_bd_port -dir O -from 3 -to 0 iact_we_1 ]
   set iact_wdata_2 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_2 ]
-  set iact_addr_2 [ create_bd_port -dir O -from 11 -to 0 iact_addr_2 ]
+  set iact_addr_2 [ create_bd_port -dir O -from 12 -to 0 iact_addr_2 ]
   set iact_rdata_2 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_2 ]
   set iact_we_2 [ create_bd_port -dir O -from 3 -to 0 iact_we_2 ]
   set weight_wdata_0 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_0 ]
@@ -879,11 +1898,151 @@ proc create_hier_cell_weights { parentCell nameHier } {
   set weight_we_2 [ create_bd_port -dir O -from 3 -to 0 weight_we_2 ]
   set uart_tx [ create_bd_port -dir O uart_tx ]
   set uart_rx [ create_bd_port -dir I uart_rx ]
+  set ext_clk_n [ create_bd_port -dir I ext_clk_n ]
+  set ext_clk_p [ create_bd_port -dir I ext_clk_p ]
+  set iact_addr_3 [ create_bd_port -dir O -from 12 -to 0 iact_addr_3 ]
+  set iact_wdata_3 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_3 ]
+  set iact_rdata_3 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_3 ]
+  set iact_we_3 [ create_bd_port -dir O -from 3 -to 0 iact_we_3 ]
+  set psum_addr_3 [ create_bd_port -dir O -from 12 -to 0 psum_addr_3 ]
+  set psum_rdata_3 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_3 ]
+  set weight_wdata_3 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_3 ]
+  set weight_rdata_3 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_3 ]
+  set weight_addr_3 [ create_bd_port -dir O -from 11 -to 0 weight_addr_3 ]
+  set weight_we_3 [ create_bd_port -dir O -from 3 -to 0 weight_we_3 ]
+  set iact_rdata_4 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_4 ]
+  set iact_addr_4 [ create_bd_port -dir O -from 12 -to 0 iact_addr_4 ]
+  set iact_wdata_4 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_4 ]
+  set iact_we_4 [ create_bd_port -dir O -from 3 -to 0 iact_we_4 ]
+  set iact_rdata_5 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_5 ]
+  set iact_addr_5 [ create_bd_port -dir O -from 12 -to 0 iact_addr_5 ]
+  set iact_wdata_5 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_5 ]
+  set iact_we_5 [ create_bd_port -dir O -from 3 -to 0 iact_we_5 ]
+  set iact_rdata_6 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_6 ]
+  set iact_addr_6 [ create_bd_port -dir O -from 12 -to 0 iact_addr_6 ]
+  set iact_wdata_6 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_6 ]
+  set iact_we_6 [ create_bd_port -dir O -from 3 -to 0 iact_we_6 ]
+  set iact_rdata_7 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_7 ]
+  set iact_addr_7 [ create_bd_port -dir O -from 12 -to 0 iact_addr_7 ]
+  set iact_wdata_7 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_7 ]
+  set iact_we_7 [ create_bd_port -dir O -from 3 -to 0 iact_we_7 ]
+  set psum_addr_4 [ create_bd_port -dir O -from 12 -to 0 psum_addr_4 ]
+  set psum_rdata_4 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_4 ]
+  set psum_addr_5 [ create_bd_port -dir O -from 12 -to 0 psum_addr_5 ]
+  set psum_rdata_5 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_5 ]
+  set psum_rdata_6 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_6 ]
+  set psum_addr_6 [ create_bd_port -dir O -from 12 -to 0 psum_addr_6 ]
+  set psum_addr_7 [ create_bd_port -dir O -from 12 -to 0 psum_addr_7 ]
+  set psum_rdata_7 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_7 ]
+  set weight_rdata_4 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_4 ]
+  set weight_addr_4 [ create_bd_port -dir O -from 11 -to 0 weight_addr_4 ]
+  set weight_wdata_4 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_4 ]
+  set weight_we_4 [ create_bd_port -dir O -from 3 -to 0 weight_we_4 ]
+  set weight_rdata_5 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_5 ]
+  set weight_addr_5 [ create_bd_port -dir O -from 11 -to 0 weight_addr_5 ]
+  set weight_wdata_5 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_5 ]
+  set weight_we_5 [ create_bd_port -dir O -from 3 -to 0 weight_we_5 ]
+  set weight_rdata_6 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_6 ]
+  set weight_addr_6 [ create_bd_port -dir O -from 11 -to 0 weight_addr_6 ]
+  set weight_wdata_6 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_6 ]
+  set weight_we_6 [ create_bd_port -dir O -from 3 -to 0 weight_we_6 ]
+  set weight_rdata_7 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_7 ]
+  set weight_addr_7 [ create_bd_port -dir O -from 11 -to 0 weight_addr_7 ]
+  set weight_wdata_7 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_7 ]
+  set weight_we_7 [ create_bd_port -dir O -from 3 -to 0 weight_we_7 ]
+  set iact_rdata_8 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_8 ]
+  set iact_addr_8 [ create_bd_port -dir O -from 12 -to 0 iact_addr_8 ]
+  set iact_wdata_8 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_8 ]
+  set iact_we_8 [ create_bd_port -dir O -from 3 -to 0 iact_we_8 ]
+  set iact_rdata_9 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_9 ]
+  set iact_addr_9 [ create_bd_port -dir O -from 12 -to 0 iact_addr_9 ]
+  set iact_wdata_9 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_9 ]
+  set iact_we_9 [ create_bd_port -dir O -from 3 -to 0 iact_we_9 ]
+  set iact_addr_10 [ create_bd_port -dir O -from 12 -to 0 iact_addr_10 ]
+  set iact_rdata_10 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_10 ]
+  set iact_wdata_10 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_10 ]
+  set iact_we_10 [ create_bd_port -dir O -from 3 -to 0 iact_we_10 ]
+  set iact_addr_11 [ create_bd_port -dir O -from 12 -to 0 iact_addr_11 ]
+  set iact_rdata_11 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_11 ]
+  set iact_wdata_11 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_11 ]
+  set iact_we_11 [ create_bd_port -dir O -from 3 -to 0 iact_we_11 ]
+  set iact_rdata_12 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_12 ]
+  set iact_wdata_12 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_12 ]
+  set iact_addr_12 [ create_bd_port -dir O -from 12 -to 0 iact_addr_12 ]
+  set iact_we_12 [ create_bd_port -dir O -from 3 -to 0 iact_we_12 ]
+  set iact_rdata_13 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_13 ]
+  set iact_wdata_13 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_13 ]
+  set iact_addr_13 [ create_bd_port -dir O -from 12 -to 0 iact_addr_13 ]
+  set iact_we_13 [ create_bd_port -dir O -from 3 -to 0 iact_we_13 ]
+  set iact_rdata_14 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_14 ]
+  set iact_wdata_14 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_14 ]
+  set iact_addr_14 [ create_bd_port -dir O -from 12 -to 0 iact_addr_14 ]
+  set iact_we_14 [ create_bd_port -dir O -from 3 -to 0 iact_we_14 ]
+  set iact_rdata_15 [ create_bd_port -dir I -from 31 -to 0 iact_rdata_15 ]
+  set iact_wdata_15 [ create_bd_port -dir O -from 31 -to 0 iact_wdata_15 ]
+  set iact_addr_15 [ create_bd_port -dir O -from 12 -to 0 iact_addr_15 ]
+  set iact_we_15 [ create_bd_port -dir O -from 3 -to 0 iact_we_15 ]
+  set psum_addr_8 [ create_bd_port -dir O -from 12 -to 0 psum_addr_8 ]
+  set psum_rdata_8 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_8 ]
+  set psum_addr_9 [ create_bd_port -dir O -from 12 -to 0 psum_addr_9 ]
+  set psum_rdata_9 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_9 ]
+  set psum_addr_10 [ create_bd_port -dir O -from 12 -to 0 psum_addr_10 ]
+  set psum_rdata_10 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_10 ]
+  set psum_addr_11 [ create_bd_port -dir O -from 12 -to 0 psum_addr_11 ]
+  set psum_rdata_11 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_11 ]
+  set psum_addr_12 [ create_bd_port -dir O -from 12 -to 0 psum_addr_12 ]
+  set psum_rdata_12 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_12 ]
+  set psum_addr_13 [ create_bd_port -dir O -from 12 -to 0 psum_addr_13 ]
+  set psum_rdata_13 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_13 ]
+  set psum_addr_14 [ create_bd_port -dir O -from 12 -to 0 psum_addr_14 ]
+  set psum_rdata_14 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_14 ]
+  set psum_addr_15 [ create_bd_port -dir O -from 12 -to 0 psum_addr_15 ]
+  set psum_rdata_15 [ create_bd_port -dir I -from 63 -to 0 psum_rdata_15 ]
+  set weight_rdata_8 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_8 ]
+  set weight_addr_8 [ create_bd_port -dir O -from 11 -to 0 weight_addr_8 ]
+  set weight_wdata_8 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_8 ]
+  set weight_we_8 [ create_bd_port -dir O -from 3 -to 0 weight_we_8 ]
+  set weight_rdata_9 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_9 ]
+  set weight_addr_9 [ create_bd_port -dir O -from 11 -to 0 weight_addr_9 ]
+  set weight_wdata_9 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_9 ]
+  set weight_we_9 [ create_bd_port -dir O -from 3 -to 0 weight_we_9 ]
+  set weight_addr_10 [ create_bd_port -dir O -from 11 -to 0 weight_addr_10 ]
+  set weight_rdata_10 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_10 ]
+  set weight_wdata_10 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_10 ]
+  set weight_we_10 [ create_bd_port -dir O -from 3 -to 0 weight_we_10 ]
+  set weight_addr_11 [ create_bd_port -dir O -from 11 -to 0 weight_addr_11 ]
+  set weight_rdata_11 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_11 ]
+  set weight_wdata_11 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_11 ]
+  set weight_we_11 [ create_bd_port -dir O -from 3 -to 0 weight_we_11 ]
+  set weight_rdata_12 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_12 ]
+  set weight_wdata_12 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_12 ]
+  set weight_addr_12 [ create_bd_port -dir O -from 11 -to 0 weight_addr_12 ]
+  set weight_we_12 [ create_bd_port -dir O -from 3 -to 0 weight_we_12 ]
+  set weight_rdata_13 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_13 ]
+  set weight_wdata_13 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_13 ]
+  set weight_addr_13 [ create_bd_port -dir O -from 11 -to 0 weight_addr_13 ]
+  set weight_we_13 [ create_bd_port -dir O -from 3 -to 0 weight_we_13 ]
+  set weight_rdata_14 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_14 ]
+  set weight_wdata_14 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_14 ]
+  set weight_addr_14 [ create_bd_port -dir O -from 11 -to 0 weight_addr_14 ]
+  set weight_we_14 [ create_bd_port -dir O -from 3 -to 0 weight_we_14 ]
+  set weight_rdata_15 [ create_bd_port -dir I -from 31 -to 0 weight_rdata_15 ]
+  set weight_wdata_15 [ create_bd_port -dir O -from 31 -to 0 weight_wdata_15 ]
+  set weight_addr_15 [ create_bd_port -dir O -from 11 -to 0 weight_addr_15 ]
+  set weight_we_15 [ create_bd_port -dir O -from 3 -to 0 weight_we_15 ]
 
   # Create instance: clk_wiz_0, and set properties
   set clk_wiz_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:clk_wiz:6.0 clk_wiz_0 ]
   set_property -dict [list \
+    CONFIG.CLKIN1_JITTER_PS {50.0} \
+    CONFIG.CLKOUT1_JITTER {112.316} \
+    CONFIG.CLKOUT1_PHASE_ERROR {89.971} \
     CONFIG.CLK_OUT1_PORT {clk100} \
+    CONFIG.MMCM_CLKFBOUT_MULT_F {5.000} \
+    CONFIG.MMCM_CLKIN1_PERIOD {5.000} \
+    CONFIG.MMCM_CLKIN2_PERIOD {10.0} \
+    CONFIG.PRIM_IN_FREQ {200} \
+    CONFIG.PRIM_SOURCE {Differential_clock_capable_pin} \
     CONFIG.RESET_PORT {resetn} \
     CONFIG.RESET_TYPE {ACTIVE_LOW} \
   ] $clk_wiz_0
@@ -892,14 +2051,11 @@ proc create_hier_cell_weights { parentCell nameHier } {
   # Create instance: proc_sys_reset_0, and set properties
   set proc_sys_reset_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:proc_sys_reset:5.0 proc_sys_reset_0 ]
 
-  # Create instance: jtag_axi_0, and set properties
-  set jtag_axi_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:jtag_axi:1.2 jtag_axi_0 ]
-
   # Create instance: smartconnect_0, and set properties
   set smartconnect_0 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_0 ]
   set_property -dict [list \
-    CONFIG.NUM_MI {10} \
-    CONFIG.NUM_SI {2} \
+    CONFIG.NUM_MI {4} \
+    CONFIG.NUM_SI {1} \
   ] $smartconnect_0
 
 
@@ -918,9 +2074,6 @@ proc create_hier_cell_weights { parentCell nameHier } {
   # Create instance: iacts
   create_hier_cell_iacts [current_bd_instance .] iacts
 
-  # Create instance: psums
-  create_hier_cell_psums [current_bd_instance .] psums
-
   # Create instance: uart2axi_v1_0_0, and set properties
   set block_name uart2axi_v1_0
   set block_cell_name uart2axi_v1_0_0
@@ -931,20 +2084,90 @@ proc create_hier_cell_weights { parentCell nameHier } {
      catch {common::send_gid_msg -ssname BD::TCL -id 2096 -severity "ERROR" "Unable to referenced block <$block_name>. Please add the files for ${block_name}'s definition into the project."}
      return 1
    }
-  
+    set_property CONFIG.div_ratio {50} $uart2axi_v1_0_0
+
+
+  # Create instance: smartconnect_1, and set properties
+  set smartconnect_1 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_1 ]
+  set_property -dict [list \
+    CONFIG.NUM_MI {16} \
+    CONFIG.NUM_SI {1} \
+  ] $smartconnect_1
+
+
+  # Create instance: smartconnect_2, and set properties
+  set smartconnect_2 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_2 ]
+  set_property -dict [list \
+    CONFIG.NUM_MI {16} \
+    CONFIG.NUM_SI {1} \
+  ] $smartconnect_2
+
+
+  # Create instance: smartconnect_3, and set properties
+  set smartconnect_3 [ create_bd_cell -type ip -vlnv xilinx.com:ip:smartconnect:1.0 smartconnect_3 ]
+  set_property -dict [list \
+    CONFIG.NUM_MI {16} \
+    CONFIG.NUM_SI {1} \
+  ] $smartconnect_3
+
+
+  # Create instance: psums
+  create_hier_cell_psums [current_bd_instance .] psums
+
   # Create interface connections
-  connect_bd_intf_net -intf_net jtag_axi_0_M_AXI [get_bd_intf_pins jtag_axi_0/M_AXI] [get_bd_intf_pins smartconnect_0/S00_AXI]
+  connect_bd_intf_net -intf_net S_AXI2_1 [get_bd_intf_pins psums/S_AXI2] [get_bd_intf_pins smartconnect_2/M02_AXI]
+  connect_bd_intf_net -intf_net S_AXI_0_1 [get_bd_intf_pins iacts/S_AXI_0] [get_bd_intf_pins smartconnect_1/M08_AXI]
+  connect_bd_intf_net -intf_net S_AXI_0_2 [get_bd_intf_pins psums/S_AXI_0] [get_bd_intf_pins smartconnect_2/M08_AXI]
+  connect_bd_intf_net -intf_net S_AXI_1 [get_bd_intf_pins psums/S_AXI] [get_bd_intf_pins smartconnect_2/M00_AXI]
+  connect_bd_intf_net -intf_net S_AXI_11_1 [get_bd_intf_pins iacts/S_AXI_11] [get_bd_intf_pins smartconnect_1/M14_AXI]
+  connect_bd_intf_net -intf_net S_AXI_11_2 [get_bd_intf_pins psums/S_AXI_11] [get_bd_intf_pins smartconnect_2/M14_AXI]
+  connect_bd_intf_net -intf_net S_AXI_11_3 [get_bd_intf_pins weights/S_AXI_11] [get_bd_intf_pins smartconnect_3/M15_AXI]
+  connect_bd_intf_net -intf_net S_AXI_2_1 [get_bd_intf_pins psums/S_AXI_2] [get_bd_intf_pins smartconnect_2/M06_AXI]
+  connect_bd_intf_net -intf_net S_AXI_2_2 [get_bd_intf_pins iacts/S_AXI_2] [get_bd_intf_pins smartconnect_1/M10_AXI]
+  connect_bd_intf_net -intf_net S_AXI_4_1 [get_bd_intf_pins psums/S_AXI_4] [get_bd_intf_pins smartconnect_2/M04_AXI]
+  connect_bd_intf_net -intf_net S_AXI_5_1 [get_bd_intf_pins weights/S_AXI_5] [get_bd_intf_pins smartconnect_3/M09_AXI]
+  connect_bd_intf_net -intf_net S_AXI_7_1 [get_bd_intf_pins psums/S_AXI_7] [get_bd_intf_pins smartconnect_2/M10_AXI]
+  connect_bd_intf_net -intf_net S_AXI_7_2 [get_bd_intf_pins weights/S_AXI_7] [get_bd_intf_pins smartconnect_3/M11_AXI]
+  connect_bd_intf_net -intf_net S_AXI_9_1 [get_bd_intf_pins iacts/S_AXI_9] [get_bd_intf_pins smartconnect_1/M12_AXI]
+  connect_bd_intf_net -intf_net S_AXI_9_2 [get_bd_intf_pins psums/S_AXI_9] [get_bd_intf_pins smartconnect_2/M12_AXI]
+  connect_bd_intf_net -intf_net S_AXI_9_3 [get_bd_intf_pins weights/S_AXI_9] [get_bd_intf_pins smartconnect_3/M13_AXI]
   connect_bd_intf_net -intf_net smartconnect_0_M00_AXI [get_bd_intf_pins smartconnect_0/M00_AXI] [get_bd_intf_pins axi_gpio_0/S_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins smartconnect_0/M01_AXI] [get_bd_intf_pins weights/S_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins smartconnect_0/M02_AXI] [get_bd_intf_pins weights/S_AXI1]
-  connect_bd_intf_net -intf_net smartconnect_0_M03_AXI [get_bd_intf_pins smartconnect_0/M03_AXI] [get_bd_intf_pins weights/S_AXI2]
-  connect_bd_intf_net -intf_net smartconnect_0_M04_AXI [get_bd_intf_pins smartconnect_0/M04_AXI] [get_bd_intf_pins iacts/S_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M05_AXI [get_bd_intf_pins smartconnect_0/M05_AXI] [get_bd_intf_pins iacts/S_AXI1]
-  connect_bd_intf_net -intf_net smartconnect_0_M06_AXI [get_bd_intf_pins smartconnect_0/M06_AXI] [get_bd_intf_pins iacts/S_AXI2]
-  connect_bd_intf_net -intf_net smartconnect_0_M07_AXI [get_bd_intf_pins smartconnect_0/M07_AXI] [get_bd_intf_pins psums/S_AXI]
-  connect_bd_intf_net -intf_net smartconnect_0_M08_AXI [get_bd_intf_pins smartconnect_0/M08_AXI] [get_bd_intf_pins psums/S_AXI1]
-  connect_bd_intf_net -intf_net smartconnect_0_M09_AXI [get_bd_intf_pins smartconnect_0/M09_AXI] [get_bd_intf_pins psums/S_AXI2]
-  connect_bd_intf_net -intf_net uart2axi_v1_0_0_m00_axi [get_bd_intf_pins uart2axi_v1_0_0/m00_axi] [get_bd_intf_pins smartconnect_0/S01_AXI]
+  connect_bd_intf_net -intf_net smartconnect_0_M01_AXI [get_bd_intf_pins smartconnect_1/S00_AXI] [get_bd_intf_pins smartconnect_0/M01_AXI]
+  connect_bd_intf_net -intf_net smartconnect_0_M02_AXI [get_bd_intf_pins smartconnect_0/M02_AXI] [get_bd_intf_pins smartconnect_2/S00_AXI]
+  connect_bd_intf_net -intf_net smartconnect_0_M03_AXI [get_bd_intf_pins smartconnect_3/S00_AXI] [get_bd_intf_pins smartconnect_0/M03_AXI]
+  connect_bd_intf_net -intf_net smartconnect_1_M00_AXI [get_bd_intf_pins smartconnect_1/M00_AXI] [get_bd_intf_pins iacts/S_AXI]
+  connect_bd_intf_net -intf_net smartconnect_1_M01_AXI [get_bd_intf_pins smartconnect_1/M01_AXI] [get_bd_intf_pins iacts/S_AXI1]
+  connect_bd_intf_net -intf_net smartconnect_1_M02_AXI [get_bd_intf_pins smartconnect_1/M02_AXI] [get_bd_intf_pins iacts/S_AXI2]
+  connect_bd_intf_net -intf_net smartconnect_1_M03_AXI [get_bd_intf_pins smartconnect_1/M03_AXI] [get_bd_intf_pins iacts/S_AXI_3]
+  connect_bd_intf_net -intf_net smartconnect_1_M04_AXI [get_bd_intf_pins smartconnect_1/M04_AXI] [get_bd_intf_pins iacts/S_AXI_4]
+  connect_bd_intf_net -intf_net smartconnect_1_M05_AXI [get_bd_intf_pins smartconnect_1/M05_AXI] [get_bd_intf_pins iacts/S_AXI_5]
+  connect_bd_intf_net -intf_net smartconnect_1_M06_AXI [get_bd_intf_pins smartconnect_1/M06_AXI] [get_bd_intf_pins iacts/S_AXI_6]
+  connect_bd_intf_net -intf_net smartconnect_1_M07_AXI [get_bd_intf_pins smartconnect_1/M07_AXI] [get_bd_intf_pins iacts/S_AXI_7]
+  connect_bd_intf_net -intf_net smartconnect_1_M09_AXI [get_bd_intf_pins smartconnect_1/M09_AXI] [get_bd_intf_pins iacts/S_AXI_1]
+  connect_bd_intf_net -intf_net smartconnect_1_M11_AXI [get_bd_intf_pins smartconnect_1/M11_AXI] [get_bd_intf_pins iacts/S_AXI_8]
+  connect_bd_intf_net -intf_net smartconnect_1_M13_AXI [get_bd_intf_pins smartconnect_1/M13_AXI] [get_bd_intf_pins iacts/S_AXI_10]
+  connect_bd_intf_net -intf_net smartconnect_1_M15_AXI [get_bd_intf_pins smartconnect_1/M15_AXI] [get_bd_intf_pins iacts/S_AXI_12]
+  connect_bd_intf_net -intf_net smartconnect_2_M01_AXI [get_bd_intf_pins smartconnect_2/M01_AXI] [get_bd_intf_pins psums/S_AXI1]
+  connect_bd_intf_net -intf_net smartconnect_2_M03_AXI [get_bd_intf_pins smartconnect_2/M03_AXI] [get_bd_intf_pins psums/S_AXI_3]
+  connect_bd_intf_net -intf_net smartconnect_2_M05_AXI [get_bd_intf_pins smartconnect_2/M05_AXI] [get_bd_intf_pins psums/S_AXI_1]
+  connect_bd_intf_net -intf_net smartconnect_2_M07_AXI [get_bd_intf_pins smartconnect_2/M07_AXI] [get_bd_intf_pins psums/S_AXI_5]
+  connect_bd_intf_net -intf_net smartconnect_2_M09_AXI [get_bd_intf_pins smartconnect_2/M09_AXI] [get_bd_intf_pins psums/S_AXI_6]
+  connect_bd_intf_net -intf_net smartconnect_2_M11_AXI [get_bd_intf_pins smartconnect_2/M11_AXI] [get_bd_intf_pins psums/S_AXI_8]
+  connect_bd_intf_net -intf_net smartconnect_2_M13_AXI [get_bd_intf_pins smartconnect_2/M13_AXI] [get_bd_intf_pins psums/S_AXI_10]
+  connect_bd_intf_net -intf_net smartconnect_2_M15_AXI [get_bd_intf_pins smartconnect_2/M15_AXI] [get_bd_intf_pins psums/S_AXI_12]
+  connect_bd_intf_net -intf_net smartconnect_3_M00_AXI [get_bd_intf_pins smartconnect_3/M00_AXI] [get_bd_intf_pins weights/S_AXI]
+  connect_bd_intf_net -intf_net smartconnect_3_M01_AXI [get_bd_intf_pins smartconnect_3/M01_AXI] [get_bd_intf_pins weights/S_AXI1]
+  connect_bd_intf_net -intf_net smartconnect_3_M02_AXI [get_bd_intf_pins smartconnect_3/M02_AXI] [get_bd_intf_pins weights/S_AXI2]
+  connect_bd_intf_net -intf_net smartconnect_3_M03_AXI [get_bd_intf_pins smartconnect_3/M03_AXI] [get_bd_intf_pins weights/S_AXI3]
+  connect_bd_intf_net -intf_net smartconnect_3_M04_AXI [get_bd_intf_pins smartconnect_3/M04_AXI] [get_bd_intf_pins weights/S_AXI_0]
+  connect_bd_intf_net -intf_net smartconnect_3_M05_AXI [get_bd_intf_pins smartconnect_3/M05_AXI] [get_bd_intf_pins weights/S_AXI_1]
+  connect_bd_intf_net -intf_net smartconnect_3_M06_AXI [get_bd_intf_pins smartconnect_3/M06_AXI] [get_bd_intf_pins weights/S_AXI_2]
+  connect_bd_intf_net -intf_net smartconnect_3_M07_AXI [get_bd_intf_pins smartconnect_3/M07_AXI] [get_bd_intf_pins weights/S_AXI_3]
+  connect_bd_intf_net -intf_net smartconnect_3_M08_AXI [get_bd_intf_pins smartconnect_3/M08_AXI] [get_bd_intf_pins weights/S_AXI_4]
+  connect_bd_intf_net -intf_net smartconnect_3_M10_AXI [get_bd_intf_pins smartconnect_3/M10_AXI] [get_bd_intf_pins weights/S_AXI_6]
+  connect_bd_intf_net -intf_net smartconnect_3_M12_AXI [get_bd_intf_pins smartconnect_3/M12_AXI] [get_bd_intf_pins weights/S_AXI_8]
+  connect_bd_intf_net -intf_net smartconnect_3_M14_AXI [get_bd_intf_pins smartconnect_3/M14_AXI] [get_bd_intf_pins weights/S_AXI_10]
+  connect_bd_intf_net -intf_net uart2axi_v1_0_0_m00_axi [get_bd_intf_pins smartconnect_0/S00_AXI] [get_bd_intf_pins uart2axi_v1_0_0/m00_axi]
 
   # Create port connections
   connect_bd_net -net axi_gpio_0_gpio_io_o  [get_bd_pins axi_gpio_0/gpio_io_o] \
@@ -967,18 +2190,100 @@ proc create_hier_cell_weights { parentCell nameHier } {
   [get_bd_pins weights/bram_rddata_a_1]
   connect_bd_net -net bram_rddata_a_0_9  [get_bd_ports weight_rdata_2] \
   [get_bd_pins weights/bram_rddata_a_2]
-  connect_bd_net -net clk_in1_0_1  [get_bd_ports ext_clk100] \
-  [get_bd_pins clk_wiz_0/clk_in1]
+  connect_bd_net -net bram_rddata_a_0_10  [get_bd_ports iact_rdata_3] \
+  [get_bd_pins iacts/bram_rddata_a_3]
+  connect_bd_net -net bram_rddata_a_0_11  [get_bd_ports iact_rdata_4] \
+  [get_bd_pins iacts/bram_rddata_a_4]
+  connect_bd_net -net bram_rddata_a_0_12  [get_bd_ports weight_rdata_4] \
+  [get_bd_pins weights/bram_rddata_a_4]
+  connect_bd_net -net bram_rddata_a_0_13  [get_bd_ports iact_rdata_8] \
+  [get_bd_pins iacts/bram_rddata_a_8]
+  connect_bd_net -net bram_rddata_a_0_14  [get_bd_ports psum_rdata_8] \
+  [get_bd_pins psums/bram_rddata_a_8]
+  connect_bd_net -net bram_rddata_a_0_15  [get_bd_ports weight_rdata_8] \
+  [get_bd_pins weights/bram_rddata_a_8]
+  connect_bd_net -net bram_rddata_a_1_1  [get_bd_ports psum_rdata_3] \
+  [get_bd_pins psums/bram_rddata_a_3]
+  connect_bd_net -net bram_rddata_a_1_2  [get_bd_ports iact_rdata_5] \
+  [get_bd_pins iacts/bram_rddata_a_5]
+  connect_bd_net -net bram_rddata_a_1_3  [get_bd_ports weight_rdata_5] \
+  [get_bd_pins weights/bram_rddata_a_5]
+  connect_bd_net -net bram_rddata_a_1_4  [get_bd_ports iact_rdata_9] \
+  [get_bd_pins iacts/bram_rddata_a_9]
+  connect_bd_net -net bram_rddata_a_1_5  [get_bd_ports psum_rdata_9] \
+  [get_bd_pins psums/bram_rddata_a_9]
+  connect_bd_net -net bram_rddata_a_1_6  [get_bd_ports weight_rdata_9] \
+  [get_bd_pins weights/bram_rddata_a_9]
+  connect_bd_net -net bram_rddata_a_2_1  [get_bd_ports weight_rdata_3] \
+  [get_bd_pins weights/bram_rddata_a_3]
+  connect_bd_net -net bram_rddata_a_2_2  [get_bd_ports iact_rdata_6] \
+  [get_bd_pins iacts/bram_rddata_a_6]
+  connect_bd_net -net bram_rddata_a_2_3  [get_bd_ports weight_rdata_6] \
+  [get_bd_pins weights/bram_rddata_a_6]
+  connect_bd_net -net bram_rddata_a_2_4  [get_bd_ports iact_rdata_10] \
+  [get_bd_pins iacts/bram_rddata_a_10]
+  connect_bd_net -net bram_rddata_a_2_5  [get_bd_ports psum_rdata_10] \
+  [get_bd_pins psums/bram_rddata_a_10]
+  connect_bd_net -net bram_rddata_a_2_6  [get_bd_ports weight_rdata_10] \
+  [get_bd_pins weights/bram_rddata_a_10]
+  connect_bd_net -net bram_rddata_a_3_1  [get_bd_ports iact_rdata_7] \
+  [get_bd_pins iacts/bram_rddata_a_7]
+  connect_bd_net -net bram_rddata_a_3_2  [get_bd_ports weight_rdata_7] \
+  [get_bd_pins weights/bram_rddata_a_7]
+  connect_bd_net -net bram_rddata_a_3_3  [get_bd_ports iact_rdata_11] \
+  [get_bd_pins iacts/bram_rddata_a_11]
+  connect_bd_net -net bram_rddata_a_3_4  [get_bd_ports psum_rdata_11] \
+  [get_bd_pins psums/bram_rddata_a_11]
+  connect_bd_net -net bram_rddata_a_3_5  [get_bd_ports weight_rdata_11] \
+  [get_bd_pins weights/bram_rddata_a_11]
+  connect_bd_net -net bram_rddata_a_4_1  [get_bd_ports psum_rdata_4] \
+  [get_bd_pins psums/bram_rddata_a_4]
+  connect_bd_net -net bram_rddata_a_4_2  [get_bd_ports iact_rdata_12] \
+  [get_bd_pins iacts/bram_rddata_a_12]
+  connect_bd_net -net bram_rddata_a_4_3  [get_bd_ports psum_rdata_12] \
+  [get_bd_pins psums/bram_rddata_a_12]
+  connect_bd_net -net bram_rddata_a_4_4  [get_bd_ports weight_rdata_12] \
+  [get_bd_pins weights/bram_rddata_a_12]
+  connect_bd_net -net bram_rddata_a_5_1  [get_bd_ports psum_rdata_5] \
+  [get_bd_pins psums/bram_rddata_a_5]
+  connect_bd_net -net bram_rddata_a_5_2  [get_bd_ports iact_rdata_13] \
+  [get_bd_pins iacts/bram_rddata_a_13]
+  connect_bd_net -net bram_rddata_a_5_3  [get_bd_ports psum_rdata_13] \
+  [get_bd_pins psums/bram_rddata_a_13]
+  connect_bd_net -net bram_rddata_a_5_4  [get_bd_ports weight_rdata_13] \
+  [get_bd_pins weights/bram_rddata_a_13]
+  connect_bd_net -net bram_rddata_a_6_1  [get_bd_ports psum_rdata_6] \
+  [get_bd_pins psums/bram_rddata_a_6]
+  connect_bd_net -net bram_rddata_a_6_2  [get_bd_ports iact_rdata_14] \
+  [get_bd_pins iacts/bram_rddata_a_14]
+  connect_bd_net -net bram_rddata_a_6_3  [get_bd_ports psum_rdata_14] \
+  [get_bd_pins psums/bram_rddata_a_14]
+  connect_bd_net -net bram_rddata_a_6_4  [get_bd_ports weight_rdata_14] \
+  [get_bd_pins weights/bram_rddata_a_14]
+  connect_bd_net -net bram_rddata_a_7_1  [get_bd_ports psum_rdata_7] \
+  [get_bd_pins psums/bram_rddata_a_7]
+  connect_bd_net -net bram_rddata_a_7_2  [get_bd_ports iact_rdata_15] \
+  [get_bd_pins iacts/bram_rddata_a_15]
+  connect_bd_net -net bram_rddata_a_7_3  [get_bd_ports psum_rdata_15] \
+  [get_bd_pins psums/bram_rddata_a_15]
+  connect_bd_net -net bram_rddata_a_7_4  [get_bd_ports weight_rdata_15] \
+  [get_bd_pins weights/bram_rddata_a_15]
+  connect_bd_net -net clk_ext_n_1  [get_bd_ports ext_clk_n] \
+  [get_bd_pins clk_wiz_0/clk_in1_n]
+  connect_bd_net -net clk_ext_p_1  [get_bd_ports ext_clk_p] \
+  [get_bd_pins clk_wiz_0/clk_in1_p]
   connect_bd_net -net clk_wiz_0_clk100  [get_bd_pins clk_wiz_0/clk100] \
   [get_bd_pins proc_sys_reset_0/slowest_sync_clk] \
-  [get_bd_pins jtag_axi_0/aclk] \
   [get_bd_pins smartconnect_0/aclk] \
   [get_bd_pins axi_gpio_0/s_axi_aclk] \
   [get_bd_ports clk100] \
   [get_bd_pins weights/s_axi_aclk] \
   [get_bd_pins iacts/s_axi_aclk] \
-  [get_bd_pins psums/s_axi_aclk] \
-  [get_bd_pins uart2axi_v1_0_0/m00_axi_aclk]
+  [get_bd_pins uart2axi_v1_0_0/m00_axi_aclk] \
+  [get_bd_pins smartconnect_1/aclk] \
+  [get_bd_pins smartconnect_2/aclk] \
+  [get_bd_pins smartconnect_3/aclk] \
+  [get_bd_pins psums/s_axi_aclk]
   connect_bd_net -net clk_wiz_0_locked  [get_bd_pins clk_wiz_0/locked] \
   [get_bd_pins proc_sys_reset_0/dcm_locked]
   connect_bd_net -net gpio_io_i_0_1  [get_bd_ports done] \
@@ -989,34 +2294,140 @@ proc create_hier_cell_weights { parentCell nameHier } {
   [get_bd_ports iact_addr_1]
   connect_bd_net -net iacts_bram_addr_a_2  [get_bd_pins iacts/bram_addr_a_2] \
   [get_bd_ports iact_addr_2]
+  connect_bd_net -net iacts_bram_addr_a_3  [get_bd_pins iacts/bram_addr_a_3] \
+  [get_bd_ports iact_addr_3]
+  connect_bd_net -net iacts_bram_addr_a_4  [get_bd_pins iacts/bram_addr_a_4] \
+  [get_bd_ports iact_addr_4]
+  connect_bd_net -net iacts_bram_addr_a_5  [get_bd_pins iacts/bram_addr_a_5] \
+  [get_bd_ports iact_addr_5]
+  connect_bd_net -net iacts_bram_addr_a_6  [get_bd_pins iacts/bram_addr_a_6] \
+  [get_bd_ports iact_addr_6]
+  connect_bd_net -net iacts_bram_addr_a_7  [get_bd_pins iacts/bram_addr_a_7] \
+  [get_bd_ports iact_addr_7]
+  connect_bd_net -net iacts_bram_addr_a_8  [get_bd_pins iacts/bram_addr_a_8] \
+  [get_bd_ports iact_addr_8]
+  connect_bd_net -net iacts_bram_addr_a_9  [get_bd_pins iacts/bram_addr_a_9] \
+  [get_bd_ports iact_addr_9]
+  connect_bd_net -net iacts_bram_addr_a_10  [get_bd_pins iacts/bram_addr_a_10] \
+  [get_bd_ports iact_addr_10]
+  connect_bd_net -net iacts_bram_addr_a_11  [get_bd_pins iacts/bram_addr_a_11] \
+  [get_bd_ports iact_addr_11]
+  connect_bd_net -net iacts_bram_addr_a_12  [get_bd_pins iacts/bram_addr_a_12] \
+  [get_bd_ports iact_addr_12]
+  connect_bd_net -net iacts_bram_addr_a_13  [get_bd_pins iacts/bram_addr_a_13] \
+  [get_bd_ports iact_addr_13]
+  connect_bd_net -net iacts_bram_addr_a_14  [get_bd_pins iacts/bram_addr_a_14] \
+  [get_bd_ports iact_addr_14]
+  connect_bd_net -net iacts_bram_addr_a_15  [get_bd_pins iacts/bram_addr_a_15] \
+  [get_bd_ports iact_addr_15]
   connect_bd_net -net iacts_bram_we_a_0  [get_bd_pins iacts/bram_we_a_0] \
   [get_bd_ports iact_we_0]
   connect_bd_net -net iacts_bram_we_a_1  [get_bd_pins iacts/bram_we_a_1] \
   [get_bd_ports iact_we_1]
   connect_bd_net -net iacts_bram_we_a_2  [get_bd_pins iacts/bram_we_a_2] \
   [get_bd_ports iact_we_2]
+  connect_bd_net -net iacts_bram_we_a_3  [get_bd_pins iacts/bram_we_a_3] \
+  [get_bd_ports iact_we_3]
+  connect_bd_net -net iacts_bram_we_a_4  [get_bd_pins iacts/bram_we_a_4] \
+  [get_bd_ports iact_we_4]
+  connect_bd_net -net iacts_bram_we_a_5  [get_bd_pins iacts/bram_we_a_5] \
+  [get_bd_ports iact_we_5]
+  connect_bd_net -net iacts_bram_we_a_6  [get_bd_pins iacts/bram_we_a_6] \
+  [get_bd_ports iact_we_6]
+  connect_bd_net -net iacts_bram_we_a_7  [get_bd_pins iacts/bram_we_a_7] \
+  [get_bd_ports iact_we_7]
+  connect_bd_net -net iacts_bram_we_a_8  [get_bd_pins iacts/bram_we_a_8] \
+  [get_bd_ports iact_we_8]
+  connect_bd_net -net iacts_bram_we_a_9  [get_bd_pins iacts/bram_we_a_9] \
+  [get_bd_ports iact_we_9]
+  connect_bd_net -net iacts_bram_we_a_10  [get_bd_pins iacts/bram_we_a_10] \
+  [get_bd_ports iact_we_10]
+  connect_bd_net -net iacts_bram_we_a_11  [get_bd_pins iacts/bram_we_a_11] \
+  [get_bd_ports iact_we_11]
+  connect_bd_net -net iacts_bram_we_a_12  [get_bd_pins iacts/bram_we_a_12] \
+  [get_bd_ports iact_we_12]
+  connect_bd_net -net iacts_bram_we_a_13  [get_bd_pins iacts/bram_we_a_13] \
+  [get_bd_ports iact_we_13]
+  connect_bd_net -net iacts_bram_we_a_14  [get_bd_pins iacts/bram_we_a_14] \
+  [get_bd_ports iact_we_14]
+  connect_bd_net -net iacts_bram_we_a_15  [get_bd_pins iacts/bram_we_a_15] \
+  [get_bd_ports iact_we_15]
   connect_bd_net -net iacts_bram_wrdata_a_0  [get_bd_pins iacts/bram_wrdata_a_0] \
   [get_bd_ports iact_wdata_0]
   connect_bd_net -net iacts_bram_wrdata_a_1  [get_bd_pins iacts/bram_wrdata_a_1] \
   [get_bd_ports iact_wdata_1]
   connect_bd_net -net iacts_bram_wrdata_a_2  [get_bd_pins iacts/bram_wrdata_a_2] \
   [get_bd_ports iact_wdata_2]
+  connect_bd_net -net iacts_bram_wrdata_a_3  [get_bd_pins iacts/bram_wrdata_a_3] \
+  [get_bd_ports iact_wdata_3]
+  connect_bd_net -net iacts_bram_wrdata_a_4  [get_bd_pins iacts/bram_wrdata_a_4] \
+  [get_bd_ports iact_wdata_4]
+  connect_bd_net -net iacts_bram_wrdata_a_5  [get_bd_pins iacts/bram_wrdata_a_5] \
+  [get_bd_ports iact_wdata_5]
+  connect_bd_net -net iacts_bram_wrdata_a_6  [get_bd_pins iacts/bram_wrdata_a_6] \
+  [get_bd_ports iact_wdata_6]
+  connect_bd_net -net iacts_bram_wrdata_a_7  [get_bd_pins iacts/bram_wrdata_a_7] \
+  [get_bd_ports iact_wdata_7]
+  connect_bd_net -net iacts_bram_wrdata_a_8  [get_bd_pins iacts/bram_wrdata_a_8] \
+  [get_bd_ports iact_wdata_8]
+  connect_bd_net -net iacts_bram_wrdata_a_9  [get_bd_pins iacts/bram_wrdata_a_9] \
+  [get_bd_ports iact_wdata_9]
+  connect_bd_net -net iacts_bram_wrdata_a_10  [get_bd_pins iacts/bram_wrdata_a_10] \
+  [get_bd_ports iact_wdata_10]
+  connect_bd_net -net iacts_bram_wrdata_a_11  [get_bd_pins iacts/bram_wrdata_a_11] \
+  [get_bd_ports iact_wdata_11]
+  connect_bd_net -net iacts_bram_wrdata_a_12  [get_bd_pins iacts/bram_wrdata_a_12] \
+  [get_bd_ports iact_wdata_12]
+  connect_bd_net -net iacts_bram_wrdata_a_13  [get_bd_pins iacts/bram_wrdata_a_13] \
+  [get_bd_ports iact_wdata_13]
+  connect_bd_net -net iacts_bram_wrdata_a_14  [get_bd_pins iacts/bram_wrdata_a_14] \
+  [get_bd_ports iact_wdata_14]
+  connect_bd_net -net iacts_bram_wrdata_a_15  [get_bd_pins iacts/bram_wrdata_a_15] \
+  [get_bd_ports iact_wdata_15]
   connect_bd_net -net proc_sys_reset_0_interconnect_aresetn  [get_bd_pins proc_sys_reset_0/interconnect_aresetn] \
-  [get_bd_pins smartconnect_0/aresetn]
+  [get_bd_pins smartconnect_0/aresetn] \
+  [get_bd_pins smartconnect_3/aresetn] \
+  [get_bd_pins smartconnect_2/aresetn] \
+  [get_bd_pins smartconnect_1/aresetn]
   connect_bd_net -net proc_sys_reset_0_peripheral_aresetn  [get_bd_pins proc_sys_reset_0/peripheral_aresetn] \
-  [get_bd_pins jtag_axi_0/aresetn] \
   [get_bd_pins axi_gpio_0/s_axi_aresetn] \
   [get_bd_ports clk100_aresetn] \
   [get_bd_pins weights/s_axi_aresetn] \
   [get_bd_pins iacts/s_axi_aresetn] \
-  [get_bd_pins psums/s_axi_aresetn] \
-  [get_bd_pins uart2axi_v1_0_0/m00_axi_aresetn]
+  [get_bd_pins uart2axi_v1_0_0/m00_axi_aresetn] \
+  [get_bd_pins psums/s_axi_aresetn]
   connect_bd_net -net psums_bram_addr_a_0  [get_bd_pins psums/bram_addr_a_0] \
   [get_bd_ports psum_addr_0]
   connect_bd_net -net psums_bram_addr_a_1  [get_bd_pins psums/bram_addr_a_1] \
   [get_bd_ports psum_addr_1]
   connect_bd_net -net psums_bram_addr_a_2  [get_bd_pins psums/bram_addr_a_2] \
   [get_bd_ports psum_addr_2]
+  connect_bd_net -net psums_bram_addr_a_3  [get_bd_pins psums/bram_addr_a_3] \
+  [get_bd_ports psum_addr_3]
+  connect_bd_net -net psums_bram_addr_a_4  [get_bd_pins psums/bram_addr_a_4] \
+  [get_bd_ports psum_addr_4]
+  connect_bd_net -net psums_bram_addr_a_5  [get_bd_pins psums/bram_addr_a_5] \
+  [get_bd_ports psum_addr_5]
+  connect_bd_net -net psums_bram_addr_a_6  [get_bd_pins psums/bram_addr_a_6] \
+  [get_bd_ports psum_addr_6]
+  connect_bd_net -net psums_bram_addr_a_7  [get_bd_pins psums/bram_addr_a_7] \
+  [get_bd_ports psum_addr_7]
+  connect_bd_net -net psums_bram_addr_a_8  [get_bd_pins psums/bram_addr_a_8] \
+  [get_bd_ports psum_addr_8]
+  connect_bd_net -net psums_bram_addr_a_9  [get_bd_pins psums/bram_addr_a_9] \
+  [get_bd_ports psum_addr_9]
+  connect_bd_net -net psums_bram_addr_a_10  [get_bd_pins psums/bram_addr_a_10] \
+  [get_bd_ports psum_addr_10]
+  connect_bd_net -net psums_bram_addr_a_11  [get_bd_pins psums/bram_addr_a_11] \
+  [get_bd_ports psum_addr_11]
+  connect_bd_net -net psums_bram_addr_a_12  [get_bd_pins psums/bram_addr_a_12] \
+  [get_bd_ports psum_addr_12]
+  connect_bd_net -net psums_bram_addr_a_13  [get_bd_pins psums/bram_addr_a_13] \
+  [get_bd_ports psum_addr_13]
+  connect_bd_net -net psums_bram_addr_a_14  [get_bd_pins psums/bram_addr_a_14] \
+  [get_bd_ports psum_addr_14]
+  connect_bd_net -net psums_bram_addr_a_15  [get_bd_pins psums/bram_addr_a_15] \
+  [get_bd_ports psum_addr_15]
   connect_bd_net -net resetn_0_1  [get_bd_ports ext_rstn] \
   [get_bd_pins clk_wiz_0/resetn] \
   [get_bd_pins proc_sys_reset_0/ext_reset_in]
@@ -1030,41 +2441,564 @@ proc create_hier_cell_weights { parentCell nameHier } {
   [get_bd_ports weight_addr_1]
   connect_bd_net -net weights_bram_addr_a_2  [get_bd_pins weights/bram_addr_a_2] \
   [get_bd_ports weight_addr_2]
+  connect_bd_net -net weights_bram_addr_a_3  [get_bd_pins weights/bram_addr_a_3] \
+  [get_bd_ports weight_addr_3]
+  connect_bd_net -net weights_bram_addr_a_4  [get_bd_pins weights/bram_addr_a_4] \
+  [get_bd_ports weight_addr_4]
+  connect_bd_net -net weights_bram_addr_a_5  [get_bd_pins weights/bram_addr_a_5] \
+  [get_bd_ports weight_addr_5]
+  connect_bd_net -net weights_bram_addr_a_6  [get_bd_pins weights/bram_addr_a_6] \
+  [get_bd_ports weight_addr_6]
+  connect_bd_net -net weights_bram_addr_a_7  [get_bd_pins weights/bram_addr_a_7] \
+  [get_bd_ports weight_addr_7]
+  connect_bd_net -net weights_bram_addr_a_8  [get_bd_pins weights/bram_addr_a_8] \
+  [get_bd_ports weight_addr_8]
+  connect_bd_net -net weights_bram_addr_a_9  [get_bd_pins weights/bram_addr_a_9] \
+  [get_bd_ports weight_addr_9]
+  connect_bd_net -net weights_bram_addr_a_10  [get_bd_pins weights/bram_addr_a_10] \
+  [get_bd_ports weight_addr_10]
+  connect_bd_net -net weights_bram_addr_a_11  [get_bd_pins weights/bram_addr_a_11] \
+  [get_bd_ports weight_addr_11]
+  connect_bd_net -net weights_bram_addr_a_12  [get_bd_pins weights/bram_addr_a_12] \
+  [get_bd_ports weight_addr_12]
+  connect_bd_net -net weights_bram_addr_a_13  [get_bd_pins weights/bram_addr_a_13] \
+  [get_bd_ports weight_addr_13]
+  connect_bd_net -net weights_bram_addr_a_14  [get_bd_pins weights/bram_addr_a_14] \
+  [get_bd_ports weight_addr_14]
+  connect_bd_net -net weights_bram_addr_a_15  [get_bd_pins weights/bram_addr_a_15] \
+  [get_bd_ports weight_addr_15]
   connect_bd_net -net weights_bram_we_a_0  [get_bd_pins weights/bram_we_a_0] \
   [get_bd_ports weight_we_0]
   connect_bd_net -net weights_bram_we_a_1  [get_bd_pins weights/bram_we_a_1] \
   [get_bd_ports weight_we_1]
   connect_bd_net -net weights_bram_we_a_2  [get_bd_pins weights/bram_we_a_2] \
   [get_bd_ports weight_we_2]
+  connect_bd_net -net weights_bram_we_a_3  [get_bd_pins weights/bram_we_a_3] \
+  [get_bd_ports weight_we_3]
+  connect_bd_net -net weights_bram_we_a_4  [get_bd_pins weights/bram_we_a_4] \
+  [get_bd_ports weight_we_4]
+  connect_bd_net -net weights_bram_we_a_5  [get_bd_pins weights/bram_we_a_5] \
+  [get_bd_ports weight_we_5]
+  connect_bd_net -net weights_bram_we_a_6  [get_bd_pins weights/bram_we_a_6] \
+  [get_bd_ports weight_we_6]
+  connect_bd_net -net weights_bram_we_a_7  [get_bd_pins weights/bram_we_a_7] \
+  [get_bd_ports weight_we_7]
+  connect_bd_net -net weights_bram_we_a_8  [get_bd_pins weights/bram_we_a_8] \
+  [get_bd_ports weight_we_8]
+  connect_bd_net -net weights_bram_we_a_9  [get_bd_pins weights/bram_we_a_9] \
+  [get_bd_ports weight_we_9]
+  connect_bd_net -net weights_bram_we_a_10  [get_bd_pins weights/bram_we_a_10] \
+  [get_bd_ports weight_we_10]
+  connect_bd_net -net weights_bram_we_a_11  [get_bd_pins weights/bram_we_a_11] \
+  [get_bd_ports weight_we_11]
+  connect_bd_net -net weights_bram_we_a_12  [get_bd_pins weights/bram_we_a_12] \
+  [get_bd_ports weight_we_12]
+  connect_bd_net -net weights_bram_we_a_13  [get_bd_pins weights/bram_we_a_13] \
+  [get_bd_ports weight_we_13]
+  connect_bd_net -net weights_bram_we_a_14  [get_bd_pins weights/bram_we_a_14] \
+  [get_bd_ports weight_we_14]
+  connect_bd_net -net weights_bram_we_a_15  [get_bd_pins weights/bram_we_a_15] \
+  [get_bd_ports weight_we_15]
   connect_bd_net -net weights_bram_wrdata_a_0  [get_bd_pins weights/bram_wrdata_a_0] \
   [get_bd_ports weight_wdata_0]
   connect_bd_net -net weights_bram_wrdata_a_1  [get_bd_pins weights/bram_wrdata_a_1] \
   [get_bd_ports weight_wdata_1]
   connect_bd_net -net weights_bram_wrdata_a_2  [get_bd_pins weights/bram_wrdata_a_2] \
   [get_bd_ports weight_wdata_2]
+  connect_bd_net -net weights_bram_wrdata_a_3  [get_bd_pins weights/bram_wrdata_a_3] \
+  [get_bd_ports weight_wdata_3]
+  connect_bd_net -net weights_bram_wrdata_a_4  [get_bd_pins weights/bram_wrdata_a_4] \
+  [get_bd_ports weight_wdata_4]
+  connect_bd_net -net weights_bram_wrdata_a_5  [get_bd_pins weights/bram_wrdata_a_5] \
+  [get_bd_ports weight_wdata_5]
+  connect_bd_net -net weights_bram_wrdata_a_6  [get_bd_pins weights/bram_wrdata_a_6] \
+  [get_bd_ports weight_wdata_6]
+  connect_bd_net -net weights_bram_wrdata_a_7  [get_bd_pins weights/bram_wrdata_a_7] \
+  [get_bd_ports weight_wdata_7]
+  connect_bd_net -net weights_bram_wrdata_a_8  [get_bd_pins weights/bram_wrdata_a_8] \
+  [get_bd_ports weight_wdata_8]
+  connect_bd_net -net weights_bram_wrdata_a_9  [get_bd_pins weights/bram_wrdata_a_9] \
+  [get_bd_ports weight_wdata_9]
+  connect_bd_net -net weights_bram_wrdata_a_10  [get_bd_pins weights/bram_wrdata_a_10] \
+  [get_bd_ports weight_wdata_10]
+  connect_bd_net -net weights_bram_wrdata_a_11  [get_bd_pins weights/bram_wrdata_a_11] \
+  [get_bd_ports weight_wdata_11]
+  connect_bd_net -net weights_bram_wrdata_a_12  [get_bd_pins weights/bram_wrdata_a_12] \
+  [get_bd_ports weight_wdata_12]
+  connect_bd_net -net weights_bram_wrdata_a_13  [get_bd_pins weights/bram_wrdata_a_13] \
+  [get_bd_ports weight_wdata_13]
+  connect_bd_net -net weights_bram_wrdata_a_14  [get_bd_pins weights/bram_wrdata_a_14] \
+  [get_bd_ports weight_wdata_14]
+  connect_bd_net -net weights_bram_wrdata_a_15  [get_bd_pins weights/bram_wrdata_a_15] \
+  [get_bd_ports weight_wdata_15]
 
   # Create address segments
-  assign_bd_address -offset 0x00001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs weights/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00004000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_0_Mem0_1 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs iacts/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00008000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_0_Mem0_2 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs psums/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00002000 -range 0x00001000 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs weights/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00005000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_1_Mem0_1 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs iacts/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x0000A000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_1_Mem0_2 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs psums/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00003000 -range 0x00001000 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs weights/axi_bram_ctrl_2/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00006000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_2_Mem0_1 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs iacts/axi_bram_ctrl_2/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x0000C000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_2_Mem0_2 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs psums/axi_bram_ctrl_2/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00000000 -range 0x00000080 -target_address_space [get_bd_addr_spaces jtag_axi_0/Data] [get_bd_addr_segs axi_gpio_0/S_AXI/Reg] -force
-  assign_bd_address -offset 0x00001000 -range 0x00001000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00004000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_0_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00008000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_0_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_0/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00002000 -range 0x00001000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00005000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_1_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x0000A000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_1_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_1/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00003000 -range 0x00001000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_2/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x00006000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_2_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_2/S_AXI/Mem0] -force
-  assign_bd_address -offset 0x0000C000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_2_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_2/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xC0000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_0/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xE0000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_0_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_0/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00010000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_0_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_0/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xC4000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_10/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xE4000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_10_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_10/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00002000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_10_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_10/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xC6000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_11/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xE6000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_11_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_11/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00003000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_11_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_11/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xC8000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_12/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xE8000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_12_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_12/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00004000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_12_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_12/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xCA000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_13/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xEA000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_13_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_13/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00005000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_13_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_13/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xCC000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_14/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xEC000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_14_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_14/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00006000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_14_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_14/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xCE000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_15/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xEE000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_15_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_15/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00007000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_15_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_15/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xC2000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_1/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xE2000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_1_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_1/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00001000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_1_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_1/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xD0000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_2/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xF0000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_2_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_2/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00008000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_2_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_2/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xD2000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_3/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xF2000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_3_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_3/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x00009000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_3_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_3/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xD4000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_4/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xF4000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_4_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_4/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000A000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_4_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_4/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xD6000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_5/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xF6000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_5_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_5/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000B000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_5_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_5/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xD8000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_6/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xF8000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_6_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_6/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000C000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_6_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_6/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xDA000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_7/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xFA000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_7_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_7/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000D000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_7_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_7/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xDC000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_8/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xFC000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_8_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_8/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000E000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_8_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_8/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xDE000000 -range 0x00002000 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs iacts/axi_bram_ctrl_9/S_AXI/Mem0] -force
+  assign_bd_address -offset 0xFE000000 -range 0x00002000 -with_name SEG_axi_bram_ctrl_9_Mem0_1 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs psums/axi_bram_ctrl_9/S_AXI/Mem0] -force
+  assign_bd_address -offset 0x0000F000 -range 0x00001000 -with_name SEG_axi_bram_ctrl_9_Mem0_2 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs weights/axi_bram_ctrl_9/S_AXI/Mem0] -force
   assign_bd_address -offset 0x00000000 -range 0x00000080 -target_address_space [get_bd_addr_spaces uart2axi_v1_0_0/m00_axi] [get_bd_addr_segs axi_gpio_0/S_AXI/Reg] -force
 
+  # Perform GUI Layout
+  regenerate_bd_layout -layout_string {
+   "ActiveEmotionalView":"Default View",
+   "Default View_ScaleFactor":"0.517613",
+   "Default View_TopLeft":"145,821",
+   "ExpandedHierarchyInLayout":"",
+   "guistr":"# # String gsaved with Nlview 7.8.0 2024-04-26 e1825d835c VDI=44 GEI=38 GUI=JA:21.0
+#  -string -flagsOSRD
+preplace port port-id_ext_rstn -pg 1 -lvl 0 -x -60 -y 1040 -defaultsOSRD
+preplace port port-id_clk100 -pg 1 -lvl 4 -x 1850 -y 1060 -defaultsOSRD
+preplace port port-id_uart_tx -pg 1 -lvl 4 -x 1850 -y 2070 -defaultsOSRD
+preplace port port-id_uart_rx -pg 1 -lvl 0 -x -60 -y 1170 -defaultsOSRD
+preplace port port-id_ext_clk_n -pg 1 -lvl 0 -x -60 -y 1060 -defaultsOSRD
+preplace port port-id_ext_clk_p -pg 1 -lvl 0 -x -60 -y 1080 -defaultsOSRD
+preplace portBus go -pg 1 -lvl 4 -x 1850 -y 1160 -defaultsOSRD
+preplace portBus done -pg 1 -lvl 0 -x -60 -y 970 -defaultsOSRD
+preplace portBus clk100_aresetn -pg 1 -lvl 4 -x 1850 -y 1040 -defaultsOSRD
+preplace portBus psum_addr_0 -pg 1 -lvl 4 -x 1850 -y 1470 -defaultsOSRD
+preplace portBus psum_addr_1 -pg 1 -lvl 4 -x 1850 -y 1450 -defaultsOSRD
+preplace portBus psum_addr_2 -pg 1 -lvl 4 -x 1850 -y 2130 -defaultsOSRD
+preplace portBus psum_rdata_0 -pg 1 -lvl 0 -x -60 -y 1130 -defaultsOSRD
+preplace portBus psum_rdata_1 -pg 1 -lvl 0 -x -60 -y 1190 -defaultsOSRD
+preplace portBus psum_rdata_2 -pg 1 -lvl 0 -x -60 -y 1150 -defaultsOSRD
+preplace portBus iact_wdata_0 -pg 1 -lvl 4 -x 1850 -y 60 -defaultsOSRD
+preplace portBus iact_addr_0 -pg 1 -lvl 4 -x 1850 -y 80 -defaultsOSRD
+preplace portBus iact_we_0 -pg 1 -lvl 4 -x 1850 -y 100 -defaultsOSRD
+preplace portBus iact_rdata_0 -pg 1 -lvl 0 -x -60 -y 560 -defaultsOSRD
+preplace portBus iact_wdata_1 -pg 1 -lvl 4 -x 1850 -y 120 -defaultsOSRD
+preplace portBus iact_addr_1 -pg 1 -lvl 4 -x 1850 -y 140 -defaultsOSRD
+preplace portBus iact_rdata_1 -pg 1 -lvl 0 -x -60 -y 580 -defaultsOSRD
+preplace portBus iact_we_1 -pg 1 -lvl 4 -x 1850 -y 160 -defaultsOSRD
+preplace portBus iact_wdata_2 -pg 1 -lvl 4 -x 1850 -y 180 -defaultsOSRD
+preplace portBus iact_addr_2 -pg 1 -lvl 4 -x 1850 -y 200 -defaultsOSRD
+preplace portBus iact_rdata_2 -pg 1 -lvl 0 -x -60 -y 600 -defaultsOSRD
+preplace portBus iact_we_2 -pg 1 -lvl 4 -x 1850 -y 220 -defaultsOSRD
+preplace portBus weight_wdata_0 -pg 1 -lvl 4 -x 1850 -y 2180 -defaultsOSRD
+preplace portBus weight_addr_0 -pg 1 -lvl 4 -x 1850 -y 2200 -defaultsOSRD
+preplace portBus weight_rdata_0 -pg 1 -lvl 0 -x -60 -y 2280 -defaultsOSRD
+preplace portBus weight_we_0 -pg 1 -lvl 4 -x 1850 -y 2050 -defaultsOSRD
+preplace portBus weight_wdata_1 -pg 1 -lvl 4 -x 1850 -y 2090 -defaultsOSRD
+preplace portBus weight_we_1 -pg 1 -lvl 4 -x 1850 -y 2150 -defaultsOSRD
+preplace portBus weight_rdata_1 -pg 1 -lvl 0 -x -60 -y 1230 -defaultsOSRD
+preplace portBus weight_addr_1 -pg 1 -lvl 4 -x 1850 -y 2570 -defaultsOSRD
+preplace portBus weight_wdata_2 -pg 1 -lvl 4 -x 1850 -y 2530 -defaultsOSRD
+preplace portBus weight_addr_2 -pg 1 -lvl 4 -x 1850 -y 2550 -defaultsOSRD
+preplace portBus weight_rdata_2 -pg 1 -lvl 0 -x -60 -y 2300 -defaultsOSRD
+preplace portBus weight_we_2 -pg 1 -lvl 4 -x 1850 -y 2590 -defaultsOSRD
+preplace portBus iact_addr_3 -pg 1 -lvl 4 -x 1850 -y 240 -defaultsOSRD
+preplace portBus iact_wdata_3 -pg 1 -lvl 4 -x 1850 -y 260 -defaultsOSRD
+preplace portBus iact_rdata_3 -pg 1 -lvl 0 -x -60 -y 620 -defaultsOSRD
+preplace portBus iact_we_3 -pg 1 -lvl 4 -x 1850 -y 280 -defaultsOSRD
+preplace portBus psum_addr_3 -pg 1 -lvl 4 -x 1850 -y 1530 -defaultsOSRD
+preplace portBus psum_rdata_3 -pg 1 -lvl 0 -x -60 -y 1210 -defaultsOSRD
+preplace portBus weight_wdata_3 -pg 1 -lvl 4 -x 1850 -y 2610 -defaultsOSRD
+preplace portBus weight_rdata_3 -pg 1 -lvl 0 -x -60 -y 2320 -defaultsOSRD
+preplace portBus weight_addr_3 -pg 1 -lvl 4 -x 1850 -y 2630 -defaultsOSRD
+preplace portBus weight_we_3 -pg 1 -lvl 4 -x 1850 -y 2270 -defaultsOSRD
+preplace portBus iact_rdata_4 -pg 1 -lvl 0 -x -60 -y 640 -defaultsOSRD
+preplace portBus iact_addr_4 -pg 1 -lvl 4 -x 1850 -y 300 -defaultsOSRD
+preplace portBus iact_wdata_4 -pg 1 -lvl 4 -x 1850 -y 320 -defaultsOSRD
+preplace portBus iact_we_4 -pg 1 -lvl 4 -x 1850 -y 340 -defaultsOSRD
+preplace portBus iact_rdata_5 -pg 1 -lvl 0 -x -60 -y 660 -defaultsOSRD
+preplace portBus iact_addr_5 -pg 1 -lvl 4 -x 1850 -y 360 -defaultsOSRD
+preplace portBus iact_wdata_5 -pg 1 -lvl 4 -x 1850 -y 380 -defaultsOSRD
+preplace portBus iact_we_5 -pg 1 -lvl 4 -x 1850 -y 400 -defaultsOSRD
+preplace portBus iact_rdata_6 -pg 1 -lvl 0 -x -60 -y 680 -defaultsOSRD
+preplace portBus iact_addr_6 -pg 1 -lvl 4 -x 1850 -y 420 -defaultsOSRD
+preplace portBus iact_wdata_6 -pg 1 -lvl 4 -x 1850 -y 440 -defaultsOSRD
+preplace portBus iact_we_6 -pg 1 -lvl 4 -x 1850 -y 40 -defaultsOSRD
+preplace portBus iact_rdata_7 -pg 1 -lvl 0 -x -60 -y 700 -defaultsOSRD
+preplace portBus iact_addr_7 -pg 1 -lvl 4 -x 1850 -y 460 -defaultsOSRD
+preplace portBus iact_wdata_7 -pg 1 -lvl 4 -x 1850 -y 500 -defaultsOSRD
+preplace portBus iact_we_7 -pg 1 -lvl 4 -x 1850 -y 520 -defaultsOSRD
+preplace portBus psum_addr_4 -pg 1 -lvl 4 -x 1850 -y 1550 -defaultsOSRD
+preplace portBus psum_rdata_4 -pg 1 -lvl 0 -x -60 -y 1250 -defaultsOSRD
+preplace portBus psum_addr_5 -pg 1 -lvl 4 -x 1850 -y 1570 -defaultsOSRD
+preplace portBus psum_rdata_5 -pg 1 -lvl 0 -x -60 -y 2000 -defaultsOSRD
+preplace portBus psum_rdata_6 -pg 1 -lvl 0 -x -60 -y 2020 -defaultsOSRD
+preplace portBus psum_addr_6 -pg 1 -lvl 4 -x 1850 -y 1590 -defaultsOSRD
+preplace portBus psum_addr_7 -pg 1 -lvl 4 -x 1850 -y 1620 -defaultsOSRD
+preplace portBus psum_rdata_7 -pg 1 -lvl 0 -x -60 -y 2040 -defaultsOSRD
+preplace portBus weight_rdata_4 -pg 1 -lvl 0 -x -60 -y 2550 -defaultsOSRD
+preplace portBus weight_addr_4 -pg 1 -lvl 4 -x 1850 -y 2290 -defaultsOSRD
+preplace portBus weight_wdata_4 -pg 1 -lvl 4 -x 1850 -y 2310 -defaultsOSRD
+preplace portBus weight_we_4 -pg 1 -lvl 4 -x 1850 -y 2330 -defaultsOSRD
+preplace portBus weight_rdata_5 -pg 1 -lvl 0 -x -60 -y 2590 -defaultsOSRD
+preplace portBus weight_addr_5 -pg 1 -lvl 4 -x 1850 -y 2350 -defaultsOSRD
+preplace portBus weight_wdata_5 -pg 1 -lvl 4 -x 1850 -y 2370 -defaultsOSRD
+preplace portBus weight_we_5 -pg 1 -lvl 4 -x 1850 -y 2390 -defaultsOSRD
+preplace portBus weight_rdata_6 -pg 1 -lvl 0 -x -60 -y 2530 -defaultsOSRD
+preplace portBus weight_addr_6 -pg 1 -lvl 4 -x 1850 -y 2410 -defaultsOSRD
+preplace portBus weight_wdata_6 -pg 1 -lvl 4 -x 1850 -y 2430 -defaultsOSRD
+preplace portBus weight_we_6 -pg 1 -lvl 4 -x 1850 -y 2450 -defaultsOSRD
+preplace portBus weight_rdata_7 -pg 1 -lvl 0 -x -60 -y 2650 -defaultsOSRD
+preplace portBus weight_addr_7 -pg 1 -lvl 4 -x 1850 -y 2470 -defaultsOSRD
+preplace portBus weight_wdata_7 -pg 1 -lvl 4 -x 1850 -y 2490 -defaultsOSRD
+preplace portBus weight_we_7 -pg 1 -lvl 4 -x 1850 -y 2510 -defaultsOSRD
+preplace portBus iact_rdata_8 -pg 1 -lvl 0 -x -60 -y 720 -defaultsOSRD
+preplace portBus iact_addr_8 -pg 1 -lvl 4 -x 1850 -y 480 -defaultsOSRD
+preplace portBus iact_wdata_8 -pg 1 -lvl 4 -x 1850 -y 560 -defaultsOSRD
+preplace portBus iact_we_8 -pg 1 -lvl 4 -x 1850 -y 540 -defaultsOSRD
+preplace portBus iact_rdata_9 -pg 1 -lvl 0 -x -60 -y 740 -defaultsOSRD
+preplace portBus iact_addr_9 -pg 1 -lvl 4 -x 1850 -y 600 -defaultsOSRD
+preplace portBus iact_wdata_9 -pg 1 -lvl 4 -x 1850 -y 620 -defaultsOSRD
+preplace portBus iact_we_9 -pg 1 -lvl 4 -x 1850 -y 580 -defaultsOSRD
+preplace portBus iact_addr_10 -pg 1 -lvl 4 -x 1850 -y 700 -defaultsOSRD
+preplace portBus iact_rdata_10 -pg 1 -lvl 0 -x -60 -y 760 -defaultsOSRD
+preplace portBus iact_wdata_10 -pg 1 -lvl 4 -x 1850 -y 980 -defaultsOSRD
+preplace portBus iact_we_10 -pg 1 -lvl 4 -x 1850 -y 680 -defaultsOSRD
+preplace portBus iact_addr_11 -pg 1 -lvl 4 -x 1850 -y 800 -defaultsOSRD
+preplace portBus iact_rdata_11 -pg 1 -lvl 0 -x -60 -y 780 -defaultsOSRD
+preplace portBus iact_wdata_11 -pg 1 -lvl 4 -x 1850 -y 660 -defaultsOSRD
+preplace portBus iact_we_11 -pg 1 -lvl 4 -x 1850 -y 720 -defaultsOSRD
+preplace portBus iact_rdata_12 -pg 1 -lvl 0 -x -60 -y 800 -defaultsOSRD
+preplace portBus iact_wdata_12 -pg 1 -lvl 4 -x 1850 -y 780 -defaultsOSRD
+preplace portBus iact_addr_12 -pg 1 -lvl 4 -x 1850 -y 760 -defaultsOSRD
+preplace portBus iact_we_12 -pg 1 -lvl 4 -x 1850 -y 840 -defaultsOSRD
+preplace portBus iact_rdata_13 -pg 1 -lvl 0 -x -60 -y 820 -defaultsOSRD
+preplace portBus iact_wdata_13 -pg 1 -lvl 4 -x 1850 -y 860 -defaultsOSRD
+preplace portBus iact_addr_13 -pg 1 -lvl 4 -x 1850 -y 820 -defaultsOSRD
+preplace portBus iact_we_13 -pg 1 -lvl 4 -x 1850 -y 880 -defaultsOSRD
+preplace portBus iact_rdata_14 -pg 1 -lvl 0 -x -60 -y 840 -defaultsOSRD
+preplace portBus iact_wdata_14 -pg 1 -lvl 4 -x 1850 -y 900 -defaultsOSRD
+preplace portBus iact_addr_14 -pg 1 -lvl 4 -x 1850 -y 920 -defaultsOSRD
+preplace portBus iact_we_14 -pg 1 -lvl 4 -x 1850 -y 940 -defaultsOSRD
+preplace portBus iact_rdata_15 -pg 1 -lvl 0 -x -60 -y 860 -defaultsOSRD
+preplace portBus iact_wdata_15 -pg 1 -lvl 4 -x 1850 -y 1000 -defaultsOSRD
+preplace portBus iact_addr_15 -pg 1 -lvl 4 -x 1850 -y 740 -defaultsOSRD
+preplace portBus iact_we_15 -pg 1 -lvl 4 -x 1850 -y 960 -defaultsOSRD
+preplace portBus psum_addr_8 -pg 1 -lvl 4 -x 1850 -y 1640 -defaultsOSRD
+preplace portBus psum_rdata_8 -pg 1 -lvl 0 -x -60 -y 2570 -defaultsOSRD
+preplace portBus psum_addr_9 -pg 1 -lvl 4 -x 1850 -y 1670 -defaultsOSRD
+preplace portBus psum_rdata_9 -pg 1 -lvl 0 -x -60 -y 2610 -defaultsOSRD
+preplace portBus psum_addr_10 -pg 1 -lvl 4 -x 1850 -y 1700 -defaultsOSRD
+preplace portBus psum_rdata_10 -pg 1 -lvl 0 -x -60 -y 2100 -defaultsOSRD
+preplace portBus psum_addr_11 -pg 1 -lvl 4 -x 1850 -y 1490 -defaultsOSRD
+preplace portBus psum_rdata_11 -pg 1 -lvl 0 -x -60 -y 2630 -defaultsOSRD
+preplace portBus psum_addr_12 -pg 1 -lvl 4 -x 1850 -y 1730 -defaultsOSRD
+preplace portBus psum_rdata_12 -pg 1 -lvl 0 -x -60 -y 2510 -defaultsOSRD
+preplace portBus psum_addr_13 -pg 1 -lvl 4 -x 1850 -y 1510 -defaultsOSRD
+preplace portBus psum_rdata_13 -pg 1 -lvl 0 -x -60 -y 2160 -defaultsOSRD
+preplace portBus psum_addr_14 -pg 1 -lvl 4 -x 1850 -y 1760 -defaultsOSRD
+preplace portBus psum_rdata_14 -pg 1 -lvl 0 -x -60 -y 2180 -defaultsOSRD
+preplace portBus psum_addr_15 -pg 1 -lvl 4 -x 1850 -y 1790 -defaultsOSRD
+preplace portBus psum_rdata_15 -pg 1 -lvl 0 -x -60 -y 2670 -defaultsOSRD
+preplace portBus weight_rdata_8 -pg 1 -lvl 0 -x -60 -y 2700 -defaultsOSRD
+preplace portBus weight_addr_8 -pg 1 -lvl 4 -x 1850 -y 2660 -defaultsOSRD
+preplace portBus weight_wdata_8 -pg 1 -lvl 4 -x 1850 -y 2680 -defaultsOSRD
+preplace portBus weight_we_8 -pg 1 -lvl 4 -x 1850 -y 2700 -defaultsOSRD
+preplace portBus weight_rdata_9 -pg 1 -lvl 0 -x -60 -y 2740 -defaultsOSRD
+preplace portBus weight_addr_9 -pg 1 -lvl 4 -x 1850 -y 2720 -defaultsOSRD
+preplace portBus weight_wdata_9 -pg 1 -lvl 4 -x 1850 -y 2740 -defaultsOSRD
+preplace portBus weight_we_9 -pg 1 -lvl 4 -x 1850 -y 2760 -defaultsOSRD
+preplace portBus weight_addr_10 -pg 1 -lvl 4 -x 1850 -y 2780 -defaultsOSRD
+preplace portBus weight_rdata_10 -pg 1 -lvl 0 -x -60 -y 2780 -defaultsOSRD
+preplace portBus weight_wdata_10 -pg 1 -lvl 4 -x 1850 -y 2800 -defaultsOSRD
+preplace portBus weight_we_10 -pg 1 -lvl 4 -x 1850 -y 2820 -defaultsOSRD
+preplace portBus weight_addr_11 -pg 1 -lvl 4 -x 1850 -y 2840 -defaultsOSRD
+preplace portBus weight_rdata_11 -pg 1 -lvl 0 -x -60 -y 2820 -defaultsOSRD
+preplace portBus weight_wdata_11 -pg 1 -lvl 4 -x 1850 -y 2860 -defaultsOSRD
+preplace portBus weight_we_11 -pg 1 -lvl 4 -x 1850 -y 2880 -defaultsOSRD
+preplace portBus weight_rdata_12 -pg 1 -lvl 0 -x -60 -y 2860 -defaultsOSRD
+preplace portBus weight_wdata_12 -pg 1 -lvl 4 -x 1850 -y 2900 -defaultsOSRD
+preplace portBus weight_addr_12 -pg 1 -lvl 4 -x 1850 -y 2920 -defaultsOSRD
+preplace portBus weight_we_12 -pg 1 -lvl 4 -x 1850 -y 2940 -defaultsOSRD
+preplace portBus weight_rdata_13 -pg 1 -lvl 0 -x -60 -y 2900 -defaultsOSRD
+preplace portBus weight_wdata_13 -pg 1 -lvl 4 -x 1850 -y 2960 -defaultsOSRD
+preplace portBus weight_addr_13 -pg 1 -lvl 4 -x 1850 -y 2980 -defaultsOSRD
+preplace portBus weight_we_13 -pg 1 -lvl 4 -x 1850 -y 3000 -defaultsOSRD
+preplace portBus weight_rdata_14 -pg 1 -lvl 0 -x -60 -y 2940 -defaultsOSRD
+preplace portBus weight_wdata_14 -pg 1 -lvl 4 -x 1850 -y 3020 -defaultsOSRD
+preplace portBus weight_addr_14 -pg 1 -lvl 4 -x 1850 -y 3040 -defaultsOSRD
+preplace portBus weight_we_14 -pg 1 -lvl 4 -x 1850 -y 3060 -defaultsOSRD
+preplace portBus weight_rdata_15 -pg 1 -lvl 0 -x -60 -y 2980 -defaultsOSRD
+preplace portBus weight_wdata_15 -pg 1 -lvl 4 -x 1850 -y 3080 -defaultsOSRD
+preplace portBus weight_addr_15 -pg 1 -lvl 4 -x 1850 -y 3100 -defaultsOSRD
+preplace portBus weight_we_15 -pg 1 -lvl 4 -x 1850 -y 3120 -defaultsOSRD
+preplace inst clk_wiz_0 -pg 1 -lvl 1 -x 290 -y 1070 -defaultsOSRD
+preplace inst proc_sys_reset_0 -pg 1 -lvl 1 -x 290 -y 1520 -defaultsOSRD
+preplace inst smartconnect_0 -pg 1 -lvl 1 -x 290 -y 1330 -defaultsOSRD
+preplace inst axi_gpio_0 -pg 1 -lvl 3 -x 1470 -y 1140 -defaultsOSRD
+preplace inst weights -pg 1 -lvl 3 -x 1470 -y 2650 -defaultsOSRD
+preplace inst iacts -pg 1 -lvl 3 -x 1470 -y 530 -defaultsOSRD
+preplace inst uart2axi_v1_0_0 -pg 1 -lvl 3 -x 1470 -y 2060 -defaultsOSRD
+preplace inst smartconnect_1 -pg 1 -lvl 2 -x 780 -y 350 -defaultsOSRD
+preplace inst smartconnect_2 -pg 1 -lvl 2 -x 780 -y 1440 -defaultsOSRD
+preplace inst smartconnect_3 -pg 1 -lvl 2 -x 780 -y 2310 -defaultsOSRD
+preplace inst psums -pg 1 -lvl 3 -x 1470 -y 1620 -defaultsOSRD
+preplace netloc axi_gpio_0_gpio_io_o 1 3 1 NJ 1160
+preplace netloc bram_rddata_a_0_1 1 0 3 -40J 960 NJ 960 1290
+preplace netloc bram_rddata_a_0_2 1 0 3 NJ 1190 NJ 1190 1260
+preplace netloc bram_rddata_a_0_3 1 0 3 -30J 980 NJ 980 1270
+preplace netloc bram_rddata_a_0_4 1 0 3 NJ 560 NJ 560 N
+preplace netloc bram_rddata_a_0_5 1 0 3 NJ 580 NJ 580 N
+preplace netloc bram_rddata_a_0_6 1 0 3 NJ 600 NJ 600 N
+preplace netloc bram_rddata_a_0_7 1 0 3 30J 2180 630J 2080 1120
+preplace netloc bram_rddata_a_0_8 1 0 3 -40J 1200 NJ 1200 1140
+preplace netloc bram_rddata_a_0_9 1 0 3 50J 2190 640J 2090 1100
+preplace netloc bram_rddata_a_0_10 1 0 3 NJ 620 NJ 620 N
+preplace netloc bram_rddata_a_0_11 1 0 3 NJ 640 NJ 640 N
+preplace netloc bram_rddata_a_0_12 1 0 3 NJ 2550 NJ 2550 1010
+preplace netloc bram_rddata_a_0_13 1 0 3 NJ 720 NJ 720 NJ
+preplace netloc bram_rddata_a_0_14 1 0 3 -10J 2030 480J 2000 1080
+preplace netloc bram_rddata_a_0_15 1 0 3 NJ 2700 NJ 2700 970J
+preplace netloc bram_rddata_a_1_1 1 0 3 NJ 1210 NJ 1210 1240
+preplace netloc bram_rddata_a_1_2 1 0 3 NJ 660 NJ 660 N
+preplace netloc bram_rddata_a_1_3 1 0 3 NJ 2590 NJ 2590 990
+preplace netloc bram_rddata_a_1_4 1 0 3 NJ 740 NJ 740 NJ
+preplace netloc bram_rddata_a_1_5 1 0 3 10J 2050 490J 2010 1100
+preplace netloc bram_rddata_a_1_6 1 0 3 NJ 2740 NJ 2740 960J
+preplace netloc bram_rddata_a_2_1 1 0 3 60J 2200 650J 2100 1080
+preplace netloc bram_rddata_a_2_2 1 0 3 NJ 680 NJ 680 N
+preplace netloc bram_rddata_a_2_3 1 0 3 NJ 2530 NJ 2530 1000
+preplace netloc bram_rddata_a_2_4 1 0 3 NJ 760 NJ 760 NJ
+preplace netloc bram_rddata_a_2_5 1 0 3 -40J 2070 510J 2020 1110
+preplace netloc bram_rddata_a_2_6 1 0 3 NJ 2780 NJ 2780 950J
+preplace netloc bram_rddata_a_3_1 1 0 3 NJ 700 NJ 700 N
+preplace netloc bram_rddata_a_3_2 1 0 3 NJ 2650 NJ 2650 980
+preplace netloc bram_rddata_a_3_3 1 0 3 NJ 780 NJ 780 NJ
+preplace netloc bram_rddata_a_3_4 1 0 3 40J 2090 580J 2030 1120
+preplace netloc bram_rddata_a_3_5 1 0 3 NJ 2820 NJ 2820 940J
+preplace netloc bram_rddata_a_4_1 1 0 3 -30J 1220 NJ 1220 1190
+preplace netloc bram_rddata_a_4_2 1 0 3 NJ 800 NJ 800 NJ
+preplace netloc bram_rddata_a_4_3 1 0 3 20J 2110 590J 2040 1130
+preplace netloc bram_rddata_a_4_4 1 0 3 NJ 2860 NJ 2860 930J
+preplace netloc bram_rddata_a_5_1 1 0 3 -40J 1970 NJ 1970 1050
+preplace netloc bram_rddata_a_5_2 1 0 3 NJ 820 NJ 820 NJ
+preplace netloc bram_rddata_a_5_3 1 0 3 -40J 2130 600J 2050 1170
+preplace netloc bram_rddata_a_5_4 1 0 3 NJ 2900 NJ 2900 920J
+preplace netloc bram_rddata_a_6_1 1 0 3 -30J 1990 460J 1980 1060
+preplace netloc bram_rddata_a_6_2 1 0 3 NJ 840 NJ 840 NJ
+preplace netloc bram_rddata_a_6_3 1 0 3 0J 2150 610J 2060 1180
+preplace netloc bram_rddata_a_6_4 1 0 3 NJ 2940 NJ 2940 910J
+preplace netloc bram_rddata_a_7_1 1 0 3 -20J 2010 470J 1990 1070
+preplace netloc bram_rddata_a_7_2 1 0 3 NJ 860 NJ 860 NJ
+preplace netloc bram_rddata_a_7_3 1 0 3 70J 2170 620J 2070 1190
+preplace netloc bram_rddata_a_7_4 1 0 3 NJ 2980 NJ 2980 NJ
+preplace netloc clk_ext_n_1 1 0 1 NJ 1060
+preplace netloc clk_ext_p_1 1 0 1 NJ 1080
+preplace netloc clk_wiz_0_clk100 1 0 4 110 1420 550 790 1220 1060 NJ
+preplace netloc clk_wiz_0_locked 1 0 2 30 1160 460
+preplace netloc gpio_io_i_0_1 1 0 4 NJ 970 NJ 970 1280 1050 1650
+preplace netloc iacts_bram_addr_a_0 1 3 1 NJ 80
+preplace netloc iacts_bram_addr_a_1 1 3 1 NJ 140
+preplace netloc iacts_bram_addr_a_2 1 3 1 NJ 200
+preplace netloc iacts_bram_addr_a_3 1 3 1 N 240
+preplace netloc iacts_bram_addr_a_4 1 3 1 N 300
+preplace netloc iacts_bram_addr_a_5 1 3 1 NJ 360
+preplace netloc iacts_bram_addr_a_6 1 3 1 N 420
+preplace netloc iacts_bram_addr_a_7 1 3 1 1670J 460n
+preplace netloc iacts_bram_addr_a_8 1 3 1 1710J 480n
+preplace netloc iacts_bram_addr_a_9 1 3 1 NJ 600
+preplace netloc iacts_bram_addr_a_10 1 3 1 1710 660n
+preplace netloc iacts_bram_addr_a_11 1 3 1 1670 720n
+preplace netloc iacts_bram_addr_a_12 1 3 1 1760 760n
+preplace netloc iacts_bram_addr_a_13 1 3 1 1800 820n
+preplace netloc iacts_bram_addr_a_14 1 3 1 NJ 920
+preplace netloc iacts_bram_addr_a_15 1 3 1 1770J 740n
+preplace netloc iacts_bram_we_a_0 1 3 1 NJ 100
+preplace netloc iacts_bram_we_a_1 1 3 1 NJ 160
+preplace netloc iacts_bram_we_a_2 1 3 1 NJ 220
+preplace netloc iacts_bram_we_a_3 1 3 1 N 280
+preplace netloc iacts_bram_we_a_4 1 3 1 NJ 340
+preplace netloc iacts_bram_we_a_5 1 3 1 NJ 400
+preplace netloc iacts_bram_we_a_6 1 3 1 1660J 40n
+preplace netloc iacts_bram_we_a_7 1 3 1 NJ 520
+preplace netloc iacts_bram_we_a_8 1 3 1 1720J 540n
+preplace netloc iacts_bram_we_a_9 1 3 1 1770J 580n
+preplace netloc iacts_bram_we_a_10 1 3 1 1670 680n
+preplace netloc iacts_bram_we_a_11 1 3 1 1750 720n
+preplace netloc iacts_bram_we_a_12 1 3 1 1790 820n
+preplace netloc iacts_bram_we_a_13 1 3 1 N 880
+preplace netloc iacts_bram_we_a_14 1 3 1 NJ 940
+preplace netloc iacts_bram_we_a_15 1 3 1 1800J 960n
+preplace netloc iacts_bram_wrdata_a_0 1 3 1 NJ 60
+preplace netloc iacts_bram_wrdata_a_1 1 3 1 NJ 120
+preplace netloc iacts_bram_wrdata_a_2 1 3 1 NJ 180
+preplace netloc iacts_bram_wrdata_a_3 1 3 1 N 260
+preplace netloc iacts_bram_wrdata_a_4 1 3 1 NJ 320
+preplace netloc iacts_bram_wrdata_a_5 1 3 1 NJ 380
+preplace netloc iacts_bram_wrdata_a_6 1 3 1 NJ 440
+preplace netloc iacts_bram_wrdata_a_7 1 3 1 NJ 500
+preplace netloc iacts_bram_wrdata_a_8 1 3 1 NJ 560
+preplace netloc iacts_bram_wrdata_a_9 1 3 1 NJ 620
+preplace netloc iacts_bram_wrdata_a_10 1 3 1 1660 680n
+preplace netloc iacts_bram_wrdata_a_11 1 3 1 1720 660n
+preplace netloc iacts_bram_wrdata_a_12 1 3 1 N 780
+preplace netloc iacts_bram_wrdata_a_13 1 3 1 1780 840n
+preplace netloc iacts_bram_wrdata_a_14 1 3 1 N 900
+preplace netloc iacts_bram_wrdata_a_15 1 3 1 1650J 960n
+preplace netloc proc_sys_reset_0_interconnect_aresetn 1 0 2 120 1240 570
+preplace netloc proc_sys_reset_0_peripheral_aresetn 1 1 3 490 1160 1230 1220 1800J
+preplace netloc psums_bram_addr_a_0 1 3 1 N 1470
+preplace netloc psums_bram_addr_a_1 1 3 1 1670 1450n
+preplace netloc psums_bram_addr_a_2 1 3 1 1710 1510n
+preplace netloc psums_bram_addr_a_3 1 3 1 N 1530
+preplace netloc psums_bram_addr_a_4 1 3 1 N 1550
+preplace netloc psums_bram_addr_a_5 1 3 1 N 1570
+preplace netloc psums_bram_addr_a_6 1 3 1 N 1590
+preplace netloc psums_bram_addr_a_7 1 3 1 1800 1610n
+preplace netloc psums_bram_addr_a_8 1 3 1 1800 1630n
+preplace netloc psums_bram_addr_a_9 1 3 1 1800 1650n
+preplace netloc psums_bram_addr_a_10 1 3 1 1790 1670n
+preplace netloc psums_bram_addr_a_11 1 3 1 1750 1490n
+preplace netloc psums_bram_addr_a_12 1 3 1 1800 1710n
+preplace netloc psums_bram_addr_a_13 1 3 1 1770 1510n
+preplace netloc psums_bram_addr_a_14 1 3 1 1660 1750n
+preplace netloc psums_bram_addr_a_15 1 3 1 1660 1770n
+preplace netloc resetn_0_1 1 0 1 20J 1040n
+preplace netloc uart2axi_v1_0_0_uart_tx 1 3 1 NJ 2070
+preplace netloc uart_rx_0_1 1 0 3 NJ 1170 NJ 1170 1250
+preplace netloc weights_bram_addr_a_0 1 3 1 NJ 2200
+preplace netloc weights_bram_addr_a_1 1 3 1 1690J 2280n
+preplace netloc weights_bram_addr_a_2 1 3 1 1680J 2320n
+preplace netloc weights_bram_addr_a_3 1 3 1 1650 2380n
+preplace netloc weights_bram_addr_a_4 1 3 1 1720J 2290n
+preplace netloc weights_bram_addr_a_5 1 3 1 1750J 2350n
+preplace netloc weights_bram_addr_a_6 1 3 1 1780 2410n
+preplace netloc weights_bram_addr_a_7 1 3 1 1810 2470n
+preplace netloc weights_bram_addr_a_8 1 3 1 NJ 2660
+preplace netloc weights_bram_addr_a_9 1 3 1 NJ 2720
+preplace netloc weights_bram_addr_a_10 1 3 1 N 2780
+preplace netloc weights_bram_addr_a_11 1 3 1 N 2840
+preplace netloc weights_bram_addr_a_12 1 3 1 NJ 2920
+preplace netloc weights_bram_addr_a_13 1 3 1 NJ 2980
+preplace netloc weights_bram_addr_a_14 1 3 1 NJ 3040
+preplace netloc weights_bram_addr_a_15 1 3 1 NJ 3100
+preplace netloc weights_bram_we_a_0 1 3 1 1760J 2050n
+preplace netloc weights_bram_we_a_1 1 3 1 1800J 2150n
+preplace netloc weights_bram_we_a_2 1 3 1 1670J 2340n
+preplace netloc weights_bram_we_a_3 1 3 1 1710J 2270n
+preplace netloc weights_bram_we_a_4 1 3 1 1740J 2330n
+preplace netloc weights_bram_we_a_5 1 3 1 1770J 2390n
+preplace netloc weights_bram_we_a_6 1 3 1 1800J 2450n
+preplace netloc weights_bram_we_a_7 1 3 1 1830J 2510n
+preplace netloc weights_bram_we_a_8 1 3 1 NJ 2700
+preplace netloc weights_bram_we_a_9 1 3 1 NJ 2760
+preplace netloc weights_bram_we_a_10 1 3 1 NJ 2820
+preplace netloc weights_bram_we_a_11 1 3 1 NJ 2880
+preplace netloc weights_bram_we_a_12 1 3 1 NJ 2940
+preplace netloc weights_bram_we_a_13 1 3 1 NJ 3000
+preplace netloc weights_bram_we_a_14 1 3 1 NJ 3060
+preplace netloc weights_bram_we_a_15 1 3 1 NJ 3120
+preplace netloc weights_bram_wrdata_a_0 1 3 1 NJ 2180
+preplace netloc weights_bram_wrdata_a_1 1 3 1 1790J 2090n
+preplace netloc weights_bram_wrdata_a_2 1 3 1 1700J 2300n
+preplace netloc weights_bram_wrdata_a_3 1 3 1 1660J 2360n
+preplace netloc weights_bram_wrdata_a_4 1 3 1 1730J 2310n
+preplace netloc weights_bram_wrdata_a_5 1 3 1 1760 2370n
+preplace netloc weights_bram_wrdata_a_6 1 3 1 1790J 2430n
+preplace netloc weights_bram_wrdata_a_7 1 3 1 1820J 2490n
+preplace netloc weights_bram_wrdata_a_8 1 3 1 NJ 2680
+preplace netloc weights_bram_wrdata_a_9 1 3 1 NJ 2740
+preplace netloc weights_bram_wrdata_a_10 1 3 1 NJ 2800
+preplace netloc weights_bram_wrdata_a_11 1 3 1 NJ 2860
+preplace netloc weights_bram_wrdata_a_12 1 3 1 NJ 2900
+preplace netloc weights_bram_wrdata_a_13 1 3 1 NJ 2960
+preplace netloc weights_bram_wrdata_a_14 1 3 1 NJ 3020
+preplace netloc weights_bram_wrdata_a_15 1 3 1 NJ 3080
+preplace netloc S_AXI2_1 1 2 1 N 1330
+preplace netloc S_AXI_0_1 1 2 1 N 360
+preplace netloc S_AXI_0_2 1 2 1 N 1450
+preplace netloc S_AXI_1 1 2 1 N 1290
+preplace netloc S_AXI_11_1 1 2 1 N 480
+preplace netloc S_AXI_11_2 1 2 1 N 1570
+preplace netloc S_AXI_11_3 1 2 1 1020 2460n
+preplace netloc S_AXI_2_1 1 2 1 N 1410
+preplace netloc S_AXI_2_2 1 2 1 N 400
+preplace netloc S_AXI_4_1 1 2 1 N 1370
+preplace netloc S_AXI_5_1 1 2 1 1090 2340n
+preplace netloc S_AXI_7_1 1 2 1 N 1490
+preplace netloc S_AXI_7_2 1 2 1 1060 2380n
+preplace netloc S_AXI_9_1 1 2 1 N 440
+preplace netloc S_AXI_9_2 1 2 1 N 1530
+preplace netloc S_AXI_9_3 1 2 1 1040 2420n
+preplace netloc smartconnect_0_M00_AXI 1 1 2 480 1120 N
+preplace netloc smartconnect_0_M01_AXI 1 1 1 470 330n
+preplace netloc smartconnect_0_M02_AXI 1 1 1 560 1340n
+preplace netloc smartconnect_0_M03_AXI 1 1 1 500 1360n
+preplace netloc smartconnect_1_M00_AXI 1 2 1 N 200
+preplace netloc smartconnect_1_M01_AXI 1 2 1 N 220
+preplace netloc smartconnect_1_M02_AXI 1 2 1 N 240
+preplace netloc smartconnect_1_M03_AXI 1 2 1 N 260
+preplace netloc smartconnect_1_M04_AXI 1 2 1 N 280
+preplace netloc smartconnect_1_M05_AXI 1 2 1 N 300
+preplace netloc smartconnect_1_M06_AXI 1 2 1 N 320
+preplace netloc smartconnect_1_M07_AXI 1 2 1 N 340
+preplace netloc smartconnect_1_M09_AXI 1 2 1 N 380
+preplace netloc smartconnect_1_M11_AXI 1 2 1 N 420
+preplace netloc smartconnect_1_M13_AXI 1 2 1 N 460
+preplace netloc smartconnect_1_M15_AXI 1 2 1 N 500
+preplace netloc smartconnect_2_M01_AXI 1 2 1 N 1310
+preplace netloc smartconnect_2_M03_AXI 1 2 1 N 1350
+preplace netloc smartconnect_2_M05_AXI 1 2 1 N 1390
+preplace netloc smartconnect_2_M07_AXI 1 2 1 N 1430
+preplace netloc smartconnect_2_M09_AXI 1 2 1 N 1470
+preplace netloc smartconnect_2_M11_AXI 1 2 1 N 1510
+preplace netloc smartconnect_2_M13_AXI 1 2 1 N 1550
+preplace netloc smartconnect_2_M15_AXI 1 2 1 N 1590
+preplace netloc smartconnect_3_M00_AXI 1 2 1 1290 2160n
+preplace netloc smartconnect_3_M01_AXI 1 2 1 1280 2180n
+preplace netloc smartconnect_3_M02_AXI 1 2 1 1190 2200n
+preplace netloc smartconnect_3_M03_AXI 1 2 1 1180 2220n
+preplace netloc smartconnect_3_M04_AXI 1 2 1 1170 2240n
+preplace netloc smartconnect_3_M05_AXI 1 2 1 1160 2260n
+preplace netloc smartconnect_3_M06_AXI 1 2 1 1150 2280n
+preplace netloc smartconnect_3_M07_AXI 1 2 1 1130 2300n
+preplace netloc smartconnect_3_M08_AXI 1 2 1 1110 2320n
+preplace netloc smartconnect_3_M10_AXI 1 2 1 1070 2360n
+preplace netloc smartconnect_3_M12_AXI 1 2 1 1050 2400n
+preplace netloc smartconnect_3_M14_AXI 1 2 1 1030 2440n
+preplace netloc uart2axi_v1_0_0_m00_axi 1 0 4 80 1230 NJ 1230 N 1230 1650
+levelinfo -pg 1 -60 290 780 1470 1850
+pagesize -pg 1 -db -bbox -sgen -260 0 2060 3170
+"
+}
 
   # Restore current instance
   current_bd_instance $oldCurInst
@@ -1087,7 +3021,7 @@ catch {
 
 # Create 'synth_1' run (if not found)
 if {[string equal [get_runs -quiet synth_1] ""]} {
-    create_run -name synth_1 -part xc7a35ticsg324-1L -flow {Vivado Synthesis 2025} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
+    create_run -name synth_1 -part xc7z100ffg900-2 -flow {Vivado Synthesis 2025} -strategy "Vivado Synthesis Defaults" -report_strategy {No Reports} -constrset constrs_1
 } else {
   set_property strategy "Vivado Synthesis Defaults" [get_runs synth_1]
   set_property flow "Vivado Synthesis 2025" [get_runs synth_1]
@@ -1113,7 +3047,7 @@ current_run -synthesis [get_runs synth_1]
 
 # Create 'impl_1' run (if not found)
 if {[string equal [get_runs -quiet impl_1] ""]} {
-    create_run -name impl_1 -part xc7a35ticsg324-1L -flow {Vivado Implementation 2025} -strategy "Vivado Implementation Defaults" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
+    create_run -name impl_1 -part xc7z100ffg900-2 -flow {Vivado Implementation 2025} -strategy "Vivado Implementation Defaults" -report_strategy {No Reports} -constrset constrs_1 -parent_run synth_1
 } else {
   set_property strategy "Vivado Implementation Defaults" [get_runs impl_1]
   set_property flow "Vivado Implementation 2025" [get_runs impl_1]

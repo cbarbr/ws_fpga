@@ -20,6 +20,9 @@ class Device:
     WRITE = bytearray([0b01000000])
     READ = bytearray([0b10000000])
 
+    NCOLS = 16
+    NROWS = 16
+
     def __init__(self, port_name, baud_rate):
         self.port_name = port_name
         self.baud_rate = baud_rate
@@ -64,32 +67,41 @@ class Device:
 
     def write_weight_matrix(self, matrix):
         """Writes the given matrix to weight memory."""
-        for row in range(3):
-            for col in range(3):
-                self.write_32(WS_FPGA[f"WEIGHTS_{row}"] + col * 4, matrix[row][2 - col])
+        for row in range(self.NROWS):
+            for col in range(self.NCOLS):
+                self.write_32(WS_FPGA[f"WEIGHTS_{row}"] + col * 4, matrix[row][self.NCOLS - col - 1])
 
     def write_iact_matrix(self, matrix):
         """Writes the given matrix to iact memory."""
-        for col in range(3):
-            for row in range(3):
-                self.write_32(WS_FPGA[f"IACTS_{row}"] + col * 4, matrix[row][2 - col])
+        for col in range(self.NCOLS):
+            for row in range(self.NROWS):
+                self.write_32(WS_FPGA[f"IACTS_{row}"] + col * 4, matrix[row][self.NCOLS - col - 1])
 
     def read_psum_matrix(self):
         """Reads the resulting psum matrix."""
-        matrix = [[0 for _ in range(3)] for _ in range(3)]
-        for col in range(3):
-            for row in range(3):
+        matrix = [[0 for _ in range(self.NCOLS)] for _ in range(self.NROWS)]
+        for col in range(self.NCOLS):
+            for row in range(self.NROWS):
                 read_data = self.read_64(WS_FPGA[f"PSUMS_{row}"] + col * 8)
-                matrix[row][2 - col] = read_data
+                matrix[row][self.NCOLS - col - 1] = read_data
         return matrix
 
     def matrix_multiply(self, weight_matrix, iact_matrix):
         """Returns the psum matrix given a weight and iact matrix."""
+        start = time.perf_counter()
         self.write_weight_matrix(weight_matrix)
+        write_weight_time = time.perf_counter() - start
         self.write_iact_matrix(iact_matrix)
+        write_iact_time = time.perf_counter() - start - write_weight_time
         self.go()
+        compute_start = time.perf_counter()
         while not self.check_done():
-            time.sleep(0.1)
+            time.sleep(0.000000001)
+        end = time.perf_counter()
+        print(f"Matrix hw multiply took {end - start:.6f} seconds")
+        print(f"Weight matrix write took {write_weight_time:.6f} seconds")
+        print(f"Iact matrix write took {write_iact_time:.6f} seconds")
+        print(f"Computation took {end - compute_start:.6f} seconds")
         return self.read_psum_matrix()
 
 
