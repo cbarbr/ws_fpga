@@ -27,9 +27,9 @@
     localparam COMPUTE_CYCLES = ARRAY_ROWS + ARRAY_ROWS + ARRAY_COLS; // iact_cols + ARRAY_ROWS + ARRAY_COLS
     localparam LOAD_WEIGHT_CYCLES = ARRAY_COLS;
     
-    logic [$clog2(LOAD_WEIGHT_CYCLES) - 1:0] load_weight_cycle_cnt;
+    logic [$clog2(LOAD_WEIGHT_CYCLES + 1) - 1:0] load_weight_cycle_cnt;
     logic load_weight_cycle_cnt_en;
-    logic [$clog2(COMPUTE_CYCLES) - 1:0] compute_cycle_cnt;
+    logic [$clog2(COMPUTE_CYCLES + 1) - 1:0] compute_cycle_cnt;
     
     logic go_reg_0;
     logic go_reg_1;
