@@ -137,27 +137,13 @@ def extract_and_quantize_weights(model):
     return W_q, scale
 
 def pad_weight_vector(w_q):
-    """
-    Input:  w_q = int8 array of shape (784,)
-    Output: padded weight matrix of shape (786, 3)
-    """
-    PAD_K = 786
-    PAD_N = 3
 
-    B = np.zeros((PAD_K, PAD_N), dtype=np.int8)
-    B[:784, 0] = w_q  # column 0 holds the weights
+    PAD_K = 786  # padded rows
+    PAD_N = 10  # classes
 
-    return B
-
-def pad_all_weights(W_q):
-    """
-    W_q : (10, 784) int8 FC weight matrix
-    Returns list of 10 padded weight matrices, each (786, 3)
-    """
-    padded = []
-    for i in range(W_q.shape[0]):   # for each digit class
-        padded.append(pad_weight_vector(W_q[i]))
-    return padded
+    W_padded = np.zeros((PAD_N, PAD_K), dtype=np.int8)
+    W_padded[:, :784] = w_q.astype(np.int8)  # fill valid rows
+    return W_padded
 
 def write_weight_padded_coe(filename, padded_list):
     """
@@ -205,16 +191,27 @@ def run_inference(image_path, model_path="mnist_fc.pth"):
 
     # Pad
     iacts_padded = pad_iact_vector(x_q)
+    print("iacts shape is ", iacts_padded.shape)
 
     # Save to .coe
     write_coe("iacts_padded_int8.coe", iacts_padded)
 
     W_q, W_scale = extract_and_quantize_weights(model)
-    W_padded_list = pad_all_weights(W_q)
+
+    W_padded_list = pad_weight_vector(W_q)
+    print("W_q_pad shape is ", W_padded_list.shape)
 
     write_coe("weights_padded_int8.coe", W_padded_list[0])  # write first class weights as example
     
-    return pred, iacts_padded, scale, W_q, W_scale
+    ## Matrix multiply: (10×786) × (786×3) → (10×3)
+    #output = np.matmul(W_padded_list.astype(np.int32), iacts_padded.astype(np.int32))
+    #print("Output shape:", output.shape)  # (10, 3)
+    #print("Output logits:\n", output)
+    ## Final prediction from FPGA math model
+    #pred_fpga_model = int(np.argmax(output[:, 0]))  # use column 0 as valid output
+    #print(f"[+] FPGA-model int8 prediction = {pred_fpga_model}")
+
+    return pred, iacts_padded, scale, W_q, W_scale, W_padded_list, x_q
 
 
 # =========================================================
