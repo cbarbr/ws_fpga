@@ -40,7 +40,7 @@ class DigitGUI:
 
         self.status = tk.Label(root, text="Draw a digit and press Run")
         self.status.grid(row=2, column=0, columnspan=3)
-        self.fpga = Device("COM4", 115200)
+        self.fpga = Device("COM3", 2000000)
 
     def paint(self, event):
         x, y = event.x, event.y
@@ -113,58 +113,58 @@ class DigitGUI:
             iacts: (786, 3)
             k_start: K index stepping by 3
             """
-            tile = np.zeros((TILE, TILE), dtype=np.int8)
+            tile = np.zeros((TILE, 1), dtype=np.int8)  # only 1 column
 
             k_end = min(k_start + TILE, iacts.shape[0])
-            n_end = min(TILE, iacts.shape[1])  # normally 3
-
-            tile[0:k_end-k_start, 0:n_end] = iacts[k_start:k_end, 0:n_end]
+            tile[:k_end-k_start, 0] = iacts[k_start:k_end, 0]
 
             return tile
         
-        def matmul_3x3_weight_stationary(fpga, W_q_pad, iacts, TILE=3):
-            NUM_CLASSES = W_q_pad.shape[0]
-            K          = iacts.shape[0]
-            OUT_COLS   = iacts.shape[1]
+        def matmul_16x16_weight_stationary(fpga, W_q, iacts, TILE=16):
+            NUM_CLASSES = W_q.shape[0]  # 10
+            K = W_q.shape[1]            # 784
+            OUT_COLS = iacts.shape[1]   # 1
 
-            C = np.zeros((NUM_CLASSES, OUT_COLS), dtype=np.int64)
+            # Pad for full-tile hardware
+            W_pad = np.zeros((TILE, K), dtype=np.int8)
+            W_pad[:NUM_CLASSES, :] = W_q
 
-            num_class_tiles = (NUM_CLASSES + TILE - 1) // TILE
-            num_k_tiles     = (K + TILE - 1) // TILE
+            A_pad = np.zeros((K, TILE), dtype=np.int8)
+            A_pad[:, 0:OUT_COLS] = iacts
 
-            print(num_class_tiles * num_k_tiles)
+            C_pad = np.zeros((TILE, TILE), dtype=np.int64)
 
-            for i in range(num_class_tiles):
-                class_start = i * TILE
-                class_end   = min(class_start + TILE, NUM_CLASSES)
-                rows        = class_end - class_start
+            num_k_tiles = (K + TILE - 1) // TILE
 
-                # Host accumulator for a 3×3 block
-                C_tile_acc = np.zeros((TILE, OUT_COLS), dtype=np.int64)
+            for ki in range(num_k_tiles):
+                k_start = ki * TILE
+                k_end = min(k_start + TILE, K)
+                k_len = k_end - k_start
 
-                for j in range(num_k_tiles):
-                    k_start = j * TILE
+                W_tile = np.zeros((TILE, TILE), dtype=np.int8)
+                W_tile[:, :k_len] = W_pad[:, k_start:k_end]
 
-                    W_tile = make_weight_tile(W_q_pad, class_start, k_start, TILE)
-                    A_tile = make_iact_tile(iacts,      k_start,        TILE)
+                A_tile = np.zeros((TILE, TILE), dtype=np.int8)
+                A_tile[:k_len, :OUT_COLS] = A_pad[k_start:k_end, :OUT_COLS]
 
-                    # One tile multiply on FPGA
-                    P = np.array(
-                        fpga.matrix_multiply(W_tile.tolist(), A_tile.tolist()),
-                        dtype=np.int64
-                    )
+                P = np.array(
+                    fpga.matrix_multiply(W_tile.tolist(), A_tile.tolist()), 
+                    dtype=np.int64
+                )
 
-                    print(i*num_k_tiles + j, end="\r")
+                # only accumulate valid rows and columns
+                C_pad[:NUM_CLASSES, :OUT_COLS] += P[:NUM_CLASSES, :OUT_COLS]
 
-                    C_tile_acc[:rows, :] += P[:rows, :OUT_COLS]  # accumulate CPU-side
+            # return correct output size
+            return C_pad[:NUM_CLASSES, :OUT_COLS]
 
-                C[class_start:class_end, :] = C_tile_acc[:rows, :]
-
-            return C 
+ 
 
         
         try:
-            mat = matmul_3x3_weight_stationary(self.fpga, W_q, x_q, TILE=16)
+            print("Starting UART transfer to FPGA...")
+            mat = matmul_16x16_weight_stationary(self.fpga, W_padded, iacts)
+            print("UART transfer and FPGA computation done.")
             ans = np.argmax(np.sum(mat, axis=1))
             pred = int(np.argmax(ans))
 
