@@ -1,13 +1,13 @@
-##Running Python Script
+## Running Python Script
 
-#Required Libraries: 
+# Required Libraries: 
 * pyTorch 
 * torchVision
 * scipi
 * tkinter
 * pyserial
 
-#Usage:
+# Usage:
 ``python3 train_mnist_fc.py`` 
 This executable will train the MMIST Model and create a Mnist_fc.pth file containing the model. Typically you would want to run this first before running the other scripts.
 
