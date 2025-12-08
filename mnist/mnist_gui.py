@@ -22,25 +22,69 @@ class DigitGUI:
     def __init__(self, root):
         self.root = root
         root.title("MNIST → FPGA Inference GUI")
-
+        
+        #ui
         self.canvas = tk.Canvas(
             root, width=CANVAS_SIZE, height=CANVAS_SIZE, bg="white"
         )
-        self.canvas.grid(row=0, column=0, columnspan=4)
+        self.canvas.grid(row=0, column=0, columnspan=4) 
 
-        self.img = Image.new("L", (CANVAS_SIZE, CANVAS_SIZE), color=255)
-        self.draw = ImageDraw.Draw(self.img)
+        self.clear_btn = tk.Button(root, text="Clear", command=self.clear_canvas)
+        self.clear_btn.grid(row=1, column=0)
 
-        self.canvas.bind("<B1-Motion>", self.paint)
+        self.predict_btn = tk.Button(root, text="Predict Only", command=self.predict_only)
+        self.predict_btn.grid(row=1, column=1)
 
-        tk.Button(root, text="Clear", command=self.clear_canvas).grid(row=1, column=0)
-        tk.Button(root, text="Predict Only", command=self.predict_only).grid(row=1, column=1)
-        tk.Button(root, text="Send to FPGA", command=self.run_and_send).grid(row=1, column=2)
-        tk.Button(root, text="Quit", command=root.destroy).grid(row=1, column=3)
+        self.send_btn = tk.Button(root, text="Send to FPGA", command=self.run_and_send)
+        self.send_btn.grid(row=1, column=2)
+
+        self.quit_btn = tk.Button(root, text="Quit", command=root.destroy)
+        self.quit_btn.grid(row=1, column=3)
 
         self.status = tk.Label(root, text="Draw a digit and press Run")
-        self.status.grid(row=2, column=0, columnspan=3)
-        self.fpga = Device("COM4", 115200)
+        self.status.grid(row=2, column=0, columnspan=4)
+
+
+        # Image buffer
+        self.img = Image.new("L", (CANVAS_SIZE, CANVAS_SIZE), color=255)
+        self.draw = ImageDraw.Draw(self.img)
+        self.canvas.bind("<B1-Motion>", self.paint)
+
+        use_fpga = messagebox.askyesno(
+            "FPGA Mode", 
+            "Do you want to use the FPGA?\n\n"
+            "yes = Select COM port\n"
+            "no = Python prediciton only"
+        )
+
+        self.fpga_enabled = use_fpga
+
+        if self.fpga_enabled:
+            port = simpledialog.askstring(
+                "FPGA Port Selection", 
+                "Enter FPGA COM port (e.g., COM4):", 
+                initialvalue="COM4")
+
+            if port is None:
+                messagebox.showinfo(
+                    "Python Only Mode",
+                    "No port selected. Running without FPGA."
+                )
+                self.fpga_enabled = False
+            else:
+                try:
+                    self.fpga = Device(port, 115200)
+                except Exception as e:
+                    messagebox.showerror(
+                        "Connection Error",
+                        f"Failed to open {port}\nSwitching to Python-only mode.\n\n{e}"
+                    )
+                    self.fpga_enabled = False
+
+        # If not using FPGA → disable button
+        if not self.fpga_enabled:
+            self.send_btn.config(state="disabled")
+            self.status.config(text="Python-only mode enabled")
 
     def paint(self, event):
         x, y = event.x, event.y
