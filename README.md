@@ -26,6 +26,8 @@ There is a UART driver class with methods for performing 32 bit reads and writes
 
 An example of the class being used can be found in `ws_fpga/scripts/ws_simple_matrix_multiply_test.py` which performs matrix multiplies on the FPGA and compares the results to a numpy dot product.
 
+We were able to run an mnist model on this FPGA. Please see `mnist/README` for more information.
+
 The address map is:
 <img width="923" height="604" alt="image" src="https://github.com/user-attachments/assets/c07882d6-ada9-454e-a300-56c15c88de64" />
 
