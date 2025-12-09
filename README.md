@@ -20,6 +20,6 @@ The host interface can be controlled via JTAG in Vivado Lab Manager or UART in P
 
 Information for sending JTAG reads and writes can be found in https://docs.amd.com/v/u/en-US/pg174-jtag-axi.
 
-There is a UART driver class with methods for performing 32 bit reads and writes, 64 bit reads, asserting go, checking done, loading weights, loading input activations, reading psums, and performing a 3x3 matrix multiply that utilize all listed methods. This file is `ws_fpga/scripts/ws_fpga_funcs.py`.
+There is a UART driver class with methods for performing 32 bit reads and writes, 64 bit reads, asserting go, checking done, loading weights, loading input activations, reading psums, and performing a 3x3 matrix multiply that utilize all listed methods. This file is `ws_fpga/scripts/ws_fpga_funcs.py`. This module requires the pyserial package.
 
-An example of the class being used can be found in `ws_fpga/scripts/`
+An example of the class being used can be found in `ws_fpga/scripts/ws_simple_matrix_multiply_test.py`.
