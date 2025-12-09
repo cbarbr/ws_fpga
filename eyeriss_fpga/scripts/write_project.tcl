@@ -1,1 +1,0 @@
-write_project_tcl -force -target_proj_dir ../project ./build_project.tcl
