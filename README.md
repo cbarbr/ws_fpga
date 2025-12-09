@@ -2,7 +2,7 @@
 
 FPGA-Based Systolic Array Accelerator for GEMM Operations
 
-This was a class project for EECS 570 Parallel Computing Architecture Fall 2025
+This was a class project for EECS 570 Parallel Computing Architecture at the University of Michigan.
 
 This project was built for Vivado 2025.1 and uses a build script avoid storing project information on the repo.
 
