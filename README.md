@@ -6,7 +6,7 @@ This was a class project for EECS 570 Parallel Computing Architecture at the Uni
 
 This project was built for Vivado 2025.1 and uses a build script avoid storing project information on the repo.
 
-It targets a Digilent Arty-A7 dev board. Board files for installation into Vivado can be found on Digilent's website. Vivado must have Artix-7 FPGA devices installed as well.
+It targets a Digilent Arty-A7 dev board. Board files for installation into Vivado can be found at https://github.com/Digilent/vivado-boards. Vivado must have Artix-7 FPGA devices installed as well.
 
 To open the Vivado project:
 
