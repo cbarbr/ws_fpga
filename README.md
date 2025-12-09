@@ -13,3 +13,5 @@ To open the Vivado project:
 3. Type `exit` to exit Vivado tcl mode
 3. Move to ../project
 4. Run `vivado ws_fpga.xpr &`
+
+A bitfile is available for the Arty-A7 under ws_fpga/bitfile
