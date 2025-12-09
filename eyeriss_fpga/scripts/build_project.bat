@@ -1,1 +1,0 @@
-vivado -mode tcl -source build_project.tcl
