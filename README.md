@@ -2,6 +2,8 @@
 
 FPGA-Based Systolic Array Accelerator for GEMM Operations
 
+This was a class project for EECS 570 Parallel Computing Architecture Fall 2025
+
 This project was built for Vivado 2025.1 and uses a build script avoid storing project information on the repo.
 
 It targets a Digilent Arty-A7 dev board. Board files for installation into Vivado can be found on Digilent's website. Vivado must have Artix-7 FPGA devices installed as well.
