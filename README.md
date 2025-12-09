@@ -28,3 +28,10 @@ The address map is:
 <img width="923" height="604" alt="image" src="https://github.com/user-attachments/assets/c07882d6-ada9-454e-a300-56c15c88de64" />
 
 Because the host interface uses AXI infrastructure, a different interface such as PCIe, ethernet, etc. could easily be connected.
+
+For questions, please reach out to:
+cbarbr@umich.edu
+drewkeil@umich.edu
+tongsing@umich.edu
+guanghao@umich.edu
+maatla@umich.edu
