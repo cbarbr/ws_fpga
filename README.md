@@ -23,3 +23,8 @@ Information for sending JTAG reads and writes can be found in https://docs.amd.c
 There is a UART driver class with methods for performing 32 bit reads and writes, 64 bit reads, asserting go, checking done, loading weights, loading input activations, reading psums, and performing a 3x3 matrix multiply that utilize all listed methods. This file is `ws_fpga/scripts/ws_fpga_funcs.py`. This module requires the pyserial package.
 
 An example of the class being used can be found in `ws_fpga/scripts/ws_simple_matrix_multiply_test.py`.
+
+The address map is:
+<img width="923" height="604" alt="image" src="https://github.com/user-attachments/assets/c07882d6-ada9-454e-a300-56c15c88de64" />
+
+Because the host interface uses AXI infrastructure, a different interface such as PCIe, ethernet, etc. could easily be connected.
