@@ -1,4 +1,4 @@
-# eyeriss_fpga
+# ws_fpga
 
 FPGA-Based Systolic Array Accelerator for GEMM Operations
 
