@@ -28,7 +28,7 @@ An example of the class being used can be found in `ws_fpga/scripts/ws_simple_ma
 
 We were able to run an mnist model on this FPGA. Please see `mnist/README.MD` for more information.
 
-There is an additional Vivado project built for a larger FPGA in the TODO branch with a 16x16 PE array.
+There is an additional Vivado project built for a larger FPGA in the `upto_16x16_pe_array` branch with a 16x16 PE array.
 
 The address map is:
 <img width="923" height="604" alt="image" src="https://github.com/user-attachments/assets/c07882d6-ada9-454e-a300-56c15c88de64" />
