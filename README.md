@@ -30,8 +30,8 @@ The address map is:
 Because the host interface uses AXI infrastructure, a different interface such as PCIe, ethernet, etc. could easily be connected.
 
 For questions, please reach out to:
-cbarbr@umich.edu
-drewkeil@umich.edu
-tongsing@umich.edu
-guanghao@umich.edu
+cbarbr@umich.edu,
+drewkeil@umich.edu,
+tongsing@umich.edu,
+guanghao@umich.edu,
 maatla@umich.edu
